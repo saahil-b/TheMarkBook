@@ -16,30 +16,34 @@ class StateController: ObservableObject {
         self.archivedDivisions = []
     }
     
-    func addNewDivision(division : Division){
+    func addToCurrentDivisions(division : Division){
         currentDivisions.append(division)
     }
     
+    //only done through archiving
     func deleteFromCurrentDivisions(index: Int){
+        currentDivisions.remove(at: index)
+    }
+    
+    //only done through archiving
+    func addToArchivedDivisions(division : Division){
+        currentDivisions.append(division)
+    }
+    
+    func deleteFromArchivedDivisions(index: Int){
         currentDivisions.remove(at: index)
     }
     
     func archiveDivision(index: Int){
         let division = currentDivisions[index]
-        // find division in currentDivisions
-        // remove from currentDivisions
-        archivedDivisions.append(division)
+        addToArchivedDivisions(division: division)
+        deleteFromCurrentDivisions(index: index)
     }
     
     func recoverDivision(index: Int){
-        let division = currentDivisions[index]
-        // find division in archivedDivisions
-        // remove from archivedDivisions
-        currentDivisions.append(division)
-    }
-    
-    func deleteFromArchivedDivisions(index: Int){
-        archivedDivisions.remove(at: index)
+        let division = archivedDivisions[index]
+        addToCurrentDivisions(division: division)
+        deleteFromArchivedDivisions(index: index)
     }
     
     func save() {
@@ -50,12 +54,14 @@ class StateController: ObservableObject {
     
     static func createStateController() -> StateController{
         let state = StateController()
-        state.addNewDivision(division: Division(name: "VCX-1"))
+        
+        state.addToCurrentDivisions(division: Division(name: "VCX-1"))
         state.archiveDivision(index: 0)
-        state.addNewDivision(division: Division(name: "VCX-2"))
+        state.addToCurrentDivisions(division: Division(name: "VCX-2"))
         state.archiveDivision(index: 0)
-        state.addNewDivision(division: Division(name: "VCX-3"))
-        state.addNewDivision(division: Division(name: "VCX-4"))
+        
+        state.addToCurrentDivisions(division: Division(name: "VCX-3"))
+        state.addToCurrentDivisions(division: Division(name: "VCX-4"))
         
         return state
     }
