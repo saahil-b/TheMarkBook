@@ -10,31 +10,25 @@ import SwiftUI
 struct MainView: View {
     
     @EnvironmentObject var state: StateController
-    @State private var editing: Bool = false {
-        didSet {
-            if editing == false {
-                imageName = "x"
-            }
-            else {
-                imageName = "pencil"
-            }
-        }
-    }
+    @State private var editing: Bool = false
+    //@Binding var editingBinding: Bool
     
-    
-    @State var imageName: String = "pencil"
+    //@State var imageName: String = "pencil"
     
     var body: some View {
         // add archive veiw above
-        VStack {
+        VStack(alignment: .center, spacing: 10){
             
+            //Text("Classes")
+                //.font(.largeTitle)
+                        
             NavigationView {
                 List(state.currentDivisions, id: \.self.name) { division in
                     NavigationLink(destination: DivisionView(division: division)) {
-                        DivisionItem(division: division, editing: editing)
+                        DivisionItem(division: division, editing: $editing)
                     }
-                }
-                .navigationTitle("Classes")
+                }.navigationTitle("Classes")
+                
                 // get navigation view to be normal on ipad
             }
             
@@ -45,7 +39,7 @@ struct MainView: View {
             
             }) {
 
-                Image(systemName: "\(imageName).circle")
+                Image(systemName: "\(editing ? "x" : "pencil").circle")
                     .imageScale(.large)
                 // get it bigger
             }

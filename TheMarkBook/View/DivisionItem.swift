@@ -10,7 +10,7 @@ import SwiftUI
 struct DivisionItem: View {
     
     let division: Division
-    @State var editing: Bool
+    @Binding var editing: Bool
     
     var body: some View {
         HStack {
@@ -34,6 +34,7 @@ struct DivisionItem: View {
 
 struct DivisionItem_Previews: PreviewProvider {
     static var previews: some View {
-        DivisionItem(division: Division.currentExamples[0], editing: true)
+        @State static var editing: Bool = false
+        DivisionItem(division: Division.currentExamples[0], editing: $editing )
     }
 }
