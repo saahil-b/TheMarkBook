@@ -10,11 +10,11 @@ import SwiftUI
 struct DivisionItem: View {
     
     let division: Division
-    @Binding var editing: Bool
+    @State var editing: Bool
     
     var body: some View {
         HStack {
-            Image(systemName: "\(3).circle")
+            Image(systemName: "\(7).circle")
             //division.students.count
             Text("\(division.name)")
             Spacer()
@@ -34,7 +34,6 @@ struct DivisionItem: View {
 
 struct DivisionItem_Previews: PreviewProvider {
     static var previews: some View {
-        @State static var editing: Bool = false
-        DivisionItem(division: Division.currentExamples[0], editing: $editing )
+        DivisionItem(division: Division.currentExamples[0], editing: true )
     }
 }

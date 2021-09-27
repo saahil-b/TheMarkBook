@@ -12,6 +12,7 @@ class Division {
     //var terms: [Term]
     //var students: [Student]
     
+    
     init(name: String) {
         self.name = name
         // when creating a new division, provide empty templates then the div can be edited in the Division View

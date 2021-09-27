@@ -11,9 +11,6 @@ struct MainView: View {
     
     @EnvironmentObject var state: StateController
     @State private var editing: Bool = false
-    //@Binding var editingBinding: Bool
-    
-    //@State var imageName: String = "pencil"
     
     var body: some View {
         // add archive veiw above
@@ -23,26 +20,22 @@ struct MainView: View {
                 //.font(.largeTitle)
                         
             NavigationView {
-                List(state.currentDivisions, id: \.self.name) { division in
-                    NavigationLink(destination: DivisionView(division: division)) {
-                        DivisionItem(division: division, editing: $editing)
-                    }
-                }.navigationTitle("Classes")
+                List {
+                    ForEach(state.currentDivisions, id: \.self.name) {
+                        NavigationLink(destination: DivisionView(division: $0)) {
+                            DivisionItem(division: $0, editing: editing)
+                        }
+                    }//.onDelete()
+                }
+                .navigationTitle("Classes")
+                .toolbar {
+                    EditButton()
+                }
                 
                 // get navigation view to be normal on ipad
             }
             
-            Spacer()
-            
-            Button(action: {
-                editing = !editing
-            
-            }) {
-
-                Image(systemName: "\(editing ? "x" : "pencil").circle")
-                    .imageScale(.large)
-                // get it bigger
-            }
+             
             
         }
     }
