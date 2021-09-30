@@ -25,13 +25,17 @@ class StateController: ObservableObject {
         currentDivisions.remove(at: index)
     }
     
+    func moveCurrentDivision(fromOffsets: IndexSet, toOffsets: Int) {
+        currentDivisions.move(fromOffsets: fromOffsets, toOffset: toOffsets)
+    }
+    
     //only done through archiving
     func addToArchivedDivisions(division : Division){
-        currentDivisions.append(division)
+        archivedDivisions.insert(division, at: 0)
     }
     
     func deleteFromArchivedDivisions(index: Int){
-        currentDivisions.remove(at: index)
+        archivedDivisions.remove(at: index)
     }
     
     func archiveDivision(index: Int){

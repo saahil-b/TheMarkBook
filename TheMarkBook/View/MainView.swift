@@ -16,29 +16,52 @@ struct MainView: View {
         // add archive veiw above
         VStack(alignment: .center, spacing: 10){
             
-            //Text("Classes")
-                //.font(.largeTitle)
+            
                         
             NavigationView {
-                List {
-                    ForEach(state.currentDivisions, id: \.self.name) {
-                        NavigationLink(destination: DivisionView(division: $0)) {
-                            DivisionItem(division: $0, editing: editing)
-                        }
-                    }//.onDelete()
-                }
-                .navigationTitle("Classes")
-                .toolbar {
-                    EditButton()
+                
+                VStack {
+                    Text("Classes")
+                        .font(.largeTitle)
+                    
+                    Spacer()
+                    
+                    NavigationLink(destination: ArchiveView()) {
+                        Text("view archive")
+                    }
+                    
+                
+                    List {
+                        ForEach(state.currentDivisions, id: \.self.name) { division in
+                            NavigationLink(destination: DivisionView(division: division)) {
+                                DivisionItem(division: division, editing: editing)
+                            }
+                        }.onMove(perform: moveCurrentDivision)
+                        .onDelete(perform: archiveCurrentDivision)
+                    }
+                    //.navigationTitle("Classes")
+                    .toolbar {
+                        EditButton()
+                    }
                 }
                 
-                // get navigation view to be normal on ipad
             }
-            
              
-            
+        }
+    
+    }
+    
+    func moveCurrentDivision(from source: IndexSet, to destination: Int) {
+        state.moveCurrentDivision(fromOffsets: source, toOffsets: destination)
+    }
+    
+    func archiveCurrentDivision(at offsets: IndexSet) {
+        for i in offsets {
+            state.archiveDivision(index: i)
         }
     }
+    
+    
 }
 
 struct MainView_Previews: PreviewProvider {
