@@ -12,7 +12,8 @@ struct DivisionView: View {
     let division: Division
     
     var body: some View {
-        Text("hi")
+        Text(division.name)
+            .font(.largeTitle)
     }
         
 }

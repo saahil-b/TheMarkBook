@@ -10,7 +10,6 @@ import SwiftUI
 struct DivisionItem: View {
     
     let division: Division
-    @State var editing: Bool
     
     var body: some View {
         HStack {
@@ -18,22 +17,13 @@ struct DivisionItem: View {
             //division.students.count
             Text("\(division.name)")
             Spacer()
-            
-            // make the editing published now so the buttons actually go
-            if editing {
-                Button(action: {}) {
-                    Image(systemName: "archivebox.circle")
-                }
-                Button(action: {}) {
-                    Image(systemName: "minus.circle")
-                }
-            }
+                        
         }
     }
 }
 
 struct DivisionItem_Previews: PreviewProvider {
     static var previews: some View {
-        DivisionItem(division: Division.currentExamples[0], editing: true )
+        DivisionItem(division: Division.currentExamples[0])
     }
 }

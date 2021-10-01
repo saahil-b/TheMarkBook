@@ -12,7 +12,22 @@ struct ArchiveView: View {
     @EnvironmentObject var state: StateController
     
     var body: some View {
-        Text("hi")
+        
+        VStack {
+            
+            // archive title
+            Text("Archive")
+                .font(.largeTitle)
+            
+            // lsit of archived divisions
+            List {
+                ForEach(state.archivedDivisions, id: \.self.name) { division in
+                        
+                        ArchivedDivisionItem(division: division)
+                        
+                }
+            }
+        }
     }
 }
 

@@ -20,16 +20,14 @@ class StateController: ObservableObject {
         currentDivisions.append(division)
     }
     
-    //only done through archiving
     func deleteFromCurrentDivisions(index: Int){
         currentDivisions.remove(at: index)
     }
     
-    func moveCurrentDivision(fromOffsets: IndexSet, toOffsets: Int) {
-        currentDivisions.move(fromOffsets: fromOffsets, toOffset: toOffsets)
+    func moveCurrentDivision(fromOffsets: IndexSet, toOffset: Int) {
+        currentDivisions.move(fromOffsets: fromOffsets, toOffset: toOffset)
     }
     
-    //only done through archiving
     func addToArchivedDivisions(division : Division){
         archivedDivisions.insert(division, at: 0)
     }
@@ -59,13 +57,17 @@ class StateController: ObservableObject {
     static func createStateController() -> StateController{
         let state = StateController()
         
-        state.addToCurrentDivisions(division: Division(name: "VCX-1"))
+        state.addToCurrentDivisions(division: Division(name: "A1"))
         state.archiveDivision(index: 0)
-        state.addToCurrentDivisions(division: Division(name: "VCX-2"))
+        state.addToCurrentDivisions(division: Division(name: "A2"))
         state.archiveDivision(index: 0)
         
-        state.addToCurrentDivisions(division: Division(name: "VCX-3"))
-        state.addToCurrentDivisions(division: Division(name: "VCX-4"))
+        state.addToCurrentDivisions(division: Division(name: "C1"))
+        state.addToCurrentDivisions(division: Division(name: "C2"))
+        state.addToCurrentDivisions(division: Division(name: "C3"))
+        state.addToCurrentDivisions(division: Division(name: "C4"))
+        state.addToCurrentDivisions(division: Division(name: "C5"))
+        state.addToCurrentDivisions(division: Division(name: "C6"))
         
         return state
     }
