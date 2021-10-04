@@ -9,11 +9,28 @@ import SwiftUI
 
 struct DivisionView: View {
     
-    let division: Division
+    @State var division: Division
     
     var body: some View {
-        Text(division.name)
-            .font(.largeTitle)
+        VStack {
+            Text(division.name)
+                .font(.largeTitle)
+            
+            TabView {
+                StudentView(division: division)
+                    .tabItem {
+                        Image(systemName: "graduationcap")
+                        Text("Students")
+                    }
+                
+                AssignmentView(division: division)
+                    .tabItem {
+                        Image(systemName: "tray.full")
+                        Text("Assignments")
+                    }
+                
+            }
+        }
     }
         
 }

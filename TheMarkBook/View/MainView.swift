@@ -14,9 +14,7 @@ struct MainView: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 10){
-            
             NavigationView {
-                
                 VStack {
                     // menu title
                     Text("Classes")
@@ -31,10 +29,9 @@ struct MainView: View {
                     
                     // lists division items
                     List {
+                        // accesses each division in currentDivisions
                         ForEach(state.currentDivisions, id: \.self.name) { division in
-                            
                             NavigationLink(destination: DivisionView(division: division)) {
-                                
                                 // separate view class
                                 DivisionItem(division: division)
             
@@ -44,9 +41,19 @@ struct MainView: View {
                         .onMove(perform: moveCurrentDivision)
                         .onDelete(perform: archiveCurrentDivision)
                         
-                    } // adds edit button on top of menu
+                    } // adds buttons to top of menu
                     .toolbar {
-                        EditButton()
+                        ToolbarItemGroup(placement: .navigationBarTrailing) {
+                            // edit button
+                            EditButton()
+                            
+                            Spacer()
+                            
+                            // button fo adding new division
+                            Button(action: { addNewDivision() }, label: {
+                                Image(systemName: "plus")
+                            })
+                        }
                     }
                 }
             }
@@ -65,6 +72,10 @@ struct MainView: View {
             // calls archive function defined in state
             state.archiveDivision(index: i)
         }
+    }
+    
+    func addNewDivision() {
+        state.addToCurrentDivisions(division: Division(name: "New Class"))
     }
     
 }
