@@ -12,19 +12,23 @@ class Student {
     var name: String
     var dateOfBirth: Date
     var contactInfo: String
-    var marks: [Assignment:Mark]
+    var id: Int
+    var marks: [Int:Mark]
     
-    init(name: String, dateOfBirth: Date, contactInfo: String, assignments: [Assignment]) {
+    init(name: String, dateOfBirth: Date, contactInfo: String, id: Int, assignments: [Assignment]) {
         
         self.name = name
         self.dateOfBirth = dateOfBirth
         self.contactInfo = contactInfo
+        self.id = id
+        
+        self.marks = [:]
         
         for assignment in assignments {
-            self.marks[assignment] = Mark(value: nil, excuse: String)
+            self.marks[assignment.id] = Mark(value: nil, excuse: "Excused")
         }
-        
         
     }
     
 }
+

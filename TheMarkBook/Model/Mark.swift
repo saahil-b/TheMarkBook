@@ -9,9 +9,11 @@ import Foundation
 
 class Mark {
     var value: Int?
-    var excuse: String
+    var excuse: String?
     
-    init() {
+    init(value: Int?, excuse: String?) {
+        self.value = value
+        self.excuse = excuse
         
     }
     

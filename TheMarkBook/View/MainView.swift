@@ -11,6 +11,7 @@ struct MainView: View {
     
     // allows acces to stateController
     @EnvironmentObject var state: StateController
+    @State var editMode = EditMode.inactive
     
     var body: some View {
         VStack(alignment: .center, spacing: 10){

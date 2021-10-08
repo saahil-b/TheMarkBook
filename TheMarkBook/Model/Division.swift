@@ -11,13 +11,34 @@ class Division {
     var name : String
     var terms: [Term]
     var students: [Student]
+    var studentIDManager: IDManager
     
     
     init(name: String) {
         self.name = name
         // when creating a new division, provide empty templates then the div can be edited in the Division View
-        terms = []
-        students = []
+        self.terms = []
+        self.students = []
+        self.studentIDManager = IDManager()
+    }
+    
+    func addStudent(name: String, dateOfBirth: Date, contactInfo: String) {
+        
+        var assignments: [Assignment] = []
+        
+        for term in terms {
+            for assignment in term.assignments {
+                assignments.append(assignment)
+            }
+        }
+        
+        let student = Student(name: name, dateOfBirth: dateOfBirth, contactInfo: contactInfo, id: studentIDManager.generateNewID(), assignments: assignments)
+        
+        self.students.append(student)
+    }
+    
+    func removeStudent(index: Int) {
+        self.students.remove(at: index)
     }
     
     #if DEBUG

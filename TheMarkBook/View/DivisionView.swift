@@ -10,11 +10,51 @@ import SwiftUI
 struct DivisionView: View {
     
     @State var division: Division
+    @State var renaming: Bool = false
+    @State var previousName: String = "New class"
+    @State var currentName: String = "New class"
     
     var body: some View {
         VStack {
-            Text(division.name)
+            
+            if renaming {
+                
+                TextField(
+                    "class name",
+                    text: $currentName,
+                    
+                onCommit: {
+                    if currentName != "" {
+                        renameDivision(name: currentName)
+                    } else {
+                        renameDivision(name: previousName)
+                    }
+                    renaming.toggle()
+                })
+                .disableAutocorrection(true)
                 .font(.largeTitle)
+                
+                Button(action: {
+                    renameDivision(name: previousName)
+                    renaming.toggle()
+                }, label: {
+                    Image(systemName: "x.circle")
+                })
+                
+            } else {
+                
+                Text(division.name)
+                    .font(.largeTitle)
+                
+                Button(action: {
+                    renaming.toggle()
+                    previousName = division.name
+                    currentName = division.name
+                    
+                }, label: {
+                    Image(systemName: "pencil")
+                })
+            }
             
             TabView {
                 StudentView(division: division)
@@ -31,6 +71,10 @@ struct DivisionView: View {
                 
             }
         }
+    }
+    
+    func renameDivision(name: String) {
+        division.name = name
     }
         
 }
