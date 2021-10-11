@@ -10,7 +10,7 @@ import SwiftUI
 struct StudentView: View {
     
     @EnvironmentObject var state: StateController
-    @State var division: Division
+    @State var index: Int
     
     var body: some View {
         Text("Students!")
@@ -19,7 +19,7 @@ struct StudentView: View {
 
 struct StudentView_Previews: PreviewProvider {
     static var previews: some View {
-        StudentView(division: Division.currentExamples[0])
+        StudentView(index: 0)
             .environmentObject(StateController.example)
     }
 }

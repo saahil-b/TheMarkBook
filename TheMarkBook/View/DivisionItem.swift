@@ -9,13 +9,15 @@ import SwiftUI
 
 struct DivisionItem: View {
     
-    let division: Division
+    @EnvironmentObject var state: StateController
+    @State var index: Int
     
     var body: some View {
+                
         HStack {
-            Image(systemName: "\(7).circle")
+            Image(systemName: "\(state.currentDivisions[index].students.count).circle")
             //division.students.count
-            Text("\(division.name)")
+            Text("\(state.currentDivisions[index].name)")
             Spacer()
                         
         }
@@ -24,6 +26,7 @@ struct DivisionItem: View {
 
 struct DivisionItem_Previews: PreviewProvider {
     static var previews: some View {
-        DivisionItem(division: Division.currentExamples[0])
+        DivisionItem(index: 0)
+            .environmentObject(StateController.example)
     }
 }

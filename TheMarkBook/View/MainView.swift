@@ -11,9 +11,9 @@ struct MainView: View {
     
     // allows acces to stateController
     @EnvironmentObject var state: StateController
-    @State var editMode = EditMode.inactive
-    
+        
     var body: some View {
+                
         VStack(alignment: .center, spacing: 10){
             NavigationView {
                 VStack {
@@ -31,10 +31,10 @@ struct MainView: View {
                     // lists division items
                     List {
                         // accesses each division in currentDivisions
-                        ForEach(state.currentDivisions, id: \.self.name) { division in
-                            NavigationLink(destination: DivisionView(division: division)) {
+                        ForEach(Array(state.currentDivisions.enumerated()), id: \.self.offset) { i, division in
+                            NavigationLink(destination: DivisionView(index: i)) {
                                 // separate view class
-                                DivisionItem(division: division)
+                                DivisionItem(index: i)
             
                             }
                             
@@ -44,18 +44,20 @@ struct MainView: View {
                         
                     } // adds buttons to top of menu
                     .toolbar {
-                        ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        ToolbarItem(placement: .navigationBarTrailing) {
                             // edit button
                             EditButton()
-                            
-                            Spacer()
-                            
-                            // button fo adding new division
+                        }
+                        
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            // button for adding new division
                             Button(action: { addNewDivision() }, label: {
                                 Image(systemName: "plus")
                             })
                         }
+                        
                     }
+                    
                 }
             }
         }

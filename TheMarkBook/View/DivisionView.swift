@@ -9,12 +9,16 @@ import SwiftUI
 
 struct DivisionView: View {
     
-    @State var division: Division
+    @EnvironmentObject var state: StateController
+    @State var index: Int
     @State var renaming: Bool = false
     @State var previousName: String = "New class"
     @State var currentName: String = "New class"
     
+    // make this save
+    
     var body: some View {
+                
         VStack {
             
             if renaming {
@@ -33,6 +37,7 @@ struct DivisionView: View {
                 })
                 .disableAutocorrection(true)
                 .font(.largeTitle)
+                .multilineTextAlignment(.center)
                 
                 Button(action: {
                     renameDivision(name: previousName)
@@ -43,13 +48,13 @@ struct DivisionView: View {
                 
             } else {
                 
-                Text(division.name)
+                Text(state.currentDivisions[index].name)
                     .font(.largeTitle)
                 
                 Button(action: {
                     renaming.toggle()
-                    previousName = division.name
-                    currentName = division.name
+                    previousName = state.currentDivisions[index].name
+                    currentName = state.currentDivisions[index].name
                     
                 }, label: {
                     Image(systemName: "pencil")
@@ -57,13 +62,13 @@ struct DivisionView: View {
             }
             
             TabView {
-                StudentView(division: division)
+                StudentView(index: index)
                     .tabItem {
                         Image(systemName: "graduationcap")
                         Text("Students")
                     }
                 
-                AssignmentView(division: division)
+                AssignmentView(index: index)
                     .tabItem {
                         Image(systemName: "tray.full")
                         Text("Assignments")
@@ -74,13 +79,14 @@ struct DivisionView: View {
     }
     
     func renameDivision(name: String) {
-        division.name = name
+        state.currentDivisions[index].name = name
     }
         
 }
 
 struct DivisionView_Previews: PreviewProvider {
     static var previews: some View {
-        DivisionView(division: Division.currentExamples[0])
+        DivisionView(index: 0)
+            .environmentObject(StateController.example)
     }
 }

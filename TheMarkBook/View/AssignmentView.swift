@@ -10,7 +10,7 @@ import SwiftUI
 struct AssignmentView: View {
     
     @EnvironmentObject var state: StateController
-    @State var division: Division
+    @State var index: Int
     
     var body: some View {
         Text("Assignments!")
@@ -19,7 +19,7 @@ struct AssignmentView: View {
 
 struct AssignmentView_Previews: PreviewProvider {
     static var previews: some View {
-        AssignmentView(division: Division.currentExamples[0])
+        AssignmentView(index: 0)
         .environmentObject(StateController.example)
     }
 }
