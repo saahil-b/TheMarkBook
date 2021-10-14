@@ -11,11 +11,12 @@ struct DivisionView: View {
     
     @EnvironmentObject var state: StateController
     @State var index: Int
+    
     @State var renaming: Bool = false
     @State var previousName: String = "New class"
     @State var currentName: String = "New class"
     
-    // make this save
+    // mainview doesn't immediately save
     
     var body: some View {
                 

@@ -27,11 +27,13 @@ class Assignment {
         
     }
     
+    
     func updateInfo(name: String, date: Date, topic: String) {
         self.name = name
         self.date = date
         self.topic = topic
     }
+    
     
     func updateMarks(marks: [Int:Mark]) {
         self.marks = marks
