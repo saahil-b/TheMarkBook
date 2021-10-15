@@ -29,7 +29,14 @@ class Student {
         }
         
     }
-    
+
+    #if DEBUG
+    static func createStudent() -> Student {
+        return Student(name: "Johnny", dateOfBirth: Date(), contactInfo: "gmail", id: 99, assignments: [])
+    }
+
+    static let example = Student.createStudent()
+
+    #endif
+
 }
-
-

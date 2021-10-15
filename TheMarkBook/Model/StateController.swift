@@ -57,19 +57,30 @@ class StateController: ObservableObject {
     static func createStateController() -> StateController{
         let state = StateController()
         
-        state.addToCurrentDivisions(division: Division(name: "A1"))
-        state.archiveDivision(index: 0)
-        state.addToCurrentDivisions(division: Division(name: "A2"))
-        state.archiveDivision(index: 0)
+        for i in 1...3 {
+            
+            let div = Division(name: "A\(i)")
+            
+            div.addStudent(name: "Gareth", dateOfBirth: Date(), contactInfo: "email@gmail.info.org.ind")
+            div.addStudent(name: "Theodore", dateOfBirth: Date(), contactInfo: "theo@gmail.info.org.ind")
+            
+            state.addToCurrentDivisions(division: div)
+            state.archiveDivision(index: 0)
+        }
         
-        state.addToCurrentDivisions(division: Division(name: "C1"))
-        state.addToCurrentDivisions(division: Division(name: "C2"))
-        state.addToCurrentDivisions(division: Division(name: "C3"))
-        state.addToCurrentDivisions(division: Division(name: "C4"))
-        state.addToCurrentDivisions(division: Division(name: "C5"))
-        state.addToCurrentDivisions(division: Division(name: "C6"))
+        
+        for i in 1...6 {
+            
+            let div = Division(name: "C\(i)")
+            
+            div.addStudent(name: "Gareth", dateOfBirth: Date(), contactInfo: "email@gmail.info.org.ind")
+            div.addStudent(name: "Theodore", dateOfBirth: Date(), contactInfo: "theo@gmail.info.org.ind")
+            
+            state.addToCurrentDivisions(division: div)
+        }
         
         return state
+        
     }
     
     static let example = createStateController()

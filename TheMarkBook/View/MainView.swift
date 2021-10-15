@@ -32,7 +32,7 @@ struct MainView: View {
                     List {
                         // accesses each division in currentDivisions
                         ForEach(Array(state.currentDivisions.enumerated()), id: \.self.offset) { i, division in
-                            NavigationLink(destination: DivisionView(index: i)) {
+                            NavigationLink(destination: DivisionView(index: i, updateDivisionName: updateDivisionName )) {
                                 // separate view class
                                 DivisionItem(index: i)
             
@@ -79,6 +79,10 @@ struct MainView: View {
     
     func addNewDivision() {
         state.addToCurrentDivisions(division: Division(name: "New Class"))
+    }
+    
+    func updateDivisionName(name: String) {
+        // update view
     }
     
 }

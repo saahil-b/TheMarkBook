@@ -16,6 +16,8 @@ struct DivisionView: View {
     @State var previousName: String = "New class"
     @State var currentName: String = "New class"
     
+    @State var updateDivisionName: (String) -> Void
+    
     // mainview doesn't immediately save
     
     var body: some View {
@@ -62,32 +64,35 @@ struct DivisionView: View {
                 })
             }
             
-            TabView {
-                StudentView(index: index)
-                    .tabItem {
-                        Image(systemName: "graduationcap")
-                        Text("Students")
-                    }
-                
-                AssignmentView(index: index)
-                    .tabItem {
-                        Image(systemName: "tray.full")
-                        Text("Assignments")
-                    }
-                
-            }
+            
+//            TabView {
+//                StudentView(index: index)
+//                    .tabItem {
+//                        Image(systemName: "graduationcap")
+//                        Text("Students")
+//                    }
+//
+//                AssignmentView(index: index)
+//                    .tabItem {
+//                        Image(systemName: "tray.full")
+//                        Text("Assignments")
+//                    }
+//
+//            }
+            
         }
     }
     
     func renameDivision(name: String) {
         state.currentDivisions[index].name = name
+        updateDivisionName(name)
     }
         
 }
 
 struct DivisionView_Previews: PreviewProvider {
     static var previews: some View {
-        DivisionView(index: 0)
+        DivisionView(index: 0, updateDivisionName: {_ in })
             .environmentObject(StateController.example)
     }
 }
