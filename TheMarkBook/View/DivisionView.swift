@@ -65,20 +65,20 @@ struct DivisionView: View {
             }
             
             
-//            TabView {
-//                StudentView(index: index)
-//                    .tabItem {
-//                        Image(systemName: "graduationcap")
-//                        Text("Students")
-//                    }
-//
-//                AssignmentView(index: index)
-//                    .tabItem {
-//                        Image(systemName: "tray.full")
-//                        Text("Assignments")
-//                    }
-//
-//            }
+            TabView {
+                StudentView(index: index)
+                    .tabItem {
+                        Image(systemName: "graduationcap")
+                        Text("Students")
+                    }
+
+                AssignmentView(index: index)
+                    .tabItem {
+                        Image(systemName: "tray.full")
+                        Text("Assignments")
+                    }
+
+            }
             
         }
     }

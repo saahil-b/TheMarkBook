@@ -15,38 +15,40 @@ struct StudentView: View {
     var body: some View {
         VStack {
             
-            NavigationView {
-                
-                List {
-                    // accesses each student in the division
-                    ForEach(Array(state.currentDivisions[index].students.enumerated()), id: \.self.offset) { i, student in
-                        NavigationLink(destination: EditStudentView() ) {
-                            // separate view class
-                            StudentItem(student: student)
-        
-                        }
-                        
-                    } // defines functions for actions performed on list
-                    .onMove(perform: moveStudent)
-                    .onDelete(perform: deleteStudent)
-                    
-                } // adds buttons to top of menu
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        // edit button
-                        EditButton()
-                    }
-                    
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        // button for adding new student
-                        Button(action: { addNewStudent() }, label: {
-                            Image(systemName: "plus")
-                        })
-                    }
-                    
-                }
-                
-            }
+            Text("Students")
+            
+//            NavigationView {
+//
+//                List {
+//                    // accesses each student in the division
+//                    ForEach(Array(state.currentDivisions[index].students.enumerated()), id: \.self.offset) { i, student in
+//                        NavigationLink(destination: EditStudentView() ) {
+//                            // separate view class
+//                            StudentItem(student: student)
+//
+//                        }
+//
+//                    } // defines functions for actions performed on list
+//                    .onMove(perform: moveStudent)
+//                    .onDelete(perform: deleteStudent)
+//
+//                } // adds buttons to top of menu
+//                .toolbar {
+//                    ToolbarItem(placement: .navigationBarTrailing) {
+//                        // edit button
+//                        EditButton()
+//                    }
+//
+//                    ToolbarItem(placement: .navigationBarTrailing) {
+//                        // button for adding new student
+//                        Button(action: { addNewStudent() }, label: {
+//                            Image(systemName: "plus")
+//                        })
+//                    }
+//
+//                }
+//                
+//            }
         }
     }
     

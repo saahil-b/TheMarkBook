@@ -82,7 +82,7 @@ struct MainView: View {
     }
     
     func updateDivisionName(name: String) {
-        // update view
+        state.currentDivisions = state.currentDivisions
     }
     
 }
