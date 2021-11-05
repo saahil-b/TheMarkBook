@@ -41,6 +41,10 @@ class Division {
         self.students.remove(at: index)
     }
     
+    func moveStudent(fromOffsets: IndexSet, toOffset: Int) {
+        self.students.move(fromOffsets: fromOffsets, toOffset: toOffset)
+    }
+    
     #if DEBUG
     static func createDivision(name: String) -> Division {
         let division = Division(name: name)

@@ -11,28 +11,56 @@ struct StudentView: View {
     
     @EnvironmentObject var state: StateController
     @State var index: Int
+    
+    @State var editing: Bool = false {
+        didSet {
+            if editing {
+                editMode = EditMode.active
+            } else {
+                editMode = EditMode.inactive
+            }
+        }
+    }
+    
+    @State var editMode = EditMode.inactive
         
     var body: some View {
         VStack {
             
-            Text("Students")
+            HStack() {
+                
+                Button(action: { editing.toggle() }, label: {
+                    if !editing {
+                        Text("Edit")
+                    } else {
+                        Text("Done")
+                    }
+                })
+
+                
+                Button(action: { addNewStudent() }, label: {
+                    Image(systemName: "plus")
+                })
+                
+            }
             
-//            NavigationView {
-//
-//                List {
-//                    // accesses each student in the division
-//                    ForEach(Array(state.currentDivisions[index].students.enumerated()), id: \.self.offset) { i, student in
-//                        NavigationLink(destination: EditStudentView() ) {
-//                            // separate view class
-//                            StudentItem(student: student)
-//
-//                        }
-//
-//                    } // defines functions for actions performed on list
-//                    .onMove(perform: moveStudent)
-//                    .onDelete(perform: deleteStudent)
-//
-//                } // adds buttons to top of menu
+
+            List {
+                // accesses each student in the division
+                ForEach(Array(state.currentDivisions[index].students.enumerated()), id: \.self.offset) { i, student in
+                    NavigationLink(destination: EditStudentView() ) {
+                        // separate view class
+                        StudentItem(student: student)
+
+                    }
+
+                } // defines functions for actions performed on list
+                .onMove(perform: moveStudent)
+                .onDelete(perform: deleteStudent)
+
+            } // binding
+            .environment(\.editMode, $editMode)
+                
 //                .toolbar {
 //                    ToolbarItem(placement: .navigationBarTrailing) {
 //                        // edit button
@@ -47,21 +75,22 @@ struct StudentView: View {
 //                    }
 //
 //                }
-//                
-//            }
+                
+            
         }
+        
     }
     
     // function called onMove()
     func moveStudent(from source: IndexSet, to destination: Int) {
         // calls move function defined in state
-        //state.moveCurrentDivision(fromOffsets: source, toOffset: destination)
+        state.currentDivisions[index].moveStudent(fromOffsets: source, toOffset: destination)
     }
     
     // function called onDelete
     func deleteStudent(at offsets: IndexSet) {
         for i in offsets {
-            state.currentDivisions[index].students.remove(at: i)
+            state.currentDivisions[index].removeStudent(index: i)
         }
     }
     
