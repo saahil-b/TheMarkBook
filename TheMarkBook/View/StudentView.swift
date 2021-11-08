@@ -25,21 +25,24 @@ struct StudentView: View {
     @State var editMode = EditMode.inactive
         
     var body: some View {
-        VStack {
+        VStack(alignment: .trailing) {
             
             HStack() {
                 
                 Button(action: { editing.toggle() }, label: {
                     if !editing {
                         Text("Edit")
+                            .frame(width:50, height: 50)
                     } else {
                         Text("Done")
+                            .frame(width:50, height: 50)
                     }
                 })
 
                 
                 Button(action: { addNewStudent() }, label: {
                     Image(systemName: "plus")
+                        .frame(width:50, height: 50)
                 })
                 
             }
@@ -48,7 +51,7 @@ struct StudentView: View {
             List {
                 // accesses each student in the division
                 ForEach(Array(state.currentDivisions[index].students.enumerated()), id: \.self.offset) { i, student in
-                    NavigationLink(destination: EditStudentView() ) {
+                    NavigationLink(destination: EditStudentView(student: student, divName: state.currentDivisions[index].name) ) {
                         // separate view class
                         StudentItem(student: student)
 
