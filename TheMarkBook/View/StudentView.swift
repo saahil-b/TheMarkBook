@@ -51,7 +51,7 @@ struct StudentView: View {
             List {
                 // accesses each student in the division
                 ForEach(Array(state.currentDivisions[index].students.enumerated()), id: \.self.offset) { i, student in
-                    NavigationLink(destination: EditStudentView(student: student, divName: state.currentDivisions[index].name) ) {
+                    NavigationLink(destination: EditStudentView(studentIndex: i, division: state.currentDivisions[index]) ) {
                         // separate view class
                         StudentItem(student: student)
 

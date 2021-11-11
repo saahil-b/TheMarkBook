@@ -9,11 +9,15 @@ import SwiftUI
 
 struct EditStudentView: View {
     
-    let student: Student
-    let divName: String
+    let studentIndex: Int
+    let division: Division
     
-    var name: String = ""
-    var dateOfBirth: Date = Date()
+    @State var editingName: Bool = false
+    
+    @State var changingName: String = ""
+    
+    
+    @State var dateOfBirth: Date = Date()
     var contactInfo: String = ""
     var marks: [Int:Mark] = [:]
     
@@ -25,42 +29,60 @@ struct EditStudentView: View {
             
             Spacer()
             
-            Text("ID:       #\(student.id)")
-            Text("Class:    \(divName)")
+            Text("ID:       #\(division.students[studentIndex].id)")
+            Text("Class:    \(division.name)")
             
             Spacer()
         
             HStack {
                 Text("Name")
+                
                 Spacer()
-                Text(student.name)
+                
+                TextField(
+                    "Student name",
+                    text: $changingName,
+                    
+                    onCommit: {
+                        division.students[studentIndex].name = changingName
+                        editingName.toggle()
+                    })
             }
             
             HStack {
-                Text("Date of birth")
-                Spacer()
-                Text(student.dateOfBirth, style: .date)
+                DatePicker(
+                    "Date of birth",
+                    selection: $dateOfBirth,
+                    // bind this
+                    displayedComponents: [.date]
+                )
+                
+                //Text(division.students[studentIndex].dateOfBirth, style: .date)
             }
             
             HStack {
                 Text("Contact Info")
                 Spacer()
-                Text(student.contactInfo)
+                Text(division.students[studentIndex].contactInfo)
             }
             
             Spacer()
             
         }
+        .onAppear(perform: {
+            changingName = division.students[studentIndex].name
+        })
         
     }
     
-    func assignInitialValues() {
+    func updateStudentView() {
         //
     }
+    
 }
 
 struct EditStudentView_Previews: PreviewProvider {
     static var previews: some View {
-        EditStudentView(student: Student.example, divName: "div name")
+        EditStudentView(studentIndex: 0, division: Division.currentExamples[0])
     }
 }
