@@ -23,12 +23,13 @@ struct StudentView: View {
     }
     
     @State var editMode = EditMode.inactive
+    
+    @State var refresh: Bool = false
         
     var body: some View {
         VStack(alignment: .trailing) {
             
             HStack() {
-                
                 Button(action: { editing.toggle() }, label: {
                     if !editing {
                         Text("Edit")
@@ -38,7 +39,6 @@ struct StudentView: View {
                             .frame(width:50, height: 50)
                     }
                 })
-
                 
                 Button(action: { addNewStudent() }, label: {
                     Image(systemName: "plus")
@@ -47,11 +47,10 @@ struct StudentView: View {
                 
             }
             
-
             List {
                 // accesses each student in the division
                 ForEach(Array(state.currentDivisions[index].students.enumerated()), id: \.self.offset) { i, student in
-                    NavigationLink(destination: EditStudentView(studentIndex: i, division: state.currentDivisions[index]) ) {
+                    NavigationLink(destination: EditStudentView(studentIndex: i, division: state.currentDivisions[index])) {
                         // separate view class
                         StudentItem(student: student)
 
@@ -81,8 +80,12 @@ struct StudentView: View {
                 
             
         }
+        .onAppear(perform: {
+            updateStudentView()
+        })
         
     }
+    
     
     // function called onMove()
     func moveStudent(from source: IndexSet, to destination: Int) {
@@ -99,6 +102,10 @@ struct StudentView: View {
     
     func addNewStudent() {
         //
+    }
+    
+    func updateStudentView() {
+        refresh.toggle()
     }
     
 }

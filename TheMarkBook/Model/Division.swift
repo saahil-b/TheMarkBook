@@ -12,6 +12,7 @@ class Division {
     var terms: [Term]
     var students: [Student]
     var studentIDManager: IDManager
+    var termIDManager: IDManager
     
     
     init(name: String) {
@@ -20,6 +21,7 @@ class Division {
         self.terms = []
         self.students = []
         self.studentIDManager = IDManager()
+        self.termIDManager = IDManager()
     }
     
     func addStudent(name: String, dateOfBirth: Date, contactInfo: String) {
@@ -43,6 +45,13 @@ class Division {
     
     func moveStudent(fromOffsets: IndexSet, toOffset: Int) {
         self.students.move(fromOffsets: fromOffsets, toOffset: toOffset)
+    }
+    
+    func addTerm() {
+        let term = Term(name: "New Term", id: termIDManager.generateNewID())
+        
+        self.terms.append(term)
+        
     }
     
     #if DEBUG
