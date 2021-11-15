@@ -30,69 +30,12 @@ struct EditStudentView: View {
             
             Spacer()
             
-            Group {
-                Text("Info")
-                    .font(.title)
-                
-                HStack {
-                    Text("Name")
-                    Spacer()
-                    TextField("Student name", text: $changingName)
-                        .multilineTextAlignment(.trailing)
-                }
-                
-                HStack {
-                    DatePicker(
-                        "Date of birth",
-                        selection: $changingDateOfBirth,
-                        displayedComponents: [.date]
-                    )
-                }
-                
-                HStack {
-                    Text("Contact Info")
-                    Spacer()
-                    TextField("Contact Info", text: $changingContactInfo)
-                        .multilineTextAlignment(.trailing)
-                }
-            }
+            StudentInfoItem(changingName: changingName, changingDateOfBirth: changingDateOfBirth, changingContactInfo: changingContactInfo)
             
             Spacer()
             
-            Group {
-                
-                Text("Marks")
-                    .font(.title)
-                                
-                List {
-                    // accesses each term in the division
-                    ForEach(Array(division.terms), id: \.self.id) { term in
-                            ForEach(Array(term.assignments), id: \.self.id) { assignment in
-                                
-                                var mark = changingMarks[assignment.id]
-                                
-                                HStack {
-                                    Text(assignment.name)
-                                    Spacer()
-                                    
-                                    if mark.excuse == nil {
-                                        if let unwrappedValue = mark.value {
-                                            Text(unwrappedValue)
-                                        }
-                                        
-                                        
-                                    } else {
-                                        if let unwrappedExcuse = mark.excuse {
-                                            Text(unwrappedExcuse)
-                                        }
-                                        
-                                    }
-                                }
-                            }
-                        }
-                    }
-            }
-            
+            StudentMarkItem(changingMarks: changingMarks, terms: division.terms)
+                        
         }
         .padding()
         .onAppear(perform: {

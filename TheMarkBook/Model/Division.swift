@@ -57,7 +57,21 @@ class Division {
     #if DEBUG
     static func createDivision(name: String) -> Division {
         let division = Division(name: name)
+        
+        for i in 0...3 {
+            division.addTerm()
+            
+            for j in 0...3 {
+                division.terms[i].addAssignment(name: "A\(j)", date: Date(), topic: "M")
+            }
+        }
+        
         return division
+    }
+    
+    static func createTerms() {
+        
+        
     }
     
     static let currentExamples = [Division.createDivision(name: "VCX-1"),

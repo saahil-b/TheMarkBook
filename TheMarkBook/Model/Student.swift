@@ -25,7 +25,7 @@ class Student {
         self.marks = [:]
         
         for assignment in assignments {
-            self.marks[assignment.id] = Mark(value: nil, excuse: "Excused")
+            self.marks[assignment.id] = Mark(value: nil, excuse: "Excused", received: false)
         }
         
     }
