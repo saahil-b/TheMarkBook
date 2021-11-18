@@ -64,14 +64,14 @@ class Division {
             for j in 0...3 {
                 division.terms[i].addAssignment(name: "A\(j)", date: Date(), topic: "M")
             }
+            
+        }
+        
+        for i in 0...4 {
+            division.addStudent(name: "S\(i)", dateOfBirth: Date(), contactInfo: "gmail.email@jmail")
         }
         
         return division
-    }
-    
-    static func createTerms() {
-        
-        
     }
     
     static let currentExamples = [Division.createDivision(name: "VCX-1"),

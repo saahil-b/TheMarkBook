@@ -13,39 +13,38 @@ struct StudentMarkItem: View {
     @State var terms: [Term]
     
     var body: some View {
-        
         VStack {
-            
             Text("Marks")
                 .font(.title)
                             
             List {
                 // accesses each term in the division
                 ForEach(terms, id: \.self.id) { term in
-                    Text(String(term.id))
-//                        ForEach(term.assignments, id: \.self.id) { assignment in
+                    Section(header: Text(term.name)) {
+                        ForEach(term.assignments, id: \.self.id) { assignment in
+                            HStack {
+                                Text(assignment.name)
+//                                if let mark = changingMarks[assignment.id] {
+//                                    if mark.received {
+//                                        if let value = mark.value {
+//                                            Text(value)
+//                                        }
 //
-//                            HStack {
-//                                Text(assignment.name)
-//                                Spacer()
-//
-//                                Toggle(isOn: $changingMarks[assignment.id].received)
-//
-//                                if changingMarks[assignment.id].received {
-//                                    if let unwrappedValue = changingMarks[assignment.id].value {
-//                                        Text(unwrappedValue)
+//                                    } else {
+//                                        if let excuse = mark.excuse {
+//                                            Text(excuse)
+//                                        }
 //                                    }
 //
 //                                } else {
-//                                    if let unwrappedExcuse = changingMarks[assignment.id].excuse {
-//                                        Text(unwrappedExcuse)
-//                                    }
-//
+//                                    Text("Error")
 //                                }
-//                            }
-//                        }
+//
+                            }
+                        }
                     }
                 }
+            }
         }
     }
 }

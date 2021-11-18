@@ -31,7 +31,21 @@ class StateControllerTests: XCTestCase {
         XCTAssertEqual(state.currentDivisions.count, 1)
     }
     
-    func testStateControllerDeleteFromCurrentDivisions(index: Int){
+    func testStateControllerMoveCurrentDivision(){
+        let state = StateController()
+        let firstDiv = Division(name: "1")
+        let secondDiv = Division(name: "2")
+        
+        state.addToCurrentDivisions(division: firstDiv)
+        state.addToCurrentDivisions(division: secondDiv)
+        
+        state.moveCurrentDivision(fromOffsets: IndexSet(integer: 0), toOffset: 2)
+        
+        XCTAssertEqual(state.currentDivisions[0].name, "2")
+        XCTAssertEqual(state.currentDivisions[1].name, "1")
+    }
+    
+    func testStateControllerDeleteFromCurrentDivisions(){
         let state = StateController()
         let division = Division(name: "VCX-1")
         
@@ -41,7 +55,7 @@ class StateControllerTests: XCTestCase {
         XCTAssertEqual(state.currentDivisions.count, 0)
     }
     
-    func testStateControllerAddToArchivedDivisions(division : Division){
+    func testStateControllerAddToArchivedDivisions(){
         let state = StateController()
         let division = Division(name: "VCX-1")
         
@@ -50,7 +64,7 @@ class StateControllerTests: XCTestCase {
         XCTAssertEqual(state.archivedDivisions.count, 1)
     }
     
-    func testStateControllerDeleteFromArchivedDivisions(index: Int){
+    func testStateControllerDeleteFromArchivedDivisions(){
         let state = StateController()
         let division = Division(name: "VCX-1")
         
@@ -60,7 +74,7 @@ class StateControllerTests: XCTestCase {
         XCTAssertEqual(state.archivedDivisions.count, 0)
     }
     
-    func testStateControllerArchiveDivision(index: Int){
+    func testStateControllerArchiveDivision(){
         let state = StateController()
         let division = Division(name: "VCX-1")
         
@@ -70,7 +84,7 @@ class StateControllerTests: XCTestCase {
         XCTAssertEqual(state.currentDivisions.count, state.archivedDivisions.count - 1)
     }
     
-    func testStateControllerRecoverDivision(index: Int){
+    func testStateControllerRecoverDivision(){
         let state = StateController()
         let division = Division(name: "VCX-1")
         
@@ -80,6 +94,5 @@ class StateControllerTests: XCTestCase {
         
         XCTAssertEqual(state.currentDivisions.count - 1, state.archivedDivisions.count)
     }
-    
 
 }

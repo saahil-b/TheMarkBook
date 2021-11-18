@@ -54,15 +54,32 @@ class StateController: ObservableObject {
     
     #if DEBUG
     
+    static func createNewDivision(name: String) -> Division {
+        let division = Division(name: name)
+        
+        for i in 0...3 {
+            division.addTerm()
+            
+            for j in 0...3 {
+                division.terms[i].addAssignment(name: "A\(j)", date: Date(), topic: "M")
+            }
+            
+        }
+        
+        for i in 0...4 {
+            division.addStudent(name: "S\(i)", dateOfBirth: Date(), contactInfo: "gmail.email@jmail")
+        }
+        
+        return division
+    }
+    
     static func createStateController() -> StateController{
         let state = StateController()
         
         for i in 1...3 {
             
-            let div = Division(name: "A\(i)")
+            let div = createNewDivision(name: "A\(i)")
             
-            div.addStudent(name: "Gareth", dateOfBirth: Date(), contactInfo: "email@gmail.info.org.ind")
-            div.addStudent(name: "Theodore", dateOfBirth: Date(), contactInfo: "theo@gmail.info.org.ind")
             
             state.addToCurrentDivisions(division: div)
             state.archiveDivision(index: 0)
@@ -71,7 +88,7 @@ class StateController: ObservableObject {
         
         for i in 1...6 {
             
-            let div = Division(name: "C\(i)")
+            let div = createNewDivision(name: "C\(i)")
             
             div.addStudent(name: "Gareth", dateOfBirth: Date(), contactInfo: "email@gmail.info.org.ind")
             div.addStudent(name: "Theodore", dateOfBirth: Date(), contactInfo: "theo@gmail.info.org.ind")
