@@ -90,9 +90,6 @@ class StateController: ObservableObject {
             
             let div = createNewDivision(name: "C\(i)")
             
-            div.addStudent(name: "Gareth", dateOfBirth: Date(), contactInfo: "email@gmail.info.org.ind")
-            div.addStudent(name: "Theodore", dateOfBirth: Date(), contactInfo: "theo@gmail.info.org.ind")
-            
             state.addToCurrentDivisions(division: div)
         }
         
@@ -101,6 +98,7 @@ class StateController: ObservableObject {
     }
     
     static let example = createStateController()
+    
     #endif
     
 }

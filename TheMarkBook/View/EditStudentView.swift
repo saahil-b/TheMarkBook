@@ -30,11 +30,11 @@ struct EditStudentView: View {
             
             Spacer()
             
-            StudentInfoItem(changingName: changingName, changingDateOfBirth: changingDateOfBirth, changingContactInfo: changingContactInfo)
+            StudentInfoItem(student: division.students[studentIndex])
             
             Spacer()
             
-            StudentMarkItem(changingMarks: changingMarks, terms: division.terms)
+            StudentMarkItem(student: division.students[studentIndex], terms: division.terms)
                         
         }
         .padding()

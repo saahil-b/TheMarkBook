@@ -34,7 +34,14 @@ class Division {
             }
         }
         
-        let student = Student(name: name, dateOfBirth: dateOfBirth, contactInfo: contactInfo, id: studentIDManager.generateNewID(), assignments: assignments)
+        let sID = studentIDManager.generateNewID()
+        
+        let student = Student(name: name, dateOfBirth: dateOfBirth, contactInfo: contactInfo, id: sID, assignments: assignments)
+        
+        for assignment in assignments {
+            assignment.marks[sID] = Mark(value: nil, excuse: "Excused", received: true)
+        }
+        
         
         self.students.append(student)
     }

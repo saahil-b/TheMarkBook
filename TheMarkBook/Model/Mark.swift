@@ -36,5 +36,27 @@ class Mark {
         self.excuse = "Overdue"
     }
     
+    func returnUnwrappedValue() -> Int {
+        if let unwrappedValue = self.value {
+            return unwrappedValue
+        }
+        
+        return 0
+    }
+    
+    func returnUnwrappedExcuse() -> String {
+        if let unwrappedExcuse = self.excuse {
+            return unwrappedExcuse
+        }
+        
+        return "Error"
+    }
+    
+    #if DEBUG
+    
+    static let example = Mark(value: 90, excuse: nil, received: false)
+    
+    #endif
+    
 }
 
