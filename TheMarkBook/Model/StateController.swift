@@ -57,17 +57,17 @@ class StateController: ObservableObject {
     static func createNewDivision(name: String) -> Division {
         let division = Division(name: name)
         
-        for i in 0...3 {
+        for _ in 0...3 {
             division.addTerm()
             
             for j in 0...3 {
-                division.terms[i].addAssignment(name: "A\(j)", date: Date(), topic: "M")
+                division.addAssignment(name: "A\(j)", date: Date(), topic: "good topic")
             }
             
         }
         
         for i in 0...4 {
-            division.addStudent(name: "S\(i)", dateOfBirth: Date(), contactInfo: "gmail.email@jmail")
+            division.addStudent(name: "S\(i)", dateOfBirth: Date(), contactInfo: "gmail.fmail@email.com")
         }
         
         return division

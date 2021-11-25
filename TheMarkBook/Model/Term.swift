@@ -10,18 +10,16 @@ import Foundation
 class Term {
     var name: String
     var assignments: [Assignment]
-    var assignmentIDManager: IDManager
     var id: Int
     
     init(name: String, id: Int) {
         self.name = name
         self.assignments = []
-        self.assignmentIDManager = IDManager()
         self.id = id
     }
     
-    func addAssignment(name: String, date: Date, topic: String) {
-        let assignment = Assignment(name: name, date: date, topic: topic, id: assignmentIDManager.generateNewID())
+    func addAssignment(name: String, date: Date, topic: String, id: Int) {
+        let assignment = Assignment(name: name, date: date, topic: topic, id: id)
         self.assignments.append(assignment)
     }
     

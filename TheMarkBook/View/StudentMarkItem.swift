@@ -18,13 +18,13 @@ struct StudentMarkItem: View {
             Text("Marks")
                 .font(.title)
             
-            List {
-                ForEach(changingMarks.map{$0.key}.indices) { index in
-                    Section(header: Text(String(changingMarks.map{$0.key}[index]))) {
-                        Text("hi")
-                    }
-                }
-            }
+//            List {
+//                ForEach(changingMarks.map{$0.key}.indices) { index in
+//                    Section(header: Text(String(changingMarks.map{$0.key}[index]))) {
+//                        Text("hi")
+//                    }
+//                }
+//            }
                      
                   
             List {
@@ -36,8 +36,10 @@ struct StudentMarkItem: View {
                                 Text(assignment.name)
 
                                 Spacer()
+                                
+                                Text(String(assignment.id))
 
-                                if let mark = changingMarks[assignment.id] {
+                                if let mark = assignment.marks[student.id] {
 
                                     if mark.received {
 
