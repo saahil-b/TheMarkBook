@@ -30,10 +30,15 @@ class Division {
         
         let id = assignmentIDManager.generateNewID()
         
-        terms[terms.count - 1].addAssignment(name: name, date: date, topic: topic, id: id )
+        if let lastTerm = terms.last {
+            lastTerm.addAssignment(name: name, date: date, topic: topic, id: id )
+        } else {
+            addTerm()
+            terms[0].addAssignment(name: name, date: date, topic: topic, id: id )
+        }
         
         for student in students {
-            student.marks[id] = Mark(value: nil, excuse: "Excused", received: false)
+            student.marks[id] = Mark.returnDefaultValue()
         }
         
     }
@@ -47,7 +52,7 @@ class Division {
         let student = Student(name: name, dateOfBirth: dateOfBirth, contactInfo: contactInfo, id: sID, assignments: assignments)
         
         for assignment in assignments {
-            assignment.marks[sID] = Mark(value: nil, excuse: "Excused", received: false)
+            assignment.marks[sID] = Mark.returnDefaultValue()
         }
         
         self.students.append(student)

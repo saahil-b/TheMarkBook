@@ -52,6 +52,10 @@ class Mark {
         return "Error"
     }
     
+    static func returnDefaultValue() -> Mark {
+        Mark(value: nil, excuse: "Excused", received: false)
+    }
+    
     #if DEBUG
     
     static let example = Mark(value: 90, excuse: nil, received: false)

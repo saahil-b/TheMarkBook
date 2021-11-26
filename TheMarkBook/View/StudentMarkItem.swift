@@ -37,7 +37,7 @@ struct StudentMarkItem: View {
 
                                 Spacer()
                                 
-                                Text(String(assignment.id))
+                                //Text(String(assignment.id))
 
                                 if let mark = assignment.marks[student.id] {
 
