@@ -34,8 +34,17 @@ struct EditStudentView: View {
             
             Spacer()
             
-            StudentMarkItem(student: division.students[studentIndex], terms: division.terms)
-                        
+            List {
+                ForEach(division.terms, id: \.self.id) { term in
+                    Section(header: Text(term.name)) {
+                        ForEach(term.assignments, id: \.self.id) { assignment in
+                                StudentMarkItem(student: division.students[studentIndex], assignment = assignment)
+
+                        }
+                    }
+                }
+            }
+                                    
         }
         .padding()
         .onAppear(perform: {

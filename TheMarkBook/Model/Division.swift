@@ -73,6 +73,14 @@ class Division {
         
     }
     
+    func moveTerm(fromOffsets: IndexSet, toOffset: Int) {
+        self.terms.move(fromOffsets: fromOffsets, toOffset: toOffset)
+    }
+    
+    func removeTerm(index: Int) {
+        self.terms.remove(at: index)
+    }
+    
     func returnAllAssignments() -> [Assignment] {
         
         var assignments: [Assignment] = []
