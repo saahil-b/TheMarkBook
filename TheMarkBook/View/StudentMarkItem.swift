@@ -10,14 +10,17 @@ import SwiftUI
 struct StudentMarkItem: View {
     
     @State var student: Student
-    @State var changingMark: Mark = Mark.example {
+    @State var displayMark: String = ""
+    @State var changingReceived: Bool = false {
         didSet {
-            // assign the unwrapped variables
+            if changingReceived {
+                displayMark = "0"
+            } else {
+                displayMark = "Excused"
+            }
         }
     }
     @State var assignment: Assignment
-    @State var unwrappedValue: Int = 0
-    @State var unwrappedExcuse: String = ""
     
     var body: some View {
         HStack {
@@ -26,15 +29,21 @@ struct StudentMarkItem: View {
             
             Spacer()
             
-            if changingMark.received {
-                Button(action: { changingMark.haveNotReceived() }, label: {
-                    Image(systemName: "archivebox.fill")
-                })
-                
-            }
+//            Toggle("", isOn: $changingReceived)
+            
+//            if changingReceived {
+//
+//                TextField(
+//                    "",
+//                    text: $displayMark
+//                )
+//                .keyboardType(.decimalPad)
+//                .onSubmit {
+//
+//                }
+//
+//            }
                      
-            
-            
         }
         .onAppear(perform: {
             assignVariables()
@@ -46,14 +55,33 @@ struct StudentMarkItem: View {
     
     func assignVariables() {
         if let x = student.marks[assignment.id] {
-            changingMark = x
+            changingReceived = x.received
+            
+            if changingReceived {
+                displayMark = String(x.returnUnwrappedValue())
+            } else {
+                displayMark = x.returnUnwrappedExcuse()
+            }
+            
+            
         } else {
-            changingMark = Mark(value: nil, excuse: "Error", received: false)
+            changingReceived = false
+            displayMark = "0"
         }
     }
     
     func saveToState() {
-        student.marks[assignment.id] = changingMark
+        
+        var value: Int? = nil
+        var excuse: String? = nil
+        
+        if changingReceived {
+            value = Int(displayMark)
+        } else {
+            excuse = displayMark
+        }
+        
+        student.marks[assignment.id] = Mark(value: value, excuse: excuse, received: changingReceived)
     }
     
 }

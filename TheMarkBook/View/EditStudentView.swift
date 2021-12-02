@@ -22,24 +22,30 @@ struct EditStudentView: View {
             
             Text("Edit Student")
                 .font(.largeTitle)
-            
+
             Spacer()
-            
+
             Text("ID:       #\(division.students[studentIndex].id)")
             Text("Class: \(division.name)")
-            
+
             Spacer()
-            
+
             StudentInfoItem(student: division.students[studentIndex])
-            
+
             Spacer()
-            
+
             List {
                 ForEach(division.terms, id: \.self.id) { term in
                     Section(header: Text(term.name)) {
                         ForEach(term.assignments, id: \.self.id) { assignment in
-                                StudentMarkItem(student: division.students[studentIndex], assignment = assignment)
-
+                            StudentMarkItem(student: division.students[studentIndex], assignment = assignment)
+//                            HStack {
+//
+//                                Text("\(assignment.name)")
+//
+//                                Spacer()
+//
+//                            }
                         }
                     }
                 }
