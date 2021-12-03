@@ -14,11 +14,11 @@ struct StudentInfoItem: View {
     @State var changingDateOfBirth: Date = Date()
     @State var changingContactInfo: String = ""
     
+    @State var passInfoBackToEditStudentView: (String, Date, String) -> Void
+    
     var body: some View {
         
-        VStack {
-            Text("Info")
-                .font(.title)
+        VStack(alignment: .leading) {
             
             HStack {
                 Text("Name")
@@ -59,15 +59,13 @@ struct StudentInfoItem: View {
     }
     
     func saveToState() {
-        student.name = changingName
-        student.dateOfBirth = changingDateOfBirth
-        student.contactInfo = changingContactInfo
+        passInfoBackToEditStudentView(changingName, changingDateOfBirth, changingContactInfo)
     }
     
 }
 
 struct StudentInfoItem_Previews: PreviewProvider {
     static var previews: some View {
-        StudentInfoItem(student: Student.example)
+        StudentInfoItem(student: Student.example, passInfoBackToEditStudentView: {_,_,_  in })
     }
 }

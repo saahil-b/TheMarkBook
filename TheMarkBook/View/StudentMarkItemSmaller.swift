@@ -1,21 +1,18 @@
 //
-//  StudentMarkItem.swift
+//  StudentMarkItemSmaller.swift
 //  TheMarkBook
 //
-//  Created by Bahadur, Saahil (PAH) on 12/11/2021.
+//  Created by Bahadur, Saahil (PAH) on 03/12/2021.
 //
 
 import SwiftUI
 
-struct StudentMarkItem: View {
-    
+struct StudentMarkItemSmaller: View {
     @State var student: Student
     @State var displayMark: String = ""
     @State var changingReceived: Bool = false
     
     @State var assignment: Assignment
-    
-    @State var passMarkBackToEditStudentView: (Mark, Int) -> Void
     
     var body: some View {
         HStack {
@@ -46,12 +43,10 @@ struct StudentMarkItem: View {
                         }
                     })
                     .keyboardType(.decimalPad)
-                    .multilineTextAlignment(.trailing)
 
             } else {
                 
                 TextField("", text: $displayMark)
-                    .multilineTextAlignment(.trailing)
                 
             }
                      
@@ -91,15 +86,16 @@ struct StudentMarkItem: View {
         } else {
             excuse = displayMark
         }
-                        
-        passMarkBackToEditStudentView(Mark(value: value, excuse: excuse, received: changingReceived), assignment.id)
+        
+        let _ = Mark(value: value, excuse: excuse, received: changingReceived)
+                
+        // passMarksBackToeditStudentView(mark: Mark(value: value, excuse: excuse, received: changingReceived), assignmentID: assignment.id)
         
     }
-    
 }
 
-struct StudentMarkItem_Previews: PreviewProvider {
+struct StudentMarkItemSmaller_Previews: PreviewProvider {
     static var previews: some View {
-        StudentMarkItem(student: Division.currentExamples[0].students[0], assignment: Division.currentExamples[0].terms[0].assignments[0], passMarkBackToEditStudentView: {_,_  in })
+        StudentMarkItemSmaller(student: Division.currentExamples[0].students[0], assignment: Division.currentExamples[0].terms[0].assignments[0])
     }
 }

@@ -20,37 +20,34 @@ struct EditStudentView: View {
     var body: some View {
         VStack(alignment: .leading) {
             
-            Text("Edit Student")
-                .font(.largeTitle)
-
+            Section {
+                Text("Edit Student")
+                    .font(.largeTitle)
+                Text("ID:       #\(division.students[studentIndex].id)")
+                Text("Class: \(division.name)")
+            }
+            
             Spacer()
-
-            Text("ID:       #\(division.students[studentIndex].id)")
-            Text("Class: \(division.name)")
-
+            
+            Section(header: Text("Info").font(.title)) {
+                StudentInfoItem(student: division.students[studentIndex], passInfoBackToEditStudentView: passInfoBackToEditStudentView)
+            }
+            
             Spacer()
-
-            StudentInfoItem(student: division.students[studentIndex])
-
-            Spacer()
-
-            List {
-                ForEach(division.terms, id: \.self.id) { term in
-                    Section(header: Text(term.name)) {
-                        ForEach(term.assignments, id: \.self.id) { assignment in
-                            StudentMarkItem(student: division.students[studentIndex], assignment = assignment)
-//                            HStack {
-//
-//                                Text("\(assignment.name)")
-//
-//                                Spacer()
-//
-//                            }
+            
+            Section(header: Text("Marks").font(.title) ) {
+                
+                List {
+                    ForEach(division.terms, id: \.self.id) { term in
+                        Section(header: Text(term.name)) {
+                            ForEach(term.assignments, id: \.self.id) { assignment in
+                                StudentMarkItem(student: division.students[studentIndex], assignment: assignment, passMarkBackToEditStudentView: passMarkBackToEditStudentView)
+                            }
                         }
                     }
                 }
             }
-                                    
+
         }
         .padding()
         .onAppear(perform: {
@@ -67,6 +64,16 @@ struct EditStudentView: View {
         changingDateOfBirth = division.students[studentIndex].dateOfBirth
         changingContactInfo = division.students[studentIndex].contactInfo
         changingMarks = division.students[studentIndex].marks
+    }
+    
+    func passInfoBackToEditStudentView(name: String, dateOfBirth: Date, contactInfo: String) {
+        changingName = name
+        changingDateOfBirth = dateOfBirth
+        changingContactInfo = contactInfo
+    }
+    
+    func passMarkBackToEditStudentView(mark: Mark, assignmentID: Int) {
+        changingMarks[assignmentID] = mark
     }
     
     func saveToState() {
