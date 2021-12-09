@@ -28,8 +28,10 @@ struct StudentMarkItem: View {
                 .onChange(of: changingReceived) { value in
                     if value {
                         displayMark = "0"
+                        passMarkBackToEditStudentView(Mark(value: 0, excuse: nil, received: changingReceived), assignment.id)
                     } else {
                         displayMark = "Excused"
+                        passMarkBackToEditStudentView(Mark(value: nil, excuse: displayMark, received: changingReceived), assignment.id)
                     }
                 }
             
@@ -44,15 +46,27 @@ struct StudentMarkItem: View {
                         if displayMark == "" {
                             displayMark = "0"
                         }
+                        
+                        if let value = Int(displayMark) {
+                            passMarkBackToEditStudentView(Mark(value: value, excuse: nil, received: changingReceived), assignment.id)
+                        } else {
+                            passMarkBackToEditStudentView(Mark(value: 0, excuse: nil, received: changingReceived), assignment.id)
+                        }
+                        
                     })
                     .keyboardType(.decimalPad)
                     .multilineTextAlignment(.trailing)
 
             } else {
                 
-                TextField("", text: $displayMark)
+                TextField(
+                    "",
+                    text: $displayMark,
+                    
+                    onCommit: {
+                        passMarkBackToEditStudentView(Mark(value: nil, excuse: displayMark, received: changingReceived), assignment.id)
+                    })
                     .multilineTextAlignment(.trailing)
-                
             }
                      
         }
@@ -60,7 +74,7 @@ struct StudentMarkItem: View {
             assignVariables()
         })
         .onDisappear(perform: {
-            saveToState()
+            //saveToState()
         })
     }
     
@@ -81,20 +95,20 @@ struct StudentMarkItem: View {
         }
     }
     
-    func saveToState() {
-        
-        var value: Int? = nil
-        var excuse: String? = nil
-        
-        if changingReceived {
-            value = Int(displayMark)
-        } else {
-            excuse = displayMark
-        }
-                        
-        passMarkBackToEditStudentView(Mark(value: value, excuse: excuse, received: changingReceived), assignment.id)
-        
-    }
+//    func saveToState() {
+//
+//        var value: Int? = nil
+//        var excuse: String? = nil
+//
+//        if changingReceived {
+//            value = Int(displayMark)
+//        } else {
+//            excuse = displayMark
+//        }
+//
+//        passMarkBackToEditStudentView(Mark(value: value, excuse: excuse, received: changingReceived), assignment.id)
+//
+//    }
     
 }
 

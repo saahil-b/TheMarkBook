@@ -30,7 +30,8 @@ struct EditStudentView: View {
             Spacer()
             
             Section(header: Text("Info").font(.title)) {
-                StudentInfoItem(student: division.students[studentIndex], passInfoBackToEditStudentView: passInfoBackToEditStudentView)
+                StudentInfoItem(student: division.students[studentIndex],
+                                passInfoBackToEditStudentView: passInfoBackToEditStudentView)
             }
             
             Spacer()
