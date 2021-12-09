@@ -1,0 +1,696 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AB05E2E526F336A200A61658 /* DivisionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB05E2E426F336A200A61658 /* DivisionView.swift */; };
+		AB05E2EA26F338DE00A61658 /* DivisionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB05E2E926F338DE00A61658 /* DivisionItem.swift */; };
+		AB299B0E26EF5737006DE550 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB299B0D26EF5737006DE550 /* MainView.swift */; };
+		AB299B1326EF5755006DE550 /* StateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB299B1226EF5755006DE550 /* StateController.swift */; };
+		AB299B1826EF58C9006DE550 /* Division.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB299B1726EF58C9006DE550 /* Division.swift */; };
+		AB2DB52E270B08F700BF9E29 /* StudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2DB52D270B08F700BF9E29 /* StudentView.swift */; };
+		AB2DB533270B090200BF9E29 /* AssignmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2DB532270B090200BF9E29 /* AssignmentView.swift */; };
+		AB2DB538270B0BCC00BF9E29 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2DB537270B0BCC00BF9E29 /* Student.swift */; };
+		AB2DB53D270B0CFF00BF9E29 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2DB53C270B0CFF00BF9E29 /* Assignment.swift */; };
+		AB2DB542270B0D0E00BF9E29 /* Mark.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2DB541270B0D0E00BF9E29 /* Mark.swift */; };
+		AB3034FC2754EAFA00BF365E /* IDManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3034FB2754EAFA00BF365E /* IDManagerTests.swift */; };
+		AB3A48192746532500F2D09B /* DivisionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A48182746532500F2D09B /* DivisionTests.swift */; };
+		AB4C492A26EF5669008D7719 /* TheMarkBookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4C492926EF5669008D7719 /* TheMarkBookApp.swift */; };
+		AB4C492E26EF566A008D7719 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB4C492D26EF566A008D7719 /* Assets.xcassets */; };
+		AB4C493126EF566A008D7719 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB4C493026EF566A008D7719 /* Preview Assets.xcassets */; };
+		AB4C493326EF566A008D7719 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4C493226EF566A008D7719 /* Persistence.swift */; };
+		AB4C493626EF566A008D7719 /* TheMarkBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AB4C493426EF566A008D7719 /* TheMarkBook.xcdatamodeld */; };
+		AB4C494126EF566A008D7719 /* TheMarkBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4C494026EF566A008D7719 /* TheMarkBookTests.swift */; };
+		AB4C494C26EF566A008D7719 /* TheMarkBookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4C494B26EF566A008D7719 /* TheMarkBookUITests.swift */; };
+		AB5FE4E426F4CED900515032 /* ArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5FE4E326F4CED900515032 /* ArchiveView.swift */; };
+		AB5FE4E926F4D5F800515032 /* StateControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5FE4E826F4D5F800515032 /* StateControllerTests.swift */; };
+		AB67EC2627107F6A00C9A8FB /* IDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB67EC2527107F6A00C9A8FB /* IDManager.swift */; };
+		AB67EC2B271080C400C9A8FB /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB67EC2A271080C400C9A8FB /* Term.swift */; };
+		AB8748C02719C48C0006139B /* EditStudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8748BF2719C48C0006139B /* EditStudentView.swift */; };
+		AB8748C52719C7910006139B /* StudentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8748C42719C7910006139B /* StudentItem.swift */; };
+		ABA881A3273EE2C900CC799F /* StudentInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA881A2273EE2C900CC799F /* StudentInfoItem.swift */; };
+		ABA881A8273EE2D600CC799F /* StudentMarkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA881A7273EE2D600CC799F /* StudentMarkItem.swift */; };
+		ABC2B7462707455800EE3632 /* ArchivedDivisionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC2B7452707455800EE3632 /* ArchivedDivisionItem.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AB4C493D26EF566A008D7719 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB4C491E26EF5669008D7719 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AB4C492526EF5669008D7719;
+			remoteInfo = TheMarkBook;
+		};
+		AB4C494826EF566A008D7719 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB4C491E26EF5669008D7719 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AB4C492526EF5669008D7719;
+			remoteInfo = TheMarkBook;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AB05E2E426F336A200A61658 /* DivisionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionView.swift; sourceTree = "<group>"; };
+		AB05E2E926F338DE00A61658 /* DivisionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionItem.swift; sourceTree = "<group>"; };
+		AB299B0D26EF5737006DE550 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		AB299B1226EF5755006DE550 /* StateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateController.swift; sourceTree = "<group>"; };
+		AB299B1726EF58C9006DE550 /* Division.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Division.swift; sourceTree = "<group>"; };
+		AB2DB52D270B08F700BF9E29 /* StudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentView.swift; sourceTree = "<group>"; };
+		AB2DB532270B090200BF9E29 /* AssignmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentView.swift; sourceTree = "<group>"; };
+		AB2DB537270B0BCC00BF9E29 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		AB2DB53C270B0CFF00BF9E29 /* Assignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
+		AB2DB541270B0D0E00BF9E29 /* Mark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mark.swift; sourceTree = "<group>"; };
+		AB3034FB2754EAFA00BF365E /* IDManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDManagerTests.swift; sourceTree = "<group>"; };
+		AB3A48182746532500F2D09B /* DivisionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionTests.swift; sourceTree = "<group>"; };
+		AB4C492626EF5669008D7719 /* TheMarkBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheMarkBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB4C492926EF5669008D7719 /* TheMarkBookApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheMarkBookApp.swift; sourceTree = "<group>"; };
+		AB4C492D26EF566A008D7719 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AB4C493026EF566A008D7719 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AB4C493226EF566A008D7719 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		AB4C493526EF566A008D7719 /* TheMarkBook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TheMarkBook.xcdatamodel; sourceTree = "<group>"; };
+		AB4C493726EF566A008D7719 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB4C493C26EF566A008D7719 /* TheMarkBookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheMarkBookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB4C494026EF566A008D7719 /* TheMarkBookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheMarkBookTests.swift; sourceTree = "<group>"; };
+		AB4C494226EF566A008D7719 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB4C494726EF566A008D7719 /* TheMarkBookUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheMarkBookUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB4C494B26EF566A008D7719 /* TheMarkBookUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheMarkBookUITests.swift; sourceTree = "<group>"; };
+		AB4C494D26EF566A008D7719 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB5FE4E326F4CED900515032 /* ArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveView.swift; sourceTree = "<group>"; };
+		AB5FE4E826F4D5F800515032 /* StateControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateControllerTests.swift; sourceTree = "<group>"; };
+		AB67EC2527107F6A00C9A8FB /* IDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDManager.swift; sourceTree = "<group>"; };
+		AB67EC2A271080C400C9A8FB /* Term.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
+		AB8748BF2719C48C0006139B /* EditStudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStudentView.swift; sourceTree = "<group>"; };
+		AB8748C42719C7910006139B /* StudentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentItem.swift; sourceTree = "<group>"; };
+		ABA881A2273EE2C900CC799F /* StudentInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentInfoItem.swift; sourceTree = "<group>"; };
+		ABA881A7273EE2D600CC799F /* StudentMarkItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentMarkItem.swift; sourceTree = "<group>"; };
+		ABC2B7452707455800EE3632 /* ArchivedDivisionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivedDivisionItem.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AB4C492326EF5669008D7719 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB4C493926EF566A008D7719 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB4C494426EF566A008D7719 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AB05E2DF26F3324C00A61658 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AB299B0D26EF5737006DE550 /* MainView.swift */,
+				AB5FE4E326F4CED900515032 /* ArchiveView.swift */,
+				AB05E2E426F336A200A61658 /* DivisionView.swift */,
+				AB2DB52D270B08F700BF9E29 /* StudentView.swift */,
+				AB8748C42719C7910006139B /* StudentItem.swift */,
+				AB8748BF2719C48C0006139B /* EditStudentView.swift */,
+				ABA881A2273EE2C900CC799F /* StudentInfoItem.swift */,
+				ABA881A7273EE2D600CC799F /* StudentMarkItem.swift */,
+				AB2DB532270B090200BF9E29 /* AssignmentView.swift */,
+				AB05E2E926F338DE00A61658 /* DivisionItem.swift */,
+				ABC2B7452707455800EE3632 /* ArchivedDivisionItem.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AB05E2E026F3326500A61658 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AB299B1226EF5755006DE550 /* StateController.swift */,
+				AB299B1726EF58C9006DE550 /* Division.swift */,
+				AB67EC2A271080C400C9A8FB /* Term.swift */,
+				AB2DB537270B0BCC00BF9E29 /* Student.swift */,
+				AB2DB53C270B0CFF00BF9E29 /* Assignment.swift */,
+				AB2DB541270B0D0E00BF9E29 /* Mark.swift */,
+				AB67EC2527107F6A00C9A8FB /* IDManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AB4C491D26EF5669008D7719 = {
+			isa = PBXGroup;
+			children = (
+				AB4C492826EF5669008D7719 /* TheMarkBook */,
+				AB4C493F26EF566A008D7719 /* TheMarkBookTests */,
+				AB4C494A26EF566A008D7719 /* TheMarkBookUITests */,
+				AB4C492726EF5669008D7719 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AB4C492726EF5669008D7719 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AB4C492626EF5669008D7719 /* TheMarkBook.app */,
+				AB4C493C26EF566A008D7719 /* TheMarkBookTests.xctest */,
+				AB4C494726EF566A008D7719 /* TheMarkBookUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AB4C492826EF5669008D7719 /* TheMarkBook */ = {
+			isa = PBXGroup;
+			children = (
+				AB4C492926EF5669008D7719 /* TheMarkBookApp.swift */,
+				AB05E2DF26F3324C00A61658 /* View */,
+				AB05E2E026F3326500A61658 /* Model */,
+				AB4C493226EF566A008D7719 /* Persistence.swift */,
+				AB4C492D26EF566A008D7719 /* Assets.xcassets */,
+				AB4C493726EF566A008D7719 /* Info.plist */,
+				AB4C493426EF566A008D7719 /* TheMarkBook.xcdatamodeld */,
+				AB4C492F26EF566A008D7719 /* Preview Content */,
+			);
+			path = TheMarkBook;
+			sourceTree = "<group>";
+		};
+		AB4C492F26EF566A008D7719 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				AB4C493026EF566A008D7719 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AB4C493F26EF566A008D7719 /* TheMarkBookTests */ = {
+			isa = PBXGroup;
+			children = (
+				AB4C494026EF566A008D7719 /* TheMarkBookTests.swift */,
+				AB5FE4E826F4D5F800515032 /* StateControllerTests.swift */,
+				AB3A48182746532500F2D09B /* DivisionTests.swift */,
+				AB3034FB2754EAFA00BF365E /* IDManagerTests.swift */,
+				AB4C494226EF566A008D7719 /* Info.plist */,
+			);
+			path = TheMarkBookTests;
+			sourceTree = "<group>";
+		};
+		AB4C494A26EF566A008D7719 /* TheMarkBookUITests */ = {
+			isa = PBXGroup;
+			children = (
+				AB4C494B26EF566A008D7719 /* TheMarkBookUITests.swift */,
+				AB4C494D26EF566A008D7719 /* Info.plist */,
+			);
+			path = TheMarkBookUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AB4C492526EF5669008D7719 /* TheMarkBook */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB4C495026EF566A008D7719 /* Build configuration list for PBXNativeTarget "TheMarkBook" */;
+			buildPhases = (
+				AB4C492226EF5669008D7719 /* Sources */,
+				AB4C492326EF5669008D7719 /* Frameworks */,
+				AB4C492426EF5669008D7719 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TheMarkBook;
+			productName = TheMarkBook;
+			productReference = AB4C492626EF5669008D7719 /* TheMarkBook.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AB4C493B26EF566A008D7719 /* TheMarkBookTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB4C495326EF566A008D7719 /* Build configuration list for PBXNativeTarget "TheMarkBookTests" */;
+			buildPhases = (
+				AB4C493826EF566A008D7719 /* Sources */,
+				AB4C493926EF566A008D7719 /* Frameworks */,
+				AB4C493A26EF566A008D7719 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AB4C493E26EF566A008D7719 /* PBXTargetDependency */,
+			);
+			name = TheMarkBookTests;
+			productName = TheMarkBookTests;
+			productReference = AB4C493C26EF566A008D7719 /* TheMarkBookTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AB4C494626EF566A008D7719 /* TheMarkBookUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB4C495626EF566A008D7719 /* Build configuration list for PBXNativeTarget "TheMarkBookUITests" */;
+			buildPhases = (
+				AB4C494326EF566A008D7719 /* Sources */,
+				AB4C494426EF566A008D7719 /* Frameworks */,
+				AB4C494526EF566A008D7719 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AB4C494926EF566A008D7719 /* PBXTargetDependency */,
+			);
+			name = TheMarkBookUITests;
+			productName = TheMarkBookUITests;
+			productReference = AB4C494726EF566A008D7719 /* TheMarkBookUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AB4C491E26EF5669008D7719 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					AB4C492526EF5669008D7719 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+					AB4C493B26EF566A008D7719 = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = AB4C492526EF5669008D7719;
+					};
+					AB4C494626EF566A008D7719 = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = AB4C492526EF5669008D7719;
+					};
+				};
+			};
+			buildConfigurationList = AB4C492126EF5669008D7719 /* Build configuration list for PBXProject "TheMarkBook" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AB4C491D26EF5669008D7719;
+			productRefGroup = AB4C492726EF5669008D7719 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AB4C492526EF5669008D7719 /* TheMarkBook */,
+				AB4C493B26EF566A008D7719 /* TheMarkBookTests */,
+				AB4C494626EF566A008D7719 /* TheMarkBookUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AB4C492426EF5669008D7719 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB4C493126EF566A008D7719 /* Preview Assets.xcassets in Resources */,
+				AB4C492E26EF566A008D7719 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB4C493A26EF566A008D7719 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB4C494526EF566A008D7719 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AB4C492226EF5669008D7719 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABA881A8273EE2D600CC799F /* StudentMarkItem.swift in Sources */,
+				AB05E2E526F336A200A61658 /* DivisionView.swift in Sources */,
+				AB2DB52E270B08F700BF9E29 /* StudentView.swift in Sources */,
+				ABA881A3273EE2C900CC799F /* StudentInfoItem.swift in Sources */,
+				AB67EC2627107F6A00C9A8FB /* IDManager.swift in Sources */,
+				AB05E2EA26F338DE00A61658 /* DivisionItem.swift in Sources */,
+				AB4C493326EF566A008D7719 /* Persistence.swift in Sources */,
+				AB299B1326EF5755006DE550 /* StateController.swift in Sources */,
+				AB8748C02719C48C0006139B /* EditStudentView.swift in Sources */,
+				AB299B1826EF58C9006DE550 /* Division.swift in Sources */,
+				AB67EC2B271080C400C9A8FB /* Term.swift in Sources */,
+				ABC2B7462707455800EE3632 /* ArchivedDivisionItem.swift in Sources */,
+				AB2DB538270B0BCC00BF9E29 /* Student.swift in Sources */,
+				AB2DB53D270B0CFF00BF9E29 /* Assignment.swift in Sources */,
+				AB2DB533270B090200BF9E29 /* AssignmentView.swift in Sources */,
+				AB4C492A26EF5669008D7719 /* TheMarkBookApp.swift in Sources */,
+				AB299B0E26EF5737006DE550 /* MainView.swift in Sources */,
+				AB8748C52719C7910006139B /* StudentItem.swift in Sources */,
+				AB5FE4E426F4CED900515032 /* ArchiveView.swift in Sources */,
+				AB4C493626EF566A008D7719 /* TheMarkBook.xcdatamodeld in Sources */,
+				AB2DB542270B0D0E00BF9E29 /* Mark.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB4C493826EF566A008D7719 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB3A48192746532500F2D09B /* DivisionTests.swift in Sources */,
+				AB4C494126EF566A008D7719 /* TheMarkBookTests.swift in Sources */,
+				AB3034FC2754EAFA00BF365E /* IDManagerTests.swift in Sources */,
+				AB5FE4E926F4D5F800515032 /* StateControllerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB4C494326EF566A008D7719 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB4C494C26EF566A008D7719 /* TheMarkBookUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AB4C493E26EF566A008D7719 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AB4C492526EF5669008D7719 /* TheMarkBook */;
+			targetProxy = AB4C493D26EF566A008D7719 /* PBXContainerItemProxy */;
+		};
+		AB4C494926EF566A008D7719 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AB4C492526EF5669008D7719 /* TheMarkBook */;
+			targetProxy = AB4C494826EF566A008D7719 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		AB4C494E26EF566A008D7719 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AB4C494F26EF566A008D7719 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AB4C495126EF566A008D7719 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"TheMarkBook/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = TheMarkBook/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = SaahilBahadur.TheMarkBook;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AB4C495226EF566A008D7719 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"TheMarkBook/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = TheMarkBook/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = SaahilBahadur.TheMarkBook;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AB4C495426EF566A008D7719 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TheMarkBookTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = SaahilBahadur.TheMarkBookTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheMarkBook.app/TheMarkBook";
+			};
+			name = Debug;
+		};
+		AB4C495526EF566A008D7719 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TheMarkBookTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = SaahilBahadur.TheMarkBookTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheMarkBook.app/TheMarkBook";
+			};
+			name = Release;
+		};
+		AB4C495726EF566A008D7719 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TheMarkBookUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = SaahilBahadur.TheMarkBookUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TheMarkBook;
+			};
+			name = Debug;
+		};
+		AB4C495826EF566A008D7719 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TheMarkBookUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = SaahilBahadur.TheMarkBookUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TheMarkBook;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AB4C492126EF5669008D7719 /* Build configuration list for PBXProject "TheMarkBook" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB4C494E26EF566A008D7719 /* Debug */,
+				AB4C494F26EF566A008D7719 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AB4C495026EF566A008D7719 /* Build configuration list for PBXNativeTarget "TheMarkBook" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB4C495126EF566A008D7719 /* Debug */,
+				AB4C495226EF566A008D7719 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AB4C495326EF566A008D7719 /* Build configuration list for PBXNativeTarget "TheMarkBookTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB4C495426EF566A008D7719 /* Debug */,
+				AB4C495526EF566A008D7719 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AB4C495626EF566A008D7719 /* Build configuration list for PBXNativeTarget "TheMarkBookUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB4C495726EF566A008D7719 /* Debug */,
+				AB4C495826EF566A008D7719 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		AB4C493426EF566A008D7719 /* TheMarkBook.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AB4C493526EF566A008D7719 /* TheMarkBook.xcdatamodel */,
+			);
+			currentVersion = AB4C493526EF566A008D7719 /* TheMarkBook.xcdatamodel */;
+			path = TheMarkBook.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = AB4C491E26EF5669008D7719 /* Project object */;
+}
