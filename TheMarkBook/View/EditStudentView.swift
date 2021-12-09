@@ -17,6 +17,8 @@ struct EditStudentView: View {
     @State var changingContactInfo: String = ""
     @State var changingMarks: [Int:Mark] = [:]
     
+    @State var updateStudent: (Student, Int) -> Void
+    
     var body: some View {
         VStack(alignment: .leading) {
             
@@ -28,14 +30,14 @@ struct EditStudentView: View {
             }
             
             Spacer()
-            
+                        
             Section(header: Text("Info").font(.title)) {
                 StudentInfoItem(student: division.students[studentIndex],
                                 passInfoBackToEditStudentView: passInfoBackToEditStudentView)
             }
             
             Spacer()
-            
+                        
             Section(header: Text("Marks").font(.title) ) {
                 
                 List {
@@ -68,26 +70,29 @@ struct EditStudentView: View {
     }
     
     func passInfoBackToEditStudentView(name: String, dateOfBirth: Date, contactInfo: String) {
-        changingName = name
-        changingDateOfBirth = dateOfBirth
-        changingContactInfo = contactInfo
+//        changingName = name
+//        changingDateOfBirth = dateOfBirth
+//        changingContactInfo = contactInfo
+        division.students[studentIndex].name = name
+        division.students[studentIndex].dateOfBirth = dateOfBirth
+        division.students[studentIndex].contactInfo = contactInfo
+        saveToState()
     }
     
     func passMarkBackToEditStudentView(mark: Mark, assignmentID: Int) {
-        changingMarks[assignmentID] = mark
+        //changingMarks[assignmentID] = mark
+        division.students[studentIndex].marks[assignmentID] = mark
+        saveToState()
     }
     
     func saveToState() {
-        division.students[studentIndex].name = changingName
-        division.students[studentIndex].dateOfBirth = changingDateOfBirth
-        division.students[studentIndex].contactInfo = changingContactInfo
-        division.students[studentIndex].marks = changingMarks
+        updateStudent(division.students[studentIndex], studentIndex)
     }
     
 }
 
 struct EditStudentView_Previews: PreviewProvider {
     static var previews: some View {
-        EditStudentView(studentIndex: 0, division: Division.currentExamples[0])
+        EditStudentView(studentIndex: 0, division: Division.currentExamples[0], updateStudent: {_,_  in } )
     }
 }

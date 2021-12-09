@@ -8,20 +8,21 @@
 import Foundation
 
 class Mark {
-    var value: Int?
+    var value: Double?
     var excuse: String?
     
-    var received: Bool {
-        didSet {
-            if received == true {
-                haveReceived()
-            } else {
-                haveNotReceived()
-            }
-        }
-    }
+    var received: Bool
+//    {
+//        didSet {
+//            if received == true {
+//                haveReceived()
+//            } else {
+//                haveNotReceived()
+//            }
+//        }
+//    }
     
-    init(value: Int?, excuse: String?, received: Bool) {
+    init(value: Double?, excuse: String?, received: Bool) {
         self.value = value
         self.excuse = excuse
         self.received = received
@@ -36,7 +37,7 @@ class Mark {
         self.excuse = "Overdue"
     }
     
-    func returnUnwrappedValue() -> Int {
+    func returnUnwrappedValue() -> Double {
         if let unwrappedValue = self.value {
             return unwrappedValue
         }
@@ -58,7 +59,7 @@ class Mark {
     
     #if DEBUG
     
-    static let example = Mark(value: 90, excuse: nil, received: false)
+    static let example = Mark(value: 90.0, excuse: nil, received: false)
     
     #endif
     

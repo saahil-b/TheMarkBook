@@ -23,9 +23,7 @@ struct StudentView: View {
     }
     
     @State var editMode = EditMode.inactive
-    
-    @State var refresh: Bool = false
-        
+            
     var body: some View {
         VStack(alignment: .trailing) {
             
@@ -50,9 +48,21 @@ struct StudentView: View {
             List {
                 // accesses each student in the division
                 ForEach(Array(state.currentDivisions[index].students.enumerated()), id: \.self.offset) { i, student in
-                    NavigationLink(destination: EditStudentView(studentIndex: i, division: state.currentDivisions[index])) {
+                    NavigationLink(destination: EditStudentView(studentIndex: i,division: state.currentDivisions[index], updateStudent: updateStudent)) {
+                        
                         // separate view class
-                        StudentItem(student: student)
+                        
+//                        StudentItem(student: student)
+                        
+                        HStack {
+                            Text(student.name)
+                            
+                            if let x = student.marks[0] {
+                                Text(String(x.returnUnwrappedValue()))
+                            } else {
+                                Text(String("nil"))
+                            }
+                        }
 
                     }
 
@@ -81,7 +91,7 @@ struct StudentView: View {
             
         }
         .onAppear(perform: {
-            updateStudentView()
+//            updateStudentView()
         })
         
     }
@@ -105,7 +115,12 @@ struct StudentView: View {
     }
     
     func updateStudentView() {
-        refresh.toggle()
+        state.currentDivisions = state.currentDivisions
+    }
+    
+    func updateStudent(student: Student, position: Int) {
+        state.currentDivisions[index].students[position] = student
+        updateStudentView()
     }
     
 }

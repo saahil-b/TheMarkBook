@@ -21,18 +21,23 @@ struct StudentMarkItem: View {
         HStack {
             
             Text("\(assignment.name)")
+//            Text("\(assignment.id)")
             
             Spacer()
             
             Toggle("", isOn: $changingReceived)
                 .onChange(of: changingReceived) { value in
+                    
+                    changingReceived = value
+                    
                     if value {
                         displayMark = "0"
-                        passMarkBackToEditStudentView(Mark(value: 0, excuse: nil, received: changingReceived), assignment.id)
                     } else {
                         displayMark = "Excused"
-                        passMarkBackToEditStudentView(Mark(value: nil, excuse: displayMark, received: changingReceived), assignment.id)
                     }
+                    
+                    saveToState()
+                    
                 }
             
             if changingReceived {
@@ -42,16 +47,14 @@ struct StudentMarkItem: View {
                     text: $displayMark,
                 
                     onCommit: {
-                        displayMark = displayMark.filter { $0.isNumber }
-                        if displayMark == "" {
+                        
+                        if let _ = Double(displayMark) {
+                            //
+                        } else {
                             displayMark = "0"
                         }
                         
-                        if let value = Int(displayMark) {
-                            passMarkBackToEditStudentView(Mark(value: value, excuse: nil, received: changingReceived), assignment.id)
-                        } else {
-                            passMarkBackToEditStudentView(Mark(value: 0, excuse: nil, received: changingReceived), assignment.id)
-                        }
+                        saveToState()
                         
                     })
                     .keyboardType(.decimalPad)
@@ -64,26 +67,29 @@ struct StudentMarkItem: View {
                     text: $displayMark,
                     
                     onCommit: {
-                        passMarkBackToEditStudentView(Mark(value: nil, excuse: displayMark, received: changingReceived), assignment.id)
+                        saveToState()
                     })
                     .multilineTextAlignment(.trailing)
             }
                      
         }
         .onAppear(perform: {
-            assignVariables()
+            if let x = assignVariables() {
+                displayMark = x
+            }
         })
         .onDisappear(perform: {
-            //saveToState()
+            saveToState()
         })
     }
     
-    func assignVariables() {
+    func assignVariables() -> String? {
         if let x = student.marks[assignment.id] {
             changingReceived = x.received
             
             if changingReceived {
                 displayMark = String(x.returnUnwrappedValue())
+                return displayMark
             } else {
                 displayMark = x.returnUnwrappedExcuse()
             }
@@ -91,24 +97,34 @@ struct StudentMarkItem: View {
             
         } else {
             changingReceived = false
-            displayMark = "0"
+            displayMark = "Excused"
         }
+        
+        return nil
+        
     }
     
-//    func saveToState() {
-//
-//        var value: Int? = nil
-//        var excuse: String? = nil
-//
-//        if changingReceived {
-//            value = Int(displayMark)
-//        } else {
-//            excuse = displayMark
-//        }
-//
-//        passMarkBackToEditStudentView(Mark(value: value, excuse: excuse, received: changingReceived), assignment.id)
-//
-//    }
+    func saveToState() {
+
+        var value: Double? = nil
+        var excuse: String? = nil
+
+        if changingReceived {
+            if let x = Double(displayMark) {
+                value = x
+            } else {
+                value = 0
+            }
+            
+        } else {
+            excuse = displayMark
+        }
+        
+        print(displayMark)
+
+        passMarkBackToEditStudentView(Mark(value: value, excuse: excuse, received: changingReceived), assignment.id)
+
+    }
     
 }
 
