@@ -66,7 +66,7 @@ struct DivisionView: View {
             
             
             TabView {
-                StudentView(index: index)
+                StudentView(divIndex: index, division: state.currentDivisions[index],saveDivisionToState: saveDivisionToState)
                     .tabItem {
                         Image(systemName: "graduationcap")
                         Text("Students")
@@ -86,6 +86,10 @@ struct DivisionView: View {
     func renameDivision(name: String) {
         state.currentDivisions[index].name = name
         updateDivisionName(name)
+    }
+    
+    func saveDivisionToState(index: Int, division: Division) {
+        state.currentDivisions[index] = division
     }
         
 }

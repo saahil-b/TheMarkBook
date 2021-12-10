@@ -15,6 +15,8 @@ class Division {
     var termIDManager: IDManager
     var assignmentIDManager: IDManager
     
+    var refresh: String = ""
+    
     
     init(name: String) {
         self.name = name
@@ -26,16 +28,11 @@ class Division {
         self.assignmentIDManager = IDManager()
     }
     
-    func addAssignment(name: String, date: Date, topic: String) {
+    func addAssignment(name: String, date: Date, topic: String, termIndex: Int) {
         
         let id = assignmentIDManager.generateNewID()
         
-        if let lastTerm = terms.last {
-            lastTerm.addAssignment(name: name, date: date, topic: topic, id: id )
-        } else {
-            addTerm()
-            terms[0].addAssignment(name: name, date: date, topic: topic, id: id )
-        }
+        terms[termIndex].addAssignment(name: name, date: date, topic: topic, id: id )
         
         for student in students {
             student.marks[id] = Mark.returnDefaultValue()
@@ -110,11 +107,11 @@ class Division {
     static func createDivision(name: String) -> Division {
         let division = Division(name: name)
         
-        for _ in 0...3 {
+        for i in 0...3 {
             division.addTerm()
             
             for j in 0...3 {
-                division.addAssignment(name: "A\(j)", date: Date(), topic: "good topic")
+                division.addAssignment(name: "A\(j)", date: Date(), topic: "good topic", termIndex: i)
             }
             
         }

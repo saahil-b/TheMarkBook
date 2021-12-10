@@ -9,8 +9,10 @@ import SwiftUI
 
 struct StudentView: View {
     
-    @EnvironmentObject var state: StateController
-    @State var index: Int
+    @State var divIndex: Int
+    @State var division: Division
+    
+    @State var saveDivisionToState: (Int, Division) -> Void
     
     @State var editing: Bool = false {
         didSet {
@@ -23,7 +25,8 @@ struct StudentView: View {
     }
     
     @State var editMode = EditMode.inactive
-            
+    
+    
     var body: some View {
         VStack(alignment: .trailing) {
             
@@ -47,8 +50,8 @@ struct StudentView: View {
             
             List {
                 // accesses each student in the division
-                ForEach(Array(state.currentDivisions[index].students.enumerated()), id: \.self.offset) { i, student in
-                    NavigationLink(destination: EditStudentView(studentIndex: i, division: state.currentDivisions[index], updateStudent: updateStudent)) {
+                ForEach(Array(division.students.enumerated()), id: \.self.offset) { i, student in
+                    NavigationLink(destination: EditStudentView(studentIndex: i, division: division, updateStudent: updateStudent)) {
                         
                         // separate view class
                         
@@ -82,35 +85,35 @@ struct StudentView: View {
     // function called onMove()
     func moveStudent(from source: IndexSet, to destination: Int) {
         // calls move function defined in state
-        state.currentDivisions[index].moveStudent(fromOffsets: source, toOffset: destination)
+        division.moveStudent(fromOffsets: source, toOffset: destination)
     }
     
     // function called onDelete
     func deleteStudent(at offsets: IndexSet) {
         for i in offsets {
-            state.currentDivisions[index].removeStudent(index: i)
+            division.removeStudent(index: i)
         }
     }
     
     func addNewStudent() {
-        state.currentDivisions[index].addStudent(name: "New Student", dateOfBirth: Date(), contactInfo: "newstudent@email.com")
+        division.addStudent(name: "New Student", dateOfBirth: Date(), contactInfo: "newstudent@email.com")
         updateStudentView()
     }
     
     func updateStudentView() {
-        state.currentDivisions = state.currentDivisions
+        division.refresh = "refresh student view"
     }
     
     func updateStudent(student: Student, position: Int) {
-        state.currentDivisions[index].students[position] = student
+        division.students[position] = student
         updateStudentView()
+        saveDivisionToState(0, division)
     }
     
 }
 
 struct StudentView_Previews: PreviewProvider {
     static var previews: some View {
-        StudentView(index: 0)
-            .environmentObject(StateController.example)
+        StudentView(divIndex: 0, division: Division.currentExamples[0], saveDivisionToState: {_,_ in})
     }
 }

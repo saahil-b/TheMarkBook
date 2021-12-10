@@ -19,26 +19,34 @@ struct AssignmentView: View {
             // plus button used to add new term
             Button(action: { addTerm() } ) {
                 Image(systemName: "plus")
-                    .frame(width:50, height: 90)
+                    .frame(width:50, height: 75)
             }
         
             List {
                 // accesses each term in the division
-                ForEach(state.currentDivisions[index].terms, id: \.self.id) { term in
+                ForEach(Array(state.currentDivisions[index].terms.enumerated()), id: \.self.offset) { i, term in
                     
                     // divides list into sections for each term
-                    Section(header: NavigationLink(destination: EditTermView(), label: { Text(term.name) }) ) {
+                    Section(header: NavigationLink(destination: EditTermView(division: state.currentDivisions[index], termIndex: i ), label: { Text(term.name) }) ) {
                         
                         // accesses each assignment in a term
                         ForEach(term.assignments, id: \.self.id) { assignment in
                             NavigationLink(destination: EditAssignmentView()) {
+                                HStack {
                                     Text(assignment.name)
+                                    
+                                    Spacer()
+                                    
+                                    Text(String(assignment.returnAverageMark()))
+                                    
+                                }
                             }
                             
                         }
                     }
                 }
             }
+            
             
         }
     }

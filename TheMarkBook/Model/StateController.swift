@@ -11,9 +11,12 @@ class StateController: ObservableObject {
     @Published var currentDivisions : [Division]
     @Published var archivedDivisions : [Division]
     
+    @Published var refresh: String
+    
     init() {
         self.currentDivisions = []
         self.archivedDivisions = []
+        self.refresh = ""
     }
     
     func addToCurrentDivisions(division : Division){
@@ -57,11 +60,11 @@ class StateController: ObservableObject {
     static func createNewDivision(name: String) -> Division {
         let division = Division(name: name)
         
-        for _ in 0...3 {
+        for i in 0...3 {
             division.addTerm()
             
             for j in 0...3 {
-                division.addAssignment(name: "A\(j)", date: Date(), topic: "good topic")
+                division.addAssignment(name: "A\(j)", date: Date(), topic: "good topic", termIndex: i)
             }
             
         }

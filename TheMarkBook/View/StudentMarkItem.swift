@@ -13,6 +13,9 @@ struct StudentMarkItem: View {
     @State var displayMark: String = ""
     @State var changingReceived: Bool = false
     
+    @State var initialValueSet = false
+    @State var initialDisplayMark: String = ""
+    
     @State var assignment: Assignment
     
     @State var passMarkBackToEditStudentView: (Mark, Int) -> Void
@@ -28,16 +31,20 @@ struct StudentMarkItem: View {
             Toggle("", isOn: $changingReceived)
                 .onChange(of: changingReceived) { value in
                     
-                    changingReceived = value
-                    
-                    if value {
-                        displayMark = "0"
+                    if initialValueSet == true {
+                        if value {
+                            displayMark = "0"
+                        } else {
+                            displayMark = "Excused"
+                        }
+                        
+                        saveToState()
+                        
                     } else {
-                        displayMark = "Excused"
+                        displayMark = initialDisplayMark
+                        initialValueSet = true
                     }
-                    
-                    saveToState()
-                    
+                                        
                 }
             
             if changingReceived {
@@ -75,11 +82,11 @@ struct StudentMarkItem: View {
         }
         .onAppear(perform: {
             if let x = assignVariables() {
-                displayMark = x
+                initialDisplayMark = x
             }
         })
         .onDisappear(perform: {
-            saveToState()
+//            saveToState()
         })
     }
     
@@ -92,6 +99,7 @@ struct StudentMarkItem: View {
                 return displayMark
             } else {
                 displayMark = x.returnUnwrappedExcuse()
+                initialValueSet = true
             }
             
             
