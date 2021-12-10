@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		078E8F8627639E4700D46948 /* EditAssignmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078E8F8527639E4700D46948 /* EditAssignmentView.swift */; };
+		078E8F962763A5F700D46948 /* EditTermView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078E8F952763A5F700D46948 /* EditTermView.swift */; };
 		AB05E2E526F336A200A61658 /* DivisionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB05E2E426F336A200A61658 /* DivisionView.swift */; };
 		AB05E2EA26F338DE00A61658 /* DivisionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB05E2E926F338DE00A61658 /* DivisionItem.swift */; };
 		AB299B0E26EF5737006DE550 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB299B0D26EF5737006DE550 /* MainView.swift */; };
@@ -55,6 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		078E8F8527639E4700D46948 /* EditAssignmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAssignmentView.swift; sourceTree = "<group>"; };
+		078E8F952763A5F700D46948 /* EditTermView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTermView.swift; sourceTree = "<group>"; };
 		AB05E2E426F336A200A61658 /* DivisionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionView.swift; sourceTree = "<group>"; };
 		AB05E2E926F338DE00A61658 /* DivisionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionItem.swift; sourceTree = "<group>"; };
 		AB299B0D26EF5737006DE550 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -121,15 +125,17 @@
 			children = (
 				AB299B0D26EF5737006DE550 /* MainView.swift */,
 				AB5FE4E326F4CED900515032 /* ArchiveView.swift */,
+				ABC2B7452707455800EE3632 /* ArchivedDivisionItem.swift */,
 				AB05E2E426F336A200A61658 /* DivisionView.swift */,
+				AB05E2E926F338DE00A61658 /* DivisionItem.swift */,
 				AB2DB52D270B08F700BF9E29 /* StudentView.swift */,
 				AB8748C42719C7910006139B /* StudentItem.swift */,
 				AB8748BF2719C48C0006139B /* EditStudentView.swift */,
 				ABA881A2273EE2C900CC799F /* StudentInfoItem.swift */,
 				ABA881A7273EE2D600CC799F /* StudentMarkItem.swift */,
 				AB2DB532270B090200BF9E29 /* AssignmentView.swift */,
-				AB05E2E926F338DE00A61658 /* DivisionItem.swift */,
-				ABC2B7452707455800EE3632 /* ArchivedDivisionItem.swift */,
+				078E8F952763A5F700D46948 /* EditTermView.swift */,
+				078E8F8527639E4700D46948 /* EditAssignmentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -344,6 +350,7 @@
 				ABA881A8273EE2D600CC799F /* StudentMarkItem.swift in Sources */,
 				AB05E2E526F336A200A61658 /* DivisionView.swift in Sources */,
 				AB2DB52E270B08F700BF9E29 /* StudentView.swift in Sources */,
+				078E8F962763A5F700D46948 /* EditTermView.swift in Sources */,
 				ABA881A3273EE2C900CC799F /* StudentInfoItem.swift in Sources */,
 				AB67EC2627107F6A00C9A8FB /* IDManager.swift in Sources */,
 				AB05E2EA26F338DE00A61658 /* DivisionItem.swift in Sources */,
@@ -361,6 +368,7 @@
 				AB8748C52719C7910006139B /* StudentItem.swift in Sources */,
 				AB5FE4E426F4CED900515032 /* ArchiveView.swift in Sources */,
 				AB4C493626EF566A008D7719 /* TheMarkBook.xcdatamodeld in Sources */,
+				078E8F8627639E4700D46948 /* EditAssignmentView.swift in Sources */,
 				AB2DB542270B0D0E00BF9E29 /* Mark.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

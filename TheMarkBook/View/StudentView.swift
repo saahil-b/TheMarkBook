@@ -48,7 +48,7 @@ struct StudentView: View {
             List {
                 // accesses each student in the division
                 ForEach(Array(state.currentDivisions[index].students.enumerated()), id: \.self.offset) { i, student in
-                    NavigationLink(destination: EditStudentView(studentIndex: i,division: state.currentDivisions[index], updateStudent: updateStudent)) {
+                    NavigationLink(destination: EditStudentView(studentIndex: i, division: state.currentDivisions[index], updateStudent: updateStudent)) {
                         
                         // separate view class
                         
@@ -57,11 +57,12 @@ struct StudentView: View {
                         HStack {
                             Text(student.name)
                             
-                            if let x = student.marks[0] {
-                                Text(String(x.returnUnwrappedValue()))
-                            } else {
-                                Text(String("nil"))
-                            }
+//                            if let x = student.marks[1] {
+//                                Text(String(x.returnUnwrappedValue()))
+//                            } else {
+//                                Text(String("nil"))
+//                            }
+                            
                         }
 
                     }
@@ -72,27 +73,8 @@ struct StudentView: View {
 
             } // binding
             .environment(\.editMode, $editMode)
-                
-//                .toolbar {
-//                    ToolbarItem(placement: .navigationBarTrailing) {
-//                        // edit button
-//                        EditButton()
-//                    }
-//
-//                    ToolbarItem(placement: .navigationBarTrailing) {
-//                        // button for adding new student
-//                        Button(action: { addNewStudent() }, label: {
-//                            Image(systemName: "plus")
-//                        })
-//                    }
-//
-//                }
-                
             
         }
-        .onAppear(perform: {
-//            updateStudentView()
-        })
         
     }
     
@@ -111,7 +93,8 @@ struct StudentView: View {
     }
     
     func addNewStudent() {
-        //
+        state.currentDivisions[index].addStudent(name: "New Student", dateOfBirth: Date(), contactInfo: "newstudent@email.com")
+        updateStudentView()
     }
     
     func updateStudentView() {

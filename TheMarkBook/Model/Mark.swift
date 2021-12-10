@@ -50,7 +50,7 @@ class Mark {
             return unwrappedExcuse
         }
         
-        return "Error"
+        return "Problem unwrapping in class"
     }
     
     static func returnDefaultValue() -> Mark {

@@ -52,14 +52,26 @@ class Division {
         let student = Student(name: name, dateOfBirth: dateOfBirth, contactInfo: contactInfo, id: sID, assignments: assignments)
         
         for assignment in assignments {
-            assignment.marks[sID] = Mark.returnDefaultValue()
+            var marks = assignment.marks
+            
+            marks[sID] = Mark.returnDefaultValue()
+                
+            assignment.updateMarks(marks: marks)
         }
         
         self.students.append(student)
     }
     
     func removeStudent(index: Int) {
+        
+        let assignments = self.returnAllAssignments()
+        
+        for assignment in assignments {
+            assignment.marks.removeValue(forKey: self.students[index].id)
+        }
+        
         self.students.remove(at: index)
+        
     }
     
     func moveStudent(fromOffsets: IndexSet, toOffset: Int) {

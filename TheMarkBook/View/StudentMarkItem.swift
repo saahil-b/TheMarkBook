@@ -97,7 +97,7 @@ struct StudentMarkItem: View {
             
         } else {
             changingReceived = false
-            displayMark = "Excused"
+            displayMark = "Problem unwrapping from state"
         }
         
         return nil

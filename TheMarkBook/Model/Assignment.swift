@@ -15,6 +15,7 @@ class Assignment {
     var topic: String?
     var marks: [Int:Mark]
     var totalMark: Double
+    var maximumMark: Double
     
     init(name: String, date: Date, topic: String, id: Int) {
         
@@ -24,16 +25,9 @@ class Assignment {
         self.topic = topic
         self.marks = [:]
         self.totalMark = 0
+        self.maximumMark = 1
         
     }
-    
-    
-    func updateInfo(name: String, date: Date, topic: String) {
-        self.name = name
-        self.date = date
-        self.topic = topic
-    }
-    
     
     func updateMarks(marks: [Int:Mark]) {
         self.marks = marks
@@ -47,6 +41,20 @@ class Assignment {
         }
         
         self.totalMark = total
+        
+    }
+    
+    func returnAverageMark() -> Double {
+        
+        if self.marks.count == 0 {
+            return 0
+        }
+        
+        if self.maximumMark < 1 {
+            return 0
+        }
+        
+        return totalMark / Double(marks.count)
         
     }
     
