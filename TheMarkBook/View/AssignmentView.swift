@@ -9,8 +9,10 @@ import SwiftUI
 
 struct AssignmentView: View {
     
-    @EnvironmentObject var state: StateController
-    @State var index: Int
+    @State var divIndex: Int
+    @State var division: Division
+    
+    @State var saveDivisionToState: (Int, Division) -> Void
     
     var body: some View {
         
@@ -24,10 +26,10 @@ struct AssignmentView: View {
         
             List {
                 // accesses each term in the division
-                ForEach(Array(state.currentDivisions[index].terms.enumerated()), id: \.self.offset) { i, term in
+                ForEach(Array(division.terms.enumerated()), id: \.self.offset) { i, term in
                     
                     // divides list into sections for each term
-                    Section(header: NavigationLink(destination: EditTermView(division: state.currentDivisions[index], termIndex: i ), label: { Text(term.name) }) ) {
+                    Section(header: NavigationLink(destination: EditTermView(division: division, termIndex: i, updateTerm: updateTerm ), label: { Text(term.name) }) ) {
                         
                         // accesses each assignment in a term
                         ForEach(term.assignments, id: \.self.id) { assignment in
@@ -56,11 +58,21 @@ struct AssignmentView: View {
         //
     }
     
+    func updateTerm(position: Int, term: Term) {
+        division.terms[position] = term
+        saveDivisionToState(divIndex, division)
+    }
+    
+    func updateAssignment(termIndex: Int, assignmentIndex: Int, assignment: Assignment) {
+        division.terms[termIndex].assignments[assignmentIndex] = assignment
+        saveDivisionToState(divIndex, division)
+    }
+    
+    
 }
 
 struct AssignmentView_Previews: PreviewProvider {
     static var previews: some View {
-        AssignmentView(index: 0)
-        .environmentObject(StateController.example)
+        AssignmentView(divIndex: 0, division: StateController.example.currentDivisions[0], saveDivisionToState: {_,_ in})
     }
 }

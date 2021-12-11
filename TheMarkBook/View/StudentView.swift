@@ -107,7 +107,7 @@ struct StudentView: View {
     func updateStudent(student: Student, position: Int) {
         division.students[position] = student
         updateStudentView()
-        saveDivisionToState(0, division)
+        saveDivisionToState(divIndex, division)
     }
     
 }

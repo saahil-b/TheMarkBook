@@ -72,7 +72,7 @@ struct DivisionView: View {
                         Text("Students")
                     }
 
-                AssignmentView(index: index)
+                AssignmentView(divIndex: index, division: state.currentDivisions[index], saveDivisionToState: saveDivisionToState)
                     .tabItem {
                         Image(systemName: "tray.full")
                         Text("Assignments")

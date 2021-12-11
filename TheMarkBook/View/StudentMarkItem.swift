@@ -95,8 +95,8 @@ struct StudentMarkItem: View {
             changingReceived = x.received
             
             if changingReceived {
-                displayMark = String(x.returnUnwrappedValue())
-                return displayMark
+                return String(x.returnUnwrappedValue())
+                
             } else {
                 displayMark = x.returnUnwrappedExcuse()
                 initialValueSet = true
