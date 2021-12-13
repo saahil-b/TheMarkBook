@@ -26,6 +26,8 @@ struct StudentView: View {
     
     @State var editMode = EditMode.inactive
     
+    @State var refresh: Bool = false
+    
     
     var body: some View {
         VStack(alignment: .trailing) {
@@ -77,6 +79,9 @@ struct StudentView: View {
             } // binding
             .environment(\.editMode, $editMode)
             
+            
+            if refresh{}
+            
         }
         
     }
@@ -101,11 +106,12 @@ struct StudentView: View {
     }
     
     func updateStudentView() {
-        division.refresh = "refresh student view"
+        refresh.toggle()
     }
     
     func updateStudent(student: Student, position: Int) {
         division.students[position] = student
+        division.updateAssignmentsWithStudentMarkChanges(marks: student.marks, studentID: student.id)
         updateStudentView()
         saveDivisionToState(divIndex, division)
     }

@@ -153,7 +153,9 @@ class DivisionTests: XCTestCase {
         XCTAssertEqual(div.students[2].id, thirdID)
     }
     
-    func testAddTermChangesTermArray() {
+    // sprint 4
+    
+    func testAddTermChangesTermsArray() {
         // initialises division for testing
         let div = Division(name: "D1")
 
@@ -167,185 +169,224 @@ class DivisionTests: XCTestCase {
         XCTAssertEqual(oldLength + 1, div.terms.count)
     }
     
-//    func testRemoveTermAffectsTermsArray() {
-//        // initialises division for testing
-//        let div = Division(name: "D1")
-//
-//        // adds student to be removed
-//        div.addTerm()
-//
-//
-//        // records old length of students array
-//        let oldLength = div.terms.count
-//
-//        // adds new student to students array
-//        div.removeTerm(index: 0)
-//
-//        // checks that length of students array has increased by 1
-//        XCTAssertEqual(oldLength - 1, div.students.count)
-//    }
-    
-//    func testMoveTermMovesTerm() {
-//        // initialises division for testing
-//        let div = Division(name: "D1")
-//
-//        for _ in 0...3 {
-//            // adds students to division
-//            div.addTerm()
-//        }
-//
-//        // records IDs for testing
-//        let firstID = div.terms[0].id
-//        let secondID = div.terms[1].id
-//        let thirdID = div.terms[2].id
-//
-//        // carries out move
-//        div.moveTerm(fromOffsets: IndexSet(integer: 0), toOffset: 2)
-//
-//        // checks that students have been moved
-//        XCTAssertEqual(div.terms[0].id, secondID)
-//        XCTAssertEqual(div.terms[1].id, firstID)
-//        XCTAssertEqual(div.students[2].id, thirdID)
-//    }
+    func testRemoveTermChangesTermsArray() {
+        // initialises division for testing
+        let div = Division(name: "D1")
+
+        // adds student to be removed
+        div.addTerm()
+
+
+        // records old length of students array
+        let oldLength = div.terms.count
+
+        // adds new student to students array
+        div.removeTerm(index: 0)
+
+        // checks that length of students array has increased by 1
+        XCTAssertEqual(oldLength - 1, div.students.count)
+    }
     
     
-//    func testAddAssignmentAssignsUniqueID() {
-//        // initialises division for testing
-//        let div = Division(name: "D1")
-//
-//        // adds new students to students array
-//        div.addAssignment(name: "A", date: Date(), topic: "")
-//        div.addAssignment(name: "B", date: Date(), topic: "")
-//
-//        // checks that length of students array has increased by 1
-//        XCTAssertNotEqual(div.returnAllAssignments()[0].id, div.returnAllAssignments()[1].id)
-//    }
-    
-//    func testAddTermAssignsUniqueID() {
-//        // initialises division for testing
-//        let div = Division(name: "D1")
-//
-//        // adds new students to students array
-//        div.addTerm()
-//        div.addTerm()
-//
-//        // checks that length of students array has increased by 1
-//        XCTAssertNotEqual(div.terms()[0].id, div.terms()[1].id)
-//    }
-    
-//    func testAddStudentAssignsCorrectMarkValue() {
-//        let div = Division(name: "D1")
-//
-//        for _ in 0...5 {
-//            div.addAssignment(name: "A", date: Date(), topic: "Wow!")
-//        }
-//
-//        div.addStudent(name: "Test", dateOfBirth: Date(), contactInfo: "gmail")
-//
-//        let defaultMark = Mark.returnDefaultValue()
-//
-//        for assignment in div.returnAllAssignments() {
-//            if let currentMark = div.students[0].marks[assignment.id] {
-//                XCTAssertEqual(currentMark.value, defaultMark.value)
-//            }
-//        }
-//
-//    }
-    
-//    func testAddStudentAssignsCorrectMarkExcuse() {
-//        let div = Division(name: "D1")
-//
-//        for _ in 0...5 {
-//            div.addAssignment(name: "A", date: Date(), topic: "Wow!")
-//        }
-//
-//        div.addStudent(name: "Test", dateOfBirth: Date(), contactInfo: "gmail")
-//
-//        let defaultMark = Mark.returnDefaultValue()
-//
-//        for assignment in div.returnAllAssignments() {
-//            if let currentMark = div.students[0].marks[assignment.id] {
-//                XCTAssertEqual(currentMark.excuse, defaultMark.excuse)
-//            }
-//        }
-//
-//    }
-    
-//    func testAddStudentAssignsCorrectMarkReceived() {
-//        let div = Division(name: "D1")
-//
-//        for _ in 0...5 {
-//            div.addAssignment(name: "A", date: Date(), topic: "Wow!")
-//        }
-//
-//        div.addStudent(name: "Test", dateOfBirth: Date(), contactInfo: "gmail")
-//
-//        let defaultMark = Mark.example
-//
-//        for assignment in div.returnAllAssignments() {
-//            if let currentMark = div.students[0].marks[assignment.id] {
-//                XCTAssertEqual(currentMark.received, defaultMark.received)
-//            }
-//        }
-//
-//    }
-     
-    
-    let x = """
-    func addAssignment(name: String, date: Date, topic: String) {
+    func testAddAssignmentAssignsUniqueID() {
+        // initialises division for testing
+        let div = Division(name: "D1")
         
-        let id = assignmentIDManager.generateNewID()
+        div.addTerm()
+
+        // adds new students to students array
+        div.addAssignment(name: "A", date: Date(), topic: "", termIndex: 0)
+        div.addAssignment(name: "B", date: Date(), topic: "", termIndex: 0)
+
+        // checks that length of students array has increased by 1
+        XCTAssertNotEqual(div.returnAllAssignments()[0].id, div.returnAllAssignments()[1].id)
+    }
+    
+    func testAddTermAssignsUniqueID() {
+        // initialises division for testing
+        let div = Division(name: "D1")
+
+        // adds new students to students array
+        div.addTerm()
+        div.addTerm()
+
+        // checks that length of students array has increased by 1
+        XCTAssertNotEqual(div.terms[0].id, div.terms[1].id)
+    }
+    
+    func testAddStudentAssignsCorrectMarkValue() {
+        // initialises division for testing
+        let div = Division(name: "D1")
         
-        terms[terms.count - 1].addAssignment(name: name, date: date, topic: topic, id: id )
+        // adds term to which assignment can be added
+        div.addTerm()
         
-        for student in students {
-            student.marks[id] = Mark(value: nil, excuse: "Excused", received: false)
+        // adds 5 new assignments
+        for _ in 0...5 {
+            div.addAssignment(name: "A", date: Date(), topic: "Wow!", termIndex: 0)
         }
         
+        // adds a new student
+        div.addStudent(name: "Test", dateOfBirth: Date(), contactInfo: "gmail")
+        
+        // stores the mark that should be assigned
+        let defaultMark = Mark.returnDefaultValue()
+        
+        // ensures that value assigned is correct
+        for assignment in div.returnAllAssignments() {
+            if let currentMark = div.students[0].marks[assignment.id] {
+                XCTAssertEqual(currentMark.value, defaultMark.value)
+            }
+        }
     }
     
-    func addStudent(name: String, dateOfBirth: Date, contactInfo: String) {
+    func testAddStudentAssignsCorrectMarkExcuse() {
+        // initialises division for testing
+        let div = Division(name: "D1")
         
-        let assignments = self.returnAllAssignments()
+        // adds term to which assignment can be added
+        div.addTerm()
         
-        let sID = studentIDManager.generateNewID()
-        
-        let student = Student(name: name, dateOfBirth: dateOfBirth, contactInfo: contactInfo, id: sID, assignments: assignments)
-        
-        for assignment in assignments {
-            assignment.marks[sID] = Mark(value: nil, excuse: "Excused", received: false)
+        // adds 5 new assignments
+        for _ in 0...5 {
+            div.addAssignment(name: "A", date: Date(), topic: "Wow!", termIndex: 0)
         }
         
-        self.students.append(student)
+        // adds a new student
+        div.addStudent(name: "Test", dateOfBirth: Date(), contactInfo: "gmail")
+        
+        // stores the mark that should be assigned
+        let defaultMark = Mark.returnDefaultValue()
+        
+        // ensures that excuse assigned is correct
+        for assignment in div.returnAllAssignments() {
+            if let currentMark = div.students[0].marks[assignment.id] {
+                XCTAssertEqual(currentMark.excuse, defaultMark.excuse)
+            }
+        }
     }
     
-    func removeStudent(index: Int) {
-        self.students.remove(at: index)
+    func testAddStudentAssignsCorrectMarkReceived() {
+        // initialises division for testing
+        let div = Division(name: "D1")
+        
+        // adds term to which assignment can be added
+        div.addTerm()
+        
+        // adds 5 new assignments
+        for _ in 0...5 {
+            div.addAssignment(name: "A", date: Date(), topic: "Wow!", termIndex: 0)
+        }
+        
+        // adds a new student
+        div.addStudent(name: "Test", dateOfBirth: Date(), contactInfo: "gmail")
+        
+        // stores the mark that should be assigned
+        let defaultMark = Mark.returnDefaultValue()
+        
+        // ensures that excuse assigned is correct
+        for assignment in div.returnAllAssignments() {
+            if let currentMark = div.students[0].marks[assignment.id] {
+                XCTAssertEqual(currentMark.received, defaultMark.received)
+            }
+        }
     }
     
-    func moveStudent(fromOffsets: IndexSet, toOffset: Int) {
-        self.students.move(fromOffsets: fromOffsets, toOffset: toOffset)
-    }
-    
-    func addTerm() {
-        let term = Term(name: "New Term", id: termIDManager.generateNewID())
+    func testReturnAllAssignmentsReturnsEveryAssignment() {
+        // initialises division for testing
+        let div = Division(name: "D1")
         
-        self.terms.append(term)
+        // variable to keep track of no. assignments
+        var count = 0
         
-    }
-    
-    func returnAllAssignments() -> [Assignment] {
-        
-        var assignments: [Assignment] = []
-        
-        for term in terms {
-            for assignment in term.assignments {
-                assignments.append(assignment)
+        // adds 5 new terms
+        for i in 0...5 {
+            div.addTerm()
+            
+            // adds 3 new assignments to each term
+            for _ in 0...3 {
+                div.addAssignment(name: "A", date: Date(), topic: "Wow!", termIndex: i)
+                // adds one to count for every assignment added
+                count += 1
             }
         }
         
-        return assignments
+        // checks that number of assignments returned is same as count
+        XCTAssertEqual(count, div.returnAllAssignments().count)
     }
+     
+    
+    let x = """
+        func addAssignment(name: String, date: Date, topic: String, termIndex: Int) {
+            
+            let id = assignmentIDManager.generateNewID()
+            
+            terms[termIndex].addAssignment(name: name, date: date, topic: topic, id: id )
+            
+            for student in students {
+                student.marks[id] = Mark.returnDefaultValue()
+            }
+            
+        }
+        
+        func addStudent(name: String, dateOfBirth: Date, contactInfo: String) {
+            
+            let assignments = self.returnAllAssignments()
+            
+            let sID = studentIDManager.generateNewID()
+            
+            let student = Student(name: name, dateOfBirth: dateOfBirth, contactInfo: contactInfo, id: sID, assignments: assignments)
+            
+            for assignment in assignments {
+                var marks = assignment.marks
+                
+                marks[sID] = Mark.returnDefaultValue()
+                    
+                assignment.updateMarks(marks: marks)
+            }
+            
+            self.students.append(student)
+        }
+        
+        func removeStudent(index: Int) {
+            
+            let assignments = self.returnAllAssignments()
+            
+            for assignment in assignments {
+                assignment.marks.removeValue(forKey: self.students[index].id)
+            }
+            
+            self.students.remove(at: index)
+            
+        }
+        
+        func moveStudent(fromOffsets: IndexSet, toOffset: Int) {
+            self.students.move(fromOffsets: fromOffsets, toOffset: toOffset)
+        }
+        
+        func addTerm() {
+            let term = Term(name: "New Term", id: termIDManager.generateNewID())
+            
+            self.terms.append(term)
+            
+        }
+        
+        func removeTerm(index: Int) {
+            self.terms.remove(at: index)
+        }
+        
+        func returnAllAssignments() -> [Assignment] {
+            
+            var assignments: [Assignment] = []
+            
+            for term in terms {
+                for assignment in term.assignments {
+                    assignments.append(assignment)
+                }
+            }
+            
+            return assignments
+        }
     """
     
     

@@ -2,40 +2,54 @@
 //  ArchivedDivisionItem.swift
 //  TheMarkBook
 //
-//  Created by Bahadur, Saahil (PAH) on 01/10/2021.
+//  Created by Rakesh Bahadur on 13/12/2021.
 //
 
 import SwiftUI
 
 struct ArchivedDivisionItem: View {
     
-    @EnvironmentObject var state: StateController
-    
     let division: Division
+    let index: Int
+    
+    let recoverDivision: (Int) -> Void
+    let deleteDivision: (Int) -> Void
+    
+    let menuRequest: (Int) -> Void
+    
+    @State var menuVisible = false
     
     var body: some View {
         
         HStack {
-            Image(systemName: "\(7).circle")
-            //division.students.count
+            Image(systemName: "\(division.students.count).circle")
+
             Text("\(division.name)")
+            
+            
             Spacer()
             
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                Text("Recover")
+            Button(action: { menuVisible = true }, label: {
+                Image(systemName: "ellipsis")
             })
-            
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                Text("Delete")
-            })
+//            .confirmationDialog("Which fruit would you like to eat?", isPresented: $menuVisible, titleVisibility: .visible) {
+//                Button("Recover") {
+//                    recoverDivision(index)
+//                }
+//
+//                Button("Delete", role: .destructive) {
+//                    deleteDivision(index)
+//                }
+//            }
                         
         }
+                
+        
     }
 }
 
 struct ArchivedDivisionItem_Previews: PreviewProvider {
     static var previews: some View {
-        ArchivedDivisionItem(division: Division.archiveExamples[0])
-            .environmentObject(StateController.example)
+        ArchivedDivisionItem(division: Division.archiveExamples[0], index: 0, recoverDivision: {_ in}, deleteDivision: {_ in}, menuRequest: {_ in})
     }
 }

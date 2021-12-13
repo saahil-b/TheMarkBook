@@ -28,15 +28,14 @@ class Division {
         self.assignmentIDManager = IDManager()
     }
     
-    func addAssignment(name: String, date: Date, topic: String, termIndex: Int) {
-        
-        let id = assignmentIDManager.generateNewID()
-        
-        terms[termIndex].addAssignment(name: name, date: date, topic: topic, id: id )
-        
+    func addAssignment(assignment: Assignment, termIndex: Int) {
+                
         for student in students {
-            student.marks[id] = Mark.returnDefaultValue()
+            student.marks[assignment.id] = Mark.returnDefaultValue()
+            assignment.marks[student.id] = Mark.returnDefaultValue()
         }
+        
+        terms[termIndex].addAssignment(name: assignment.name, date: assignment.date, topic: assignment.topic, id: assignment.id )
         
     }
     
@@ -99,6 +98,36 @@ class Division {
         return assignments
     }
     
+    func updateAssignmentsWithStudentMarkChanges(marks: [Int:Mark], studentID: Int) {
+        
+        for term in terms {
+            for assignment in term.assignments {
+                assignment.marks[studentID] = marks[assignment.id]
+            }
+        }
+        
+    }
+    
+    func updateStudentWithAssignmentMarkChanges(marks: [Int: Mark], assignmentID: Int) {
+        
+        for student in students {
+            student.marks[assignmentID] = marks[student.id]
+        }
+        
+    }
+        
+    func returnDefaultMarks() -> [Int:Mark] {
+        var marks: [Int:Mark] = [:]
+        
+        for student in students {
+            marks[student.id] = Mark.returnDefaultValue()
+        }
+        
+        return marks
+        
+    }
+    
+    
     #if DEBUG
     static func createDivision(name: String) -> Division {
         let division = Division(name: name)
@@ -107,7 +136,7 @@ class Division {
             division.addTerm()
             
             for j in 0...3 {
-                division.addAssignment(name: "A\(j)", date: Date(), topic: "good topic", termIndex: i)
+                division.addAssignment(assignment: Assignment(name: "A\(j)", date: Date(), topic: "good topic", id: division.assignmentIDManager.generateNewID()), termIndex: i)
             }
             
         }

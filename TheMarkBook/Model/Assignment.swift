@@ -12,7 +12,7 @@ class Assignment {
     var name: String
     var date: Date
     var id: Int
-    var topic: String?
+    var topic: String
     var marks: [Int:Mark]
     var totalMark: Double
     var maximumMark: Double

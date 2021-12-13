@@ -21,5 +21,13 @@ class IDManager {
         
     }
     
+    func returnDuplicate() -> IDManager {
+        let manager = IDManager()
+        
+        manager.maxID = self.maxID
+        
+        return manager
+    }
+    
 }
 

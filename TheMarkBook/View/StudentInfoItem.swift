@@ -43,12 +43,8 @@ struct StudentInfoItem: View {
             }
             
         }
-        .onAppear(perform: {
-            assignVariables()
-        })
-        .onDisappear(perform: {
-            saveToState()
-        })
+        .onAppear(perform: { assignVariables() })
+        .onDisappear(perform: { saveToState() })
         
     }
     

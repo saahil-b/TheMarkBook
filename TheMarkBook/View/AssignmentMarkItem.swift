@@ -1,29 +1,30 @@
 //
-//  StudentMarkItem.swift
+//  AssignmentMarkItem.swift
 //  TheMarkBook
 //
-//  Created by Bahadur, Saahil (PAH) on 12/11/2021.
+//  Created by Rakesh Bahadur on 12/12/2021.
 //
 
 import SwiftUI
 
-struct StudentMarkItem: View {
+struct AssignmentMarkItem: View {
     
-    @State var student: Student
+    @State var assignment: Assignment
     @State var displayMark: String = ""
     @State var changingReceived: Bool = false
     
     @State var initialValueSet = false
     @State var initialDisplayMark: String = ""
     
-    @State var assignment: Assignment
+    @State var student: Student
     
-    @State var passMarkBackToEditStudentView: (Mark, Int) -> Void
+    @State var passMarkBackToEditAssignmentView: (Mark, Int) -> Void
     
     var body: some View {
+        
         HStack {
             
-            Text("\(assignment.name)")
+            Text("\(student.name)")
             
             Spacer()
             
@@ -73,10 +74,11 @@ struct StudentMarkItem: View {
                 initialDisplayMark = x
             }
         })
+        
     }
     
     func assignVariables() -> String? {
-        if let x = student.marks[assignment.id] {
+        if let x = assignment.marks[student.id] {
             changingReceived = x.received
             
             if changingReceived {
@@ -97,7 +99,6 @@ struct StudentMarkItem: View {
     }
     
     func saveToState() {
-
         var value: Double? = nil
         var excuse: String? = nil
 
@@ -114,14 +115,13 @@ struct StudentMarkItem: View {
         
         print(displayMark)
 
-        passMarkBackToEditStudentView(Mark(value: value, excuse: excuse, received: changingReceived), assignment.id)
-
+        passMarkBackToEditAssignmentView(Mark(value: value, excuse: excuse, received: changingReceived), student.id)
     }
     
 }
 
-struct StudentMarkItem_Previews: PreviewProvider {
+struct AssignmentMarkItem_Previews: PreviewProvider {
     static var previews: some View {
-        StudentMarkItem(student: Division.currentExamples[0].students[0], assignment: Division.currentExamples[0].terms[0].assignments[0], passMarkBackToEditStudentView: {_,_  in })
+        AssignmentMarkItem(assignment: StateController.example.currentDivisions[0].terms[0].assignments[0], student: StateController.example.currentDivisions[0].students[0], passMarkBackToEditAssignmentView: {_,_ in})
     }
 }

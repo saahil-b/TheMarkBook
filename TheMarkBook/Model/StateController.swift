@@ -64,7 +64,7 @@ class StateController: ObservableObject {
             division.addTerm()
             
             for j in 0...3 {
-                division.addAssignment(name: "A\(j)", date: Date(), topic: "good topic", termIndex: i)
+                division.addAssignment(assignment: Assignment(name: "A\(j)", date: Date(), topic: "good topic", id: division.assignmentIDManager.generateNewID()), termIndex: i)
             }
             
         }

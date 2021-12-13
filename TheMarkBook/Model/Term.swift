@@ -12,6 +12,8 @@ class Term {
     var assignments: [Assignment]
     var id: Int
     
+    var refresh: String = ""
+    
     init(name: String, id: Int) {
         self.name = name
         self.assignments = []

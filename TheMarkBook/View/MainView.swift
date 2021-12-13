@@ -25,7 +25,11 @@ struct MainView: View {
                     
                     // button to navigate to archive
                     NavigationLink(destination: ArchiveView()) {
-                        Text("view archive")
+                        if state.archivedDivisions.count == 0 {
+                            Image(systemName: "trash")
+                        } else {
+                            Image(systemName: "trash.fill")
+                        }
                     }
                     
                     // lists division items
@@ -34,7 +38,13 @@ struct MainView: View {
                         ForEach(Array(state.currentDivisions.enumerated()), id: \.self.offset) { i, division in
                             NavigationLink(destination: DivisionView(index: i, updateDivisionName: updateDivisionName )) {
                                 // separate view class
-                                DivisionItem(index: i)
+                                HStack {
+                                    Image(systemName: "\(division.students.count).circle")
+                                    //division.students.count
+                                    Text("\(division.name)")
+                                    Spacer()
+                                                
+                                }
             
                             }
                             
