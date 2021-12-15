@@ -14,9 +14,7 @@ struct ArchivedDivisionItem: View {
     
     let recoverDivision: (Int) -> Void
     let deleteDivision: (Int) -> Void
-    
-    let menuRequest: (Int) -> Void
-    
+        
     @State var menuVisible = false
     
     var body: some View {
@@ -26,30 +24,33 @@ struct ArchivedDivisionItem: View {
 
             Text("\(division.name)")
             
-            
             Spacer()
             
-            Button(action: { menuVisible = true }, label: {
-                Image(systemName: "ellipsis")
-            })
-//            .confirmationDialog("Which fruit would you like to eat?", isPresented: $menuVisible, titleVisibility: .visible) {
-//                Button("Recover") {
-//                    recoverDivision(index)
-//                }
-//
-//                Button("Delete", role: .destructive) {
-//                    deleteDivision(index)
-//                }
-//            }
-                        
+                Button(action: { menuVisible = true }, label: {
+                    Image(systemName: "ellipsis")
+                })
+                .actionSheet(isPresented: $menuVisible) {
+                    ActionSheet(title: Text("What action would you like to perform?"),
+                                message: Text(division.name),
+                                buttons: [
+                                    .default(Text("Recover")) {
+                                        recoverDivision(index)
+                                    },
+                                    .destructive(Text("Delete")) {
+                                        deleteDivision(index)
+                                    },
+                                    .cancel()
+                                ]
+                    )
+                }
+            
         }
-                
         
     }
 }
 
 struct ArchivedDivisionItem_Previews: PreviewProvider {
     static var previews: some View {
-        ArchivedDivisionItem(division: Division.archiveExamples[0], index: 0, recoverDivision: {_ in}, deleteDivision: {_ in}, menuRequest: {_ in})
+        ArchivedDivisionItem(division: Division.archiveExamples[0], index: 0, recoverDivision: {_ in}, deleteDivision: {_ in})
     }
 }

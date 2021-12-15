@@ -9,6 +9,8 @@ import SwiftUI
 
 struct EditStudentView: View {
     
+    @Environment(\.presentationMode) var presentationMode
+    
     let studentIndex: Int
     let division: Division
     
@@ -16,6 +18,10 @@ struct EditStudentView: View {
         
     var body: some View {
         VStack(alignment: .leading) {
+            
+            Button(action: { presentationMode.wrappedValue.dismiss() }) {
+                Label("Back", systemImage: "chevron.left")
+            }
             
             Section {
                 Text("Edit Student")

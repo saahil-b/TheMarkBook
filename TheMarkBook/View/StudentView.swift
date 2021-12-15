@@ -28,11 +28,26 @@ struct StudentView: View {
     
     @State var refresh: Bool = false
     
+    @State var sheetVisible = false
+    @State var desiredView = ""
+    @State var selectedIndex: Int = 0
     
     var body: some View {
-        VStack(alignment: .trailing) {
+        
+        VStack(alignment: .leading) {
             
-            HStack() {
+            HStack {
+                Button(action: {
+                    desiredView = "divisionAnalysis"
+                    updateStudentView()
+                    sheetVisible = true
+                }, label: {
+                    Image(systemName: "chart.pie")
+                        .frame(width: 50, height: 50)
+                })
+                
+                Spacer()
+                
                 Button(action: { editing.toggle() }, label: {
                     if !editing {
                         Text("Edit")
@@ -53,23 +68,31 @@ struct StudentView: View {
             List {
                 // accesses each student in the division
                 ForEach(Array(division.students.enumerated()), id: \.self.offset) { i, student in
-                    NavigationLink(destination: EditStudentView(studentIndex: i, division: division, updateStudent: updateStudent)) {
+                    
+                    Menu(student.name) {
+                        Button(action: {
+                            // stores index of relevant student
+                            selectedIndex = i
+                            // makes sure EditStudentView will be shown
+                            desiredView = "edit"
+                            updateStudentView()
+                            // presents sheet
+                            sheetVisible = true
+                        }, label: {
+                            Text("Edit Student")
+                        })
                         
-                        // separate view class
-                        
-//                        StudentItem(student: student)
-                        
-                        HStack {
-                            Text(student.name)
-                            
-//                            if let x = student.marks[1] {
-//                                Text(String(x.returnUnwrappedValue()))
-//                            } else {
-//                                Text(String("nil"))
-//                            }
-                            
-                        }
-
+                        Button(action: {
+                            // stores index of relevant student
+                            selectedIndex = i
+                            // makes sure EditStudentView will be shown
+                            desiredView = "studentAnalysis"
+                            updateStudentView()
+                            // presents sheet
+                            sheetVisible = true
+                        }, label: {
+                            Text("Analyse Student")
+                        })
                     }
 
                 } // defines functions for actions performed on list
@@ -83,7 +106,22 @@ struct StudentView: View {
             if refresh{}
             
         }
-        
+        .fullScreenCover(isPresented: $sheetVisible) {
+            switch desiredView {
+            case "edit":
+                EditStudentView(studentIndex: selectedIndex, division: division, updateStudent: updateStudent)
+            
+            case "studentAnalysis":
+                StudentAnalysisView(analysis: StudentAnalyser(student: division.students[selectedIndex], division: division))
+                
+            case "divisionAnalysis":
+                DivisionAnalysisView(analysis: DivisionAnalyser(division: division))
+                
+            default:
+                DismissView()
+            }
+        }
+                        
     }
     
     
@@ -91,6 +129,7 @@ struct StudentView: View {
     func moveStudent(from source: IndexSet, to destination: Int) {
         // calls move function defined in state
         division.moveStudent(fromOffsets: source, toOffset: destination)
+        updateStudentView()
     }
     
     // function called onDelete
@@ -98,11 +137,13 @@ struct StudentView: View {
         for i in offsets {
             division.removeStudent(index: i)
         }
+        updateStudentView()
     }
     
     func addNewStudent() {
         division.addStudent(name: "New Student", dateOfBirth: Date(), contactInfo: "newstudent@email.com")
         updateStudentView()
+        saveDivisionToState(divIndex, division)
     }
     
     func updateStudentView() {

@@ -14,7 +14,6 @@ class Assignment {
     var id: Int
     var topic: String
     var marks: [Int:Mark]
-    var totalMark: Double
     var maximumMark: Double
     
     init(name: String, date: Date, topic: String, id: Int) {
@@ -24,7 +23,6 @@ class Assignment {
         self.id = id
         self.topic = topic
         self.marks = [:]
-        self.totalMark = 0
         self.maximumMark = 1
         
     }
@@ -39,23 +37,79 @@ class Assignment {
                 total += Double(x)
             }
         }
+                
+    }
+    
+    func returnAverageAbsoluteMark() -> Double {
         
-        self.totalMark = total
+        // checks if there are any marks
+        if self.numberReceived() <= 0 {
+            return 0
+        }
+        
+        // checks whether total mark is below 0
+        if self.totalMark() <= 0 {
+            return 0
+        }
+        
+        // returns average mark value
+        return self.totalMark() / Double(self.numberReceived())
         
     }
     
-    func returnAverageMark() -> Double {
+    func returnAveragePercentageMark() -> Double {
         
-        if self.marks.count == 0 {
+        // checks if there are any marks
+        if self.numberReceived() <= 0 {
             return 0
         }
         
-        if self.maximumMark < 1 {
+        // checks whether total mark is below 0
+        if self.totalMark() <= 0 {
             return 0
         }
         
-        return totalMark / Double(marks.count)
+        // returns average mark value
+        return self.totalMark() / ( Double(self.numberReceived()) * self.maximumMark )
         
+    }
+    
+    func numberReceived() -> Int {
+        
+        // defines variable that will hold no. received
+        var count = 0
+        
+        // accesses each mark in marks dictionary
+        for (_, mark) in self.marks {
+            // checks that assignment is handed in
+            if mark.received {
+                // keeps count of no. received
+                count += 1
+            }
+        }
+        
+        // returns value
+        return count
+        
+    }
+    
+    func totalMark() -> Double {
+        
+        // defines variable that will hold total mark
+        var total: Double = 0
+        
+        // accesses each mark in the assignment
+        for (_, mark) in self.marks {
+            // makes sure value is not nil
+            if mark.received {
+                // adds value to total
+                total += mark.returnUnwrappedValue()
+            }
+        }
+        
+        // returns value
+        return total
+    
     }
     
     

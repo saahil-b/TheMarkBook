@@ -11,25 +11,27 @@ struct ArchiveView: View {
     
     @EnvironmentObject var state: StateController
     
-    @State var menuVisible = false
-    
     var body: some View {
         
         VStack {
             
-            // archive title
-            Text("Bin")
-                .font(.largeTitle)
+            if state.archivedDivisions.count > 0 {
+                // archive title
+                Text("Bin")
+                    .font(.largeTitle)
+            } else {
+                // text displayed when bin is empty
+                Text("Bin is empty")
+                    .font(.title)
+            }
             
             // list of archived divisions
             List {
                 ForEach(Array(state.archivedDivisions.enumerated()), id: \.self.offset) { i, division in
-                        
-                    ArchivedDivisionItem(division: division, index: i, recoverDivision: recoverDivision, deleteDivision: deleteDivision, menuRequest: menuRequest)
-                        
+                    ArchivedDivisionItem(division: division, index: i, recoverDivision: recoverDivision, deleteDivision: deleteDivision)
                 }
             }
-            
+
         }
         
     }
@@ -42,9 +44,6 @@ struct ArchiveView: View {
         state.deleteFromArchivedDivisions(index: index)
     }
     
-    func menuRequest(index: Int) {
-        //
-    }
     
 }
 

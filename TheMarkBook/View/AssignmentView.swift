@@ -14,15 +14,29 @@ struct AssignmentView: View {
     
     @State var saveDivisionToState: (Int, Division) -> Void
     
+    @State var sheetVisible = false
+    
     var body: some View {
         
-        VStack(alignment: .trailing) {
+        VStack(alignment: .leading) {
             
-            // plus button used to add new term
-            Button(action: { addNewTerm() } ) {
-                Image(systemName: "plus")
-                    .frame(width:50, height: 50)
+            HStack {
+                // takes user to division analysis                
+                Button(action: { sheetVisible = true }) {
+                    Image(systemName: "chart.pie")
+                        .frame(width: 50, height: 50)
+                }
+                
+                Spacer()
+                
+                // plus button used to add new term
+                Button(action: { addNewTerm() } ) {
+                    Image(systemName: "plus")
+                        .frame(width:50, height: 50)
+                }
             }
+            
+            
         
             List {
                 // accesses each term in the division
@@ -41,8 +55,8 @@ struct AssignmentView: View {
                                     Text(assignment.name)
                                     
                                     Spacer()
-                                    
-                                    Text(String(assignment.returnAverageMark()))
+                                                                        
+                                    Text("\(Int(round(assignment.returnAveragePercentageMark()*100)))%")
                                 }
                             }
                             
@@ -50,14 +64,25 @@ struct AssignmentView: View {
                     }
                 }
             }
-            
         }
+        .fullScreenCover(isPresented: $sheetVisible) {
+            DivisionAnalysisView(analysis: DivisionAnalyser(division: division))
+        }
+
     }
     
     
     func addNewTerm() {
         division.addTerm()
-        division.addAssignment(assignment: Assignment(name: "New Assignment", date: Date(), topic: "topic", id: division.assignmentIDManager.generateNewID()), termIndex: division.terms.count - 1)
+        division.terms[division.terms.count - 1].addAssignment(name: "New Assignment", date: Date(), topic: "topic", id: division.assignmentIDManager.generateNewID())
+        
+        let defaultMarks = division.returnDefaultMarks()
+        
+        for assignment in division.terms[division.terms.count - 1].assignments {
+            assignment.updateMarks(marks: defaultMarks)
+            division.updateStudentWithAssignmentMarkChanges(marks: defaultMarks, assignmentID: assignment.id)
+        }
+        
         saveDivisionToState(divIndex, division)
     }
     

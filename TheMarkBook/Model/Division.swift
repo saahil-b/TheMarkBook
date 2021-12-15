@@ -29,11 +29,15 @@ class Division {
     }
     
     func addAssignment(assignment: Assignment, termIndex: Int) {
-                
-        for student in students {
+        
+        var marks: [Int:Mark] = [:]
+        
+        for student in self.students {
+            marks[student.id] = Mark.returnDefaultValue()
             student.marks[assignment.id] = Mark.returnDefaultValue()
-            assignment.marks[student.id] = Mark.returnDefaultValue()
         }
+        
+        assignment.updateMarks(marks: marks)
         
         terms[termIndex].addAssignment(name: assignment.name, date: assignment.date, topic: assignment.topic, id: assignment.id )
         
