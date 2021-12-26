@@ -25,7 +25,7 @@ struct NumericalBarChartView: UIViewRepresentable {
         let dataSet = BarChartDataSet(entries: entries)
         
         // sets data label
-        dataSet.label = dataSetLabel
+        dataSet.label = nil
         
         // text displayed if no data passed
         uiView.noDataText = "No data"

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct AssignmentMarkItem: View {
     
+    @EnvironmentObject var cc: CustomColour
+    
     @State var assignment: Assignment
     @State var displayMark: String = ""
     @State var changingReceived: Bool = false
@@ -42,6 +44,7 @@ struct AssignmentMarkItem: View {
                         initialValueSet = true
                     }
                 }
+                .toggleStyle(SwitchToggleStyle(tint: cc.accent))
             
             if changingReceived {
                 TextField(

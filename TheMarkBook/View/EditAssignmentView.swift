@@ -8,54 +8,65 @@
 import SwiftUI
 
 struct EditAssignmentView: View {
+    
+    @EnvironmentObject var cc: CustomColour
         
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+    
     let termIndex: Int
     let assignmentIndex: Int
     let division: Division
     
     var updateAssignment: (Int, Int, Assignment) -> Void
+    
         
     var body: some View {
+        
+        ZStack {
+            
+            cc.back1.edgesIgnoringSafeArea(.all)
+        
         VStack(alignment: .leading) {
+            
+            HStack {
+                Button(action: { presentationMode.wrappedValue.dismiss() }) {
+                    Label("Back", systemImage: "chevron.left")
+                }
+                .foregroundColor(cc.accent)
+                
+                Spacer()
+            }
         
             Section {
                 Text("Edit Assignment")
                     .font(.largeTitle)
+                    .foregroundColor(cc.title)
                 Text("ID:       #\(division.terms[termIndex].assignments[assignmentIndex].id)")
                 Text("Class: \(division.name)")
             }
             
             Spacer()
                         
-            Section(header: Text("Info").font(.title)) {
+            Section(header: Text("Info").font(.title).foregroundColor(cc.title)) {
                 AssignmentInfoItem(assignment: division.terms[termIndex].assignments[assignmentIndex], passInfoBackToEditAssignmentView: passInfoBackToEditAssignmentView)
             }
             
             
-//            Section(header: Text("Marks").font(.title) ) {
-//
-//                List {
-//                    ForEach(division.terms, id: \.self.id) { term in
-//                        Section(header: Text(term.name)) {
-//                            ForEach(term.assignments, id: \.self.id) { assignment in
-//                                StudentMarkItem(student: division.students[studentIndex], assignment: assignment, passMarkBackToEditStudentView: passMarkBackToEditStudentView)
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-            
-            Section(header: Text("Marks").font(.title) ) {
+            Section(header: Text("Marks").font(.title).foregroundColor(cc.title) ) {
                 List {
                     ForEach(division.students, id: \.self.id) { student in
                         AssignmentMarkItem(assignment: division.terms[termIndex].assignments[assignmentIndex], student: student, passMarkBackToEditAssignmentView: passMarkBackToEditAssignmentView )
                     }
+                    .listRowBackground(cc.back1)
                 }
             }
             
         }
+        .foregroundColor(cc.body)
         .padding()
         .onDisappear(perform: { saveToState() })
+            
+        }
         
     }
     

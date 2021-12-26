@@ -9,6 +9,8 @@ import SwiftUI
 
 struct StudentMarkItem: View {
     
+    @EnvironmentObject var cc: CustomColour
+    
     @State var student: Student
     @State var displayMark: String = ""
     @State var changingReceived: Bool = false
@@ -21,6 +23,11 @@ struct StudentMarkItem: View {
     @State var passMarkBackToEditStudentView: (Mark, Int) -> Void
     
     var body: some View {
+        
+//        ZStack {
+//
+//            cc.back1.edgesIgnoringSafeArea(.all)
+        
         HStack {
             
             Text("\(assignment.name)")
@@ -41,6 +48,7 @@ struct StudentMarkItem: View {
                         initialValueSet = true
                     }
                 }
+                .toggleStyle(SwitchToggleStyle(tint: cc.accent))
             
             if changingReceived {
                 TextField(
@@ -73,6 +81,9 @@ struct StudentMarkItem: View {
                 initialDisplayMark = x
             }
         })
+            
+//        }
+        
     }
     
     func assignVariables() -> String? {
@@ -123,5 +134,6 @@ struct StudentMarkItem: View {
 struct StudentMarkItem_Previews: PreviewProvider {
     static var previews: some View {
         StudentMarkItem(student: Division.currentExamples[0].students[0], assignment: Division.currentExamples[0].terms[0].assignments[0], passMarkBackToEditStudentView: {_,_  in })
+            .environmentObject(CustomColour.initial)
     }
 }

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct AssignmentInfoItem: View {
     
+    @EnvironmentObject var cc: CustomColour
+    
     var assignment: Assignment
     
     @State var changingName: String = ""
@@ -37,6 +39,7 @@ struct AssignmentInfoItem: View {
                     selection: $changingDate,
                     displayedComponents: [.date]
                 )
+                .accentColor(cc.body)
             }
             
             HStack {

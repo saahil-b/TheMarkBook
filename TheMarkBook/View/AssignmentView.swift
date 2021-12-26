@@ -9,20 +9,35 @@ import SwiftUI
 
 struct AssignmentView: View {
     
-    @State var divIndex: Int
+    @EnvironmentObject var cc: CustomColour
+    
     @State var division: Division
     
-    @State var saveDivisionToState: (Int, Division) -> Void
+    @State var saveDivisionToState: (Division) -> Void
     
     @State var sheetVisible = false
+    @State var displayType = ""
+    @State var termIndexChosen = 0
+    @State var assignmentIndexChosen = 0
+    
+    @State var refresh = false
     
     var body: some View {
+        
+        ZStack {
+            
+            cc.back1.edgesIgnoringSafeArea(.all)
+        
         
         VStack(alignment: .leading) {
             
             HStack {
-                // takes user to division analysis                
-                Button(action: { sheetVisible = true }) {
+                // takes user to division analysis
+                Button(action: {
+                    displayType = "divisionAnalysis"
+                    refreshView()
+                    sheetVisible = true
+                }) {
                     Image(systemName: "chart.pie")
                         .frame(width: 50, height: 50)
                 }
@@ -34,41 +49,104 @@ struct AssignmentView: View {
                     Image(systemName: "plus")
                         .frame(width:50, height: 50)
                 }
-            }
-            
-            
-        
+                
+            }.foregroundColor(cc.accent)
+                    
             List {
                 // accesses each term in the division
                 ForEach(Array(division.terms.enumerated()), id: \.self.offset) { i, term in
                     
                     // divides list into sections for each term
-                    Section(header: NavigationLink(
-                                destination: EditTermView(term: division.terms[i], termIndex: i, assignmentIDManager: division.assignmentIDManager.returnDuplicate(), saveChanges: saveChanges, deleteTerm: deleteTerm),
-                                label: { Text(term.name) }) ) {
-                        
-                        // accesses each assignment in a term
-                        ForEach(Array(term.assignments.enumerated()), id: \.self.offset) { j, assignment in
-                            NavigationLink(destination:
-                                            EditAssignmentView(termIndex: i, assignmentIndex: j, division: division, updateAssignment: updateAssignment) ) {
-                                HStack {
-                                    Text(assignment.name)
-                                    
-                                    Spacer()
-                                                                        
-                                    Text("\(Int(round(assignment.returnAveragePercentageMark()*100)))%")
-                                }
-                            }
+                    Section(header:
+                        ZStack {
                             
-                        }
-                    }
-                }
+                            cc.back2.edgesIgnoringSafeArea(.all)
+                                    
+                        Menu(term.name) {
+                            Button(action: {
+                                // stores index of relevant student
+                                termIndexChosen = i
+                                // makes sure EditTermView will be shown
+                                displayType = "editTerm"
+                                refreshView()
+                                // presents sheet
+                                sheetVisible = true
+                            }, label: {
+                                
+                                Text("Edit Term")
+                                    
+                            })
+                            
+                            Button(action: {
+                                // stores index of relevant student
+                                termIndexChosen = i
+                                // makes sure EditTermView will be shown
+                                displayType = "termAnalysis"
+                                refreshView()
+                                // presents sheet
+                                sheetVisible = true
+                            }, label: {
+                                Text("Analyse Term")
+                            })
+                            
+                        }.foregroundColor(cc.body)
+                            
+                        }) {
+                        
+                            // accesses each assignment in a term
+                            ForEach(Array(term.assignments.enumerated()), id: \.self.offset) { j, assignment in
+                                Button(action: {
+                                    // stores indexes of relevant items
+                                    termIndexChosen = i
+                                    assignmentIndexChosen = j
+                                    // makes sure EditTermView will be shown
+                                    displayType = "editAssignment"
+                                    refreshView()
+                                    // presents sheet
+                                    sheetVisible = true
+                                }, label: {
+                                    HStack {
+                                        Text(assignment.name)
+
+                                        Spacer()
+
+                                        Text("\(Int(round(assignment.returnAveragePercentageMark()*100)))%")
+                                        
+                                    }
+                                    .foregroundColor(cc.body)
+                                })
+                                
+                            }
+                            .listRowBackground(cc.back1)
+                            
+                    }.background(cc.back1.edgesIgnoringSafeArea(.all))
+                    
+                }.listRowBackground(cc.back2)
+                
+            }
+//            .listStyle(GroupedListStyle())
+            
+            if refresh {}
+            
+        }
+        .accentColor(cc.accent)
+        .fullScreenCover(isPresented: $sheetVisible) {
+            switch displayType {
+            case "divisionAnalysis":
+                DivisionAnalysisView(analysis: DivisionAnalyser(division: division))
+            case "editTerm":
+                EditTermView(term: division.terms[termIndexChosen], termIndex: termIndexChosen, assignmentIDManager: division.assignmentIDManager.returnDuplicate(), saveChanges: saveChanges, deleteTerm: deleteTerm)
+            case "termAnalysis":
+                TermAnalysisView(analysis: TermAnalyser(term: division.terms[termIndexChosen], division: division ))
+            case "editAssignment":
+                EditAssignmentView(termIndex: termIndexChosen, assignmentIndex: assignmentIndexChosen, division: division, updateAssignment: updateAssignment)
+            default:
+                DismissView()
             }
         }
-        .fullScreenCover(isPresented: $sheetVisible) {
-            DivisionAnalysisView(analysis: DivisionAnalyser(division: division))
+            
         }
-
+        
     }
     
     
@@ -83,7 +161,7 @@ struct AssignmentView: View {
             division.updateStudentWithAssignmentMarkChanges(marks: defaultMarks, assignmentID: assignment.id)
         }
         
-        saveDivisionToState(divIndex, division)
+        saveDivisionToState(division)
     }
     
     func saveChanges(termIndex: Int, term: Term, assignmentIDManager: IDManager) {
@@ -99,24 +177,29 @@ struct AssignmentView: View {
         
         division.terms[termIndex] = term
         division.assignmentIDManager = assignmentIDManager
-        saveDivisionToState(divIndex, division)
+        saveDivisionToState(division)
     }
     
     func updateAssignment(termIndex: Int, assignmentIndex: Int, assignment: Assignment) {
         division.terms[termIndex].assignments[assignmentIndex] = assignment
         division.updateStudentWithAssignmentMarkChanges(marks: assignment.marks, assignmentID: assignment.id)
-        saveDivisionToState(divIndex, division)
+        saveDivisionToState(division)
     }
     
     func deleteTerm(index: Int) {
         division.removeTerm(index: index)
-        saveDivisionToState(divIndex, division)
+        saveDivisionToState(division)
+    }
+    
+    func refreshView() {
+        refresh.toggle()
     }
     
 }
 
 struct AssignmentView_Previews: PreviewProvider {
     static var previews: some View {
-        AssignmentView(divIndex: 0, division: StateController.example.currentDivisions[0], saveDivisionToState: {_,_ in})
+        AssignmentView(division: StateController.example.currentDivisions[0], saveDivisionToState: {_ in})
+            .environmentObject(CustomColour.initial)
     }
 }

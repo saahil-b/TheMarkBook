@@ -149,21 +149,30 @@ class StudentAnalyser {
         
         // replaces total score with average score
         for (id, total) in totals {
-            totals[id] = total/Double(count[id]!)
+            // if no marks handed in assign lowest possible value
+            if count[id]! == 0 {
+                totals[id] = -Double.greatestFiniteMagnitude
+            } else {
+                totals[id] = total/Double(count[id]!)
+            }
         }
         
         // array for all scores
         var scores: [Double] = []
         // acesses every score from lowest to highest
-        for item in totals.values.sorted() {
+        for item in totals.values.sorted(by: >) {
             // adds score to scores in order and ensuring no duplicates
             if !scores.contains(item) {
                 scores.append(item)
             }
         }
         
-        // finds student score position 
-        let position = scores.firstIndex(of: totals[student.id]!)!
+        var position = division.students.count
+        
+        // finds student score position
+        if let x = scores.firstIndex(of: totals[student.id]!) {
+            position = x
+        }
         
         // returns ordinal of position
         if position == 0 {

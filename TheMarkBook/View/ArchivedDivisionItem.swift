@@ -10,7 +10,6 @@ import SwiftUI
 struct ArchivedDivisionItem: View {
     
     let division: Division
-    let index: Int
     
     let recoverDivision: (Int) -> Void
     let deleteDivision: (Int) -> Void
@@ -34,10 +33,10 @@ struct ArchivedDivisionItem: View {
                                 message: Text(division.name),
                                 buttons: [
                                     .default(Text("Recover")) {
-                                        recoverDivision(index)
+                                        recoverDivision(division.id)
                                     },
                                     .destructive(Text("Delete")) {
-                                        deleteDivision(index)
+                                        deleteDivision(division.id)
                                     },
                                     .cancel()
                                 ]
@@ -51,6 +50,6 @@ struct ArchivedDivisionItem: View {
 
 struct ArchivedDivisionItem_Previews: PreviewProvider {
     static var previews: some View {
-        ArchivedDivisionItem(division: Division.archiveExamples[0], index: 0, recoverDivision: {_ in}, deleteDivision: {_ in})
+        ArchivedDivisionItem(division: Division.archiveExamples[0], recoverDivision: {_ in}, deleteDivision: {_ in})
     }
 }

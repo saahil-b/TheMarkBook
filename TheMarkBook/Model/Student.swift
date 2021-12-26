@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Student {
+class Student: Codable {
     
     var name: String
     var dateOfBirth: Date
@@ -29,37 +29,6 @@ class Student {
         }
         
     }
-        
-//    func totalMark() -> Double {
-//
-//        var total: Double = 0
-//
-//        for (_, mark) in self.marks {
-//            if mark.received {
-//                total += mark.returnUnwrappedValue()
-//            }
-//        }
-//
-//        return total
-//
-//    }
-//
-//    func numberHandedIn() -> Int {
-//
-//        var count: Int = 0
-//
-//        for (_, mark) in self.marks {
-//            if mark.received {
-//                count += 1
-//            }
-//        }
-//
-//        return count
-//
-//    }
-//
-
-    
     
 
     #if DEBUG

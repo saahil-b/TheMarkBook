@@ -9,6 +9,8 @@ import SwiftUI
 
 struct StudentInfoItem: View {
     
+    @EnvironmentObject var cc: CustomColour
+    
     @State var student: Student
     @State var changingName: String = ""
     @State var changingDateOfBirth: Date = Date()
@@ -17,6 +19,11 @@ struct StudentInfoItem: View {
     @State var passInfoBackToEditStudentView: (String, Date, String) -> Void
     
     var body: some View {
+        
+//        ZStack {
+//
+//            cc.back1.edgesIgnoringSafeArea(.all)
+        
         
         VStack(alignment: .leading) {
             
@@ -33,6 +40,7 @@ struct StudentInfoItem: View {
                     selection: $changingDateOfBirth,
                     displayedComponents: [.date]
                 )
+                .accentColor(cc.body)
             }
             
             HStack {
@@ -45,6 +53,8 @@ struct StudentInfoItem: View {
         }
         .onAppear(perform: { assignVariables() })
         .onDisappear(perform: { saveToState() })
+            
+//        }
         
     }
     
@@ -63,5 +73,6 @@ struct StudentInfoItem: View {
 struct StudentInfoItem_Previews: PreviewProvider {
     static var previews: some View {
         StudentInfoItem(student: Student.example, passInfoBackToEditStudentView: {_,_,_  in })
+            .environmentObject(CustomColour.initial)
     }
 }

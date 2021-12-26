@@ -9,10 +9,12 @@ import SwiftUI
 
 struct DismissView: View {
     
+    @EnvironmentObject var cc: CustomColour
+    
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        Text("")
+        cc.back1.edgesIgnoringSafeArea(.all)
             .onAppear(perform: {
                 presentationMode.wrappedValue.dismiss()
             })

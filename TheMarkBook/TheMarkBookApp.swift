@@ -10,12 +10,21 @@ import SwiftUI
 @main
 struct TheMarkBookApp: App {
     //let persistenceController = PersistenceController.shared
+    
+//    init() {
+//        UITableView.appearance().backgroundColor = CustomColour.initial.uiBack
+//        UITableViewCell.appearance().backgroundColor = UIColor.red
+//    }
 
     var body: some Scene {
         WindowGroup {
+            
             MainView()
-                .environmentObject(StateController.example)
+                .environmentObject(StateController.initial)
+                .environmentObject(CustomColour.initial)
+
                 //.environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
+
     }
 }

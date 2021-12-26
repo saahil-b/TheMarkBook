@@ -10,6 +10,8 @@ import SwiftUI
 
 struct StudentAnalysisView: View {
     
+    @EnvironmentObject var cc: CustomColour
+    
     @Environment(\.presentationMode) var presentationMode
 
     let analysis: StudentAnalyser
@@ -18,14 +20,21 @@ struct StudentAnalysisView: View {
     @State var comparativeMarkChartEntries: [BarChartDataEntry] = []
     
     var body: some View {
+        
+        ZStack {
+            
+            cc.back1.edgesIgnoringSafeArea(.all)
+        
         VStack(alignment: .leading) {
             
             Button(action: {presentationMode.wrappedValue.dismiss() }) {
                 Label("Back", systemImage: "chevron.left")
             }
+            .foregroundColor(cc.accent)
             
             Text("Student Analysis")
                 .font(.largeTitle)
+                .foregroundColor(cc.title)
             
             Text(analysis.student.name)
             Text(analysis.division.name)
@@ -38,24 +47,28 @@ struct StudentAnalysisView: View {
                 
                 VStack {
                     if percentageMarkChartEntries.count > 0 {
-                        Section(header: Text("% mark per assignment").font(.title)) {
-                            NumericalBarChartView(entries: percentageMarkChartEntries, dataSetLabel: "percentage mark", isPercent: true, chartColour: .systemBlue)
+                        Section(header: Text("% mark per assignment").font(.title).foregroundColor(cc.title)) {
+                            NumericalBarChartView(entries: percentageMarkChartEntries, dataSetLabel: "percentage mark", isPercent: true, chartColour: UIColor(cc.accent) )
                         }
                         
                     }  else {
-                        Text("% mark per assignment").font(.title)
+                        Text("% mark per assignment")
+                            .font(.title)
+                            .foregroundColor(cc.title)
                         Spacer()
                         Text("No mark data")
                         Spacer()
                     }
 
                     if comparativeMarkChartEntries.count > 0 {
-                        Section(header: Text("% mark compared to average").font(.title)) {
-                            NumericalBarChartView(entries: comparativeMarkChartEntries, dataSetLabel: "percentage mark compared to mean", isPercent: true, chartColour: .systemBlue)
+                        Section(header: Text("% mark compared to average").font(.title).foregroundColor(cc.title)) {
+                            NumericalBarChartView(entries: comparativeMarkChartEntries, dataSetLabel: "percentage mark compared to mean", isPercent: true, chartColour: UIColor(cc.accent) )
                         }
                         
                     } else {
-                        Text("% mark compared to average").font(.title)
+                        Text("% mark compared to average")
+                            .font(.title)
+                            .foregroundColor(cc.title)
                         Spacer()
                         Text("No mark data")
                         Spacer()
@@ -66,10 +79,10 @@ struct StudentAnalysisView: View {
                 
                 VStack(alignment: .leading) {
                     
-                    Text("position:     \(analysis.studentPosition())")
-                    Text("best topic:  \(analysis.favouriteTopic())")
-                    Text("handed in:   \(analysis.handedInValues()[0])/\(analysis.student.marks.count)")
-                    Text("not in:           \(analysis.handedInValues()[1])/\(analysis.student.marks.count)")
+                    Text("Position:     \(analysis.studentPosition())")
+                    Text("Best topic:  \(analysis.favouriteTopic())")
+                    Text("Handed in:   \(analysis.handedInValues()[0])/\(analysis.student.marks.count)")
+                    Text("Not in:           \(analysis.handedInValues()[1])/\(analysis.student.marks.count)")
                     
                 }
                 
@@ -82,6 +95,8 @@ struct StudentAnalysisView: View {
         .onAppear(perform: {
             prepareData()
         })
+            
+        }
     }
     
     func prepareData() {

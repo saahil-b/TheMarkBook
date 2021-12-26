@@ -10,6 +10,8 @@ import SwiftUI
 
 struct DivisionAnalysisView: View {
     
+    @EnvironmentObject var cc: CustomColour
+    
     let analysis: DivisionAnalyser
     
     @State var percentageMarkChartEntries: [BarChartDataEntry] = []
@@ -17,64 +19,83 @@ struct DivisionAnalysisView: View {
     @State var topTopics: [String] = []
     @State var topTerms: [String] = []
     
+    @State var totalHandIns: Int = 0
+    
     let maxDisplayLength = 4
     
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         
+        ZStack {
+            
+            cc.back1.edgesIgnoringSafeArea(.all)
+        
         VStack(alignment: .leading) {
             
             Button(action: { presentationMode.wrappedValue.dismiss() }) {
                 Label("Back", systemImage: "chevron.left")
-            }
+            }.foregroundColor(cc.accent)
             
             Text("Division Analysis")
                 .font(.largeTitle)
+                .foregroundColor(cc.title)
             
             HStack {
                 VStack(alignment: .leading) {
-                    
-                    VStack(alignment: .leading) {
-                        Text(analysis.division.name)
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Handed in:")
+                            Text("Not in:")
+                        }
                         
-                        Text("Handed in: \(analysis.handedInValues()[0])/\(analysis.division.returnAllAssignments().count)")
-                        Text("Not in:         \(analysis.handedInValues()[1])/\(analysis.division.returnAllAssignments().count)")
+                        VStack(alignment: .trailing) {
+                            Text("\(analysis.handedInValues()[0])")
+                            Text("\(analysis.handedInValues()[1])")
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Text("/ \(totalHandIns)")
+                            Text("/ \(totalHandIns)")
+                        }
                     }
                     
                     VStack(alignment: .center) {
-                        Section(header: Text("Average % mark over time").font(.title)) {
-                            NumericalBarChartView(entries: percentageMarkChartEntries, dataSetLabel: "average percentage mark over time", isPercent: true, chartColour: .systemBlue)
+                        Section(header: Text("Average % mark over time").font(.title).foregroundColor(cc.title)) {
+                            NumericalBarChartView(entries: percentageMarkChartEntries, dataSetLabel: "average percentage mark over time", isPercent: true, chartColour: UIColor(cc.accent))
                         }
                     }
                 }
 
                 VStack {
-                    Section(header: Text("Top students").font(.title)) {
+                    Section(header: Text("Top students").font(.title).foregroundColor(cc.title)) {
                         List {
                             ForEach(Array(0..<topStudents.count), id: \.self) { i in
                                 Text("\(i+1). \(topStudents[i])")
                             }
+                            .listRowBackground(cc.back1)
                         }
                     }
                     
                     Spacer()
                     
-                    Section(header: Text("Top topics").font(.title)) {
+                    Section(header: Text("Top topics").font(.title).foregroundColor(cc.title)) {
                         List {
                             ForEach(Array(0..<topTopics.count), id: \.self) { i in
                                 Text("\(i+1). \(topTopics[i])")
                             }
+                            .listRowBackground(cc.back1)
                         }
                     }
                     
                     Spacer()
                     
-                    Section(header: Text("Top terms").font(.title)) {
+                    Section(header: Text("Top terms").font(.title).foregroundColor(cc.title)) {
                         List {
                             ForEach(Array(0..<topTerms.count), id: \.self) { i in
                                 Text("\(i+1). \(topTerms[i])")
                             }
+                            .listRowBackground(cc.back1)
                         }
                     }
                 }
@@ -84,6 +105,8 @@ struct DivisionAnalysisView: View {
         }
         .padding()
         .onAppear(perform: { assignVariables() })
+            
+        }
         
     }
     
@@ -96,6 +119,8 @@ struct DivisionAnalysisView: View {
         topTopics = analysis.bestPerformingTopics()
         
         topTerms = analysis.bestPerformingTerms()
+        
+        totalHandIns = Int(Double(analysis.division.returnAllAssignments().count) * Double(analysis.division.students.count))
         
         
     }

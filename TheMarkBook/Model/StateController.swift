@@ -7,17 +7,23 @@
 
 import Foundation
 
-class StateController: ObservableObject {
+class StateController: ObservableObject, Codable {
+    
+    // general app
+    
     @Published var currentDivisions : [Division]
     @Published var archivedDivisions : [Division]
     
-    @Published var refresh: String
-    
+    var divisionIDManager: IDManager
+        
     init() {
         self.currentDivisions = []
         self.archivedDivisions = []
-        self.refresh = ""
+        self.divisionIDManager = IDManager()
+        loadFromFile()
     }
+    
+    // adding/removing divisions
     
     func addToCurrentDivisions(division : Division){
         currentDivisions.append(division)
@@ -51,25 +57,139 @@ class StateController: ObservableObject {
         deleteFromArchivedDivisions(index: index)
     }
     
-    func save() {
-        // save to local storage
+    // saving division data
+    
+    func findDivisionIndexByID(id: Int) -> Int? {
+        // search through current divisions
+        for i in 0..<currentDivisions.count {
+            // checks if id is correct
+            if currentDivisions[i].id == id {
+                // returns index
+                return i
+            }
+        }
+        // returns nil if division not found
+        return nil
     }
+    
+    func findDivisionIndexInArchive(id: Int) -> Int? {
+        // search through archived divisions
+        for i in 0..<archivedDivisions.count {
+            // checks if id is correct
+            if archivedDivisions[i].id == id {
+                // returns index
+                return i
+            }
+        }
+        // returns nil if division not found
+        return nil
+    }
+    
+    func saveDivisionData(division: Division, id: Int) {
+        // finds index of division
+        if let index = findDivisionIndexByID(id: id) {
+            // replaces division with new division data
+            currentDivisions[index] = division
+        }
+    }
+    
+    func renameDivision(name: String, id: Int) {
+        // finds index of division
+        if let index = findDivisionIndexByID(id: id) {
+            // changes division name in state
+            currentDivisions[index].name = name
+        }
+    }
+    
+    static var initial = StateController()
+        
+    
+    // local storage
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        currentDivisions = try container.decode([Division].self, forKey: .currentDivisions)
+        archivedDivisions = try container.decode([Division].self, forKey: .archivedDivisions)
+        divisionIDManager = try container.decode(IDManager.self, forKey: .divisionIDManager)
+    }
+    
+    private enum CodingKeys: CodingKey {
+        case currentDivisions, archivedDivisions, divisionIDManager
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(currentDivisions, forKey: .currentDivisions)
+        try container.encode(archivedDivisions, forKey: .archivedDivisions)
+        try container.encode(divisionIDManager, forKey: .divisionIDManager)
+    }
+    
+    func loadFromFile() {
+        // holds save locations on device for app
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        // chooses one of the save locations
+        let userPath = paths[0]
+        // defines path and name of file
+        let url = userPath.appendingPathComponent("state.json")
+        // fetches data from file
+        if let data = try? Data(contentsOf: url) {
+            // creates decoder
+            let decoder = JSONDecoder()
+            // decodes data
+            if let loaded = try? decoder.decode(StateController.self, from: data) {
+                // assigns data to properties
+                currentDivisions = loaded.currentDivisions
+                archivedDivisions = loaded.archivedDivisions
+            }
+        }
+    }
+    
+    func saveToFile() {
+        // creates encoder
+        let encoder = JSONEncoder()
+        // encodes data
+        if let encoded = try? encoder.encode(self) {
+            // converts to string
+            if let json = String(data: encoded, encoding: .utf8) {
+                // holds save locations on device for app
+                let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+                // chooses one of the save locations
+                let userPath = paths[0]
+                // defines path and name of file
+                let url = userPath.appendingPathComponent("state.json")
+                // in case writing fails
+                do {
+                    // writes JSON to local file
+                    try json.write(to: url, atomically: true, encoding: .utf8)
+                } catch {
+                    //  prints error message if fails
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    
+    
+    
     
     #if DEBUG
     
-    static func createNewDivision(name: String) -> Division {
+    static func createNewDivision(name: String, id: Int) -> Division {
         
         let termNames = ["Autumn", "Winter", "Summer"]
-        let topics = ["geometry", "calculus", "complex numbers", "mechanics"]
+        let topics = ["geometry", "calculus", "complex numbers", "mechanics", "architecture", "jelly bean density", "ropes"]
         
-        let division = Division(name: name)
+        let division = Division(name: name, id: id)
         
         for i in 0...2 {
             division.addTerm()
             
             division.terms[i].name = termNames[i]
             
-            for j in 0...3 {
+            for j in 0...5 {
                 
                 var components = DateComponents()
                 components.year = 2021
@@ -84,11 +204,11 @@ class StateController: ObservableObject {
             
         }
         
-        let studentNames = ["Shri Shri Sampta Jhalangar", "Horus of the Eastern Seaboard", "Styrofoam pocketwatch", "Jhabnesh Jhalangar"]
+        let studentNames = ["Shri Shri Sampta Jhalangar", "Horus of the Eastern Seaboard", "Styrofoam pocketwatch", "Jhabnesh Jhalangar", "Salanatanan Shabteshnarian", "Shrimply Pibbles"]
         
         let excuses = ["Overdue", "Excused"]
         
-        for i in 0...3 {
+        for i in 0..<studentNames.count {
             
             var components = DateComponents()
             components.year = Int.random(in: 2003...2004)
@@ -125,7 +245,7 @@ class StateController: ObservableObject {
         
         for i in 0...2 {
             
-            let div = createNewDivision(name: archiveNames[i])
+            let div = createNewDivision(name: archiveNames[i], id: state.divisionIDManager.generateNewID())
             
             
             state.addToCurrentDivisions(division: div)
@@ -136,7 +256,7 @@ class StateController: ObservableObject {
         
         for i in 0...4 {
             
-            let div = createNewDivision(name: currentNames[i])
+            let div = createNewDivision(name: currentNames[i], id: state.divisionIDManager.generateNewID())
             
             state.addToCurrentDivisions(division: div)
         }

@@ -9,10 +9,11 @@ import SwiftUI
 
 struct StudentView: View {
     
-    @State var divIndex: Int
+    @EnvironmentObject var cc: CustomColour
+    
     @State var division: Division
     
-    @State var saveDivisionToState: (Int, Division) -> Void
+    @State var saveDivisionToState: (Division) -> Void
     
     @State var editing: Bool = false {
         didSet {
@@ -33,6 +34,10 @@ struct StudentView: View {
     @State var selectedIndex: Int = 0
     
     var body: some View {
+        
+        ZStack {
+            
+            cc.back1.edgesIgnoringSafeArea(.all)
         
         VStack(alignment: .leading) {
             
@@ -64,12 +69,14 @@ struct StudentView: View {
                 })
                 
             }
+            .foregroundColor(cc.accent)
             
             List {
                 // accesses each student in the division
                 ForEach(Array(division.students.enumerated()), id: \.self.offset) { i, student in
                     
                     Menu(student.name) {
+                        
                         Button(action: {
                             // stores index of relevant student
                             selectedIndex = i
@@ -93,11 +100,14 @@ struct StudentView: View {
                         }, label: {
                             Text("Analyse Student")
                         })
-                    }
+                        
+                    }.foregroundColor(cc.body)
+                    
 
                 } // defines functions for actions performed on list
                 .onMove(perform: moveStudent)
                 .onDelete(perform: deleteStudent)
+                .listRowBackground(cc.back1)
 
             } // binding
             .environment(\.editMode, $editMode)
@@ -106,6 +116,9 @@ struct StudentView: View {
             if refresh{}
             
         }
+        .onAppear(perform: {
+//            UITableView.appearance().backgroundColor = cc.uiBack
+        })
         .fullScreenCover(isPresented: $sheetVisible) {
             switch desiredView {
             case "edit":
@@ -121,6 +134,8 @@ struct StudentView: View {
                 DismissView()
             }
         }
+            
+        }
                         
     }
     
@@ -129,6 +144,7 @@ struct StudentView: View {
     func moveStudent(from source: IndexSet, to destination: Int) {
         // calls move function defined in state
         division.moveStudent(fromOffsets: source, toOffset: destination)
+        saveDivisionToState(division)
         updateStudentView()
     }
     
@@ -137,13 +153,14 @@ struct StudentView: View {
         for i in offsets {
             division.removeStudent(index: i)
         }
+        saveDivisionToState(division)
         updateStudentView()
     }
     
     func addNewStudent() {
         division.addStudent(name: "New Student", dateOfBirth: Date(), contactInfo: "newstudent@email.com")
+        saveDivisionToState(division)
         updateStudentView()
-        saveDivisionToState(divIndex, division)
     }
     
     func updateStudentView() {
@@ -153,14 +170,15 @@ struct StudentView: View {
     func updateStudent(student: Student, position: Int) {
         division.students[position] = student
         division.updateAssignmentsWithStudentMarkChanges(marks: student.marks, studentID: student.id)
+        saveDivisionToState(division)
         updateStudentView()
-        saveDivisionToState(divIndex, division)
     }
     
 }
 
 struct StudentView_Previews: PreviewProvider {
     static var previews: some View {
-        StudentView(divIndex: 0, division: Division.currentExamples[0], saveDivisionToState: {_,_ in})
+        StudentView(division: Division.currentExamples[0], saveDivisionToState: {_ in})
+            .environmentObject(CustomColour.initial)
     }
 }

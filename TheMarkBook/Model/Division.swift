@@ -7,20 +7,18 @@
 
 import Foundation
 
-class Division {
+class Division: Codable {
     var name : String
+    var id: Int
     var terms: [Term]
     var students: [Student]
     var studentIDManager: IDManager
     var termIDManager: IDManager
     var assignmentIDManager: IDManager
-    
-    var refresh: String = ""
-    
-    
-    init(name: String) {
+        
+    init(name: String, id: Int) {
         self.name = name
-        // when creating a new division, provide empty templates then the div can be edited in the Division View
+        self.id = id
         self.terms = []
         self.students = []
         self.studentIDManager = IDManager()
@@ -79,7 +77,7 @@ class Division {
     }
     
     func addTerm() {
-        let term = Term(name: "New Term", id: termIDManager.generateNewID())
+        let term = Term(name: "New term", id: termIDManager.generateNewID())
         
         self.terms.append(term)
         
@@ -132,9 +130,10 @@ class Division {
     }
     
     
+    
     #if DEBUG
-    static func createDivision(name: String) -> Division {
-        let division = Division(name: name)
+    static func createDivision(name: String, id: Int) -> Division {
+        let division = Division(name: name, id: id)
         
         for i in 0...3 {
             division.addTerm()
@@ -152,12 +151,12 @@ class Division {
         return division
     }
     
-    static let currentExamples = [Division.createDivision(name: "VCX-1"),
-                           Division.createDivision(name: "VBY-1"),
-                           Division.createDivision(name: "MCW-2")]
+    static let currentExamples = [Division.createDivision(name: "VCX-1", id: 1),
+                                  Division.createDivision(name: "VBY-1", id: 2),
+                           Division.createDivision(name: "MCW-2", id: 3)]
     
-    static let archiveExamples = [Division.createDivision(name: "A1"),
-                                  Division.createDivision(name: "A2"),
-                                  Division.createDivision(name: "A3")]
+    static let archiveExamples = [Division.createDivision(name: "A1", id: 4),
+                                  Division.createDivision(name: "A2", id: 5),
+                                  Division.createDivision(name: "A3", id: 6)]
     #endif
 }

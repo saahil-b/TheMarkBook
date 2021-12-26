@@ -10,7 +10,10 @@ import SwiftUI
 struct DivisionView: View {
     
     @EnvironmentObject var state: StateController
-    @State var index: Int
+    
+    @EnvironmentObject var cc: CustomColour
+    
+    @State var division: Division
     
     @State var renaming: Bool = false
     @State var previousName: String = "New class"
@@ -21,7 +24,11 @@ struct DivisionView: View {
     // mainview doesn't immediately save
     
     var body: some View {
-                
+        
+        ZStack {
+        
+            cc.back1.edgesIgnoringSafeArea(.all)
+                        
         VStack {
             
             if renaming {
@@ -41,38 +48,42 @@ struct DivisionView: View {
                 .disableAutocorrection(true)
                 .font(.largeTitle)
                 .multilineTextAlignment(.center)
+                .foregroundColor(cc.title)
                 
                 Button(action: {
                     renameDivision(name: previousName)
                     renaming.toggle()
                 }, label: {
                     Image(systemName: "x.circle")
+                        .foregroundColor(cc.accent)
                 })
                 
             } else {
                 
-                Text(state.currentDivisions[index].name)
+                Text(division.name)
                     .font(.largeTitle)
+                    .foregroundColor(cc.title)
                 
                 Button(action: {
                     renaming.toggle()
-                    previousName = state.currentDivisions[index].name
-                    currentName = state.currentDivisions[index].name
+                    previousName = division.name
+                    currentName = division.name
                     
                 }, label: {
                     Image(systemName: "pencil")
+                        .foregroundColor(cc.accent)
                 })
             }
             
             
             TabView {
-                StudentView(divIndex: index, division: state.currentDivisions[index],saveDivisionToState: saveDivisionToState)
+                StudentView(division: division,saveDivisionToState: saveDivisionToState)
                     .tabItem {
                         Image(systemName: "graduationcap")
                         Text("Students")
                     }
 
-                AssignmentView(divIndex: index, division: state.currentDivisions[index], saveDivisionToState: saveDivisionToState)
+                AssignmentView(division: division, saveDivisionToState: saveDivisionToState)
                     .tabItem {
                         Image(systemName: "tray.full")
                         Text("Assignments")
@@ -81,22 +92,35 @@ struct DivisionView: View {
             }
             
         }
+        .onAppear(perform: {
+//            UITableView.appearance().backgroundColor = UIColor(cc.uiBack
+        })
+            
+        }
+
     }
     
     func renameDivision(name: String) {
-        state.currentDivisions[index].name = name
+        state.renameDivision(name: name, id: division.id)
         updateDivisionName(name)
+        localSave()
     }
     
-    func saveDivisionToState(index: Int, division: Division) {
-        state.currentDivisions[index] = division
+    func saveDivisionToState(division: Division) {
+        state.saveDivisionData(division: division, id: division.id)
+        localSave()
+    }
+    
+    func localSave() {
+        state.saveToFile()
     }
         
 }
 
 struct DivisionView_Previews: PreviewProvider {
     static var previews: some View {
-        DivisionView(index: 0, updateDivisionName: {_ in })
+        DivisionView(division: StateController.example.currentDivisions[0], updateDivisionName: {_ in })
             .environmentObject(StateController.example)
+            .environmentObject(CustomColour.initial)
     }
 }

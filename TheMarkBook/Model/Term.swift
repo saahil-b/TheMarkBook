@@ -7,7 +7,8 @@
 
 import Foundation
 
-class Term {
+class Term: Codable {
+    
     var name: String
     var assignments: [Assignment]
     var id: Int

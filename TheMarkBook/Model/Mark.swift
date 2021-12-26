@@ -7,20 +7,12 @@
 
 import Foundation
 
-class Mark {
+class Mark: Codable {
+    
     var value: Double?
     var excuse: String?
     
     var received: Bool
-//    {
-//        didSet {
-//            if received == true {
-//                haveReceived()
-//            } else {
-//                haveNotReceived()
-//            }
-//        }
-//    }
     
     init(value: Double?, excuse: String?, received: Bool) {
         self.value = value

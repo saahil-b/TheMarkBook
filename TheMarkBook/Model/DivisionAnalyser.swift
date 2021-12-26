@@ -79,7 +79,7 @@ class DivisionAnalyser {
                 favouriteTopic = topic
             } else if score == bestAverage {
                 // adds to joint favourite topics
-                favouriteTopic += "/\(topic)"
+                favouriteTopic += "/ \(topic)"
             }
         }
                 
@@ -117,7 +117,7 @@ class DivisionAnalyser {
         var totals: [Int:Double] = [:]
         var count: [Int:Int] = [:]
         
-        // accesses each stduent in the division
+        // accesses each student in the division
         for student in division.students {
             totals[student.id] = 0
             count[student.id] = 0
@@ -137,13 +137,18 @@ class DivisionAnalyser {
         
         // replaces total score with average score
         for (id, total) in totals {
-            totals[id] = total/Double(count[id]!)
+            // if no marks handed in assign lowest possible value
+            if count[id]! == 0 {
+                totals[id] = -Double.greatestFiniteMagnitude
+            } else {
+                totals[id] = total/Double(count[id]!)
+            }
         }
         
         // array for all scores
         var scores: [Double] = []
         // acesses every score from lowest to highest
-        for item in totals.values.sorted() {
+        for item in totals.values.sorted(by: >) {
             // adds score to scores in order and ensuring no duplicates
             if !scores.contains(item) {
                 scores.append(item)
@@ -163,7 +168,7 @@ class DivisionAnalyser {
                     if current == "" {
                         current = student.name
                     } else {
-                        current += "/\(student.name)"
+                        current += "/ \(student.name)"
                     }
                 }
             }

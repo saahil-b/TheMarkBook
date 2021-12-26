@@ -7,7 +7,7 @@
 
 import Foundation
 
-class IDManager {
+class IDManager: Codable {
     
     var maxID: Int
     

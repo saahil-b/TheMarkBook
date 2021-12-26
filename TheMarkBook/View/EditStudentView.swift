@@ -9,6 +9,8 @@ import SwiftUI
 
 struct EditStudentView: View {
     
+    @EnvironmentObject var cc: CustomColour
+    
     @Environment(\.presentationMode) var presentationMode
     
     let studentIndex: Int
@@ -17,36 +19,49 @@ struct EditStudentView: View {
     @State var updateStudent: (Student, Int) -> Void
         
     var body: some View {
+        
+        ZStack {
+            
+            cc.back1.edgesIgnoringSafeArea(.all)
+        
         VStack(alignment: .leading) {
             
             Button(action: { presentationMode.wrappedValue.dismiss() }) {
                 Label("Back", systemImage: "chevron.left")
             }
+            .foregroundColor(cc.accent)
             
             Section {
                 Text("Edit Student")
                     .font(.largeTitle)
+                    .foregroundColor(cc.title)
                 Text("ID:       #\(division.students[studentIndex].id)")
                 Text("Class: \(division.name)")
             }
             
-            Spacer()
                         
-            Section(header: Text("Info").font(.title)) {
+            Section(header: Text("Info").font(.title).foregroundColor(cc.title)) {
                 StudentInfoItem(student: division.students[studentIndex],
                                 passInfoBackToEditStudentView: passInfoBackToEditStudentView)
             }
             
-            Spacer()
                         
-            Section(header: Text("Marks").font(.title) ) {
+            Section(header: Text("Marks").font(.title).foregroundColor(cc.title)) {
                 
                 List {
                     ForEach(division.terms, id: \.self.id) { term in
-                        Section(header: Text(term.name)) {
+                        Section(header:
+                                    
+                    ZStack {
+                        
+                        cc.back2.edgesIgnoringSafeArea(.all)
+                        
+                        Text(term.name)
+                        
+                    }) {
                             ForEach(term.assignments, id: \.self.id) { assignment in
                                 StudentMarkItem(student: division.students[studentIndex], assignment: assignment, passMarkBackToEditStudentView: passMarkBackToEditStudentView)
-                            }
+                            }.listRowBackground(cc.back1)
                         }
                     }
                 }
@@ -55,6 +70,8 @@ struct EditStudentView: View {
         }
         .padding()
         .onDisappear(perform: { saveToState() })
+            
+        }
         
     }
     
@@ -79,5 +96,6 @@ struct EditStudentView: View {
 struct EditStudentView_Previews: PreviewProvider {
     static var previews: some View {
         EditStudentView(studentIndex: 0, division: Division.currentExamples[0], updateStudent: {_,_  in } )
+            .environmentObject(CustomColour.initial)
     }
 }

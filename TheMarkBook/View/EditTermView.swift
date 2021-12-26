@@ -9,6 +9,8 @@ import SwiftUI
 
 struct EditTermView: View {
     
+    @EnvironmentObject var cc: CustomColour
+    
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     
     @State var term: Term
@@ -27,9 +29,42 @@ struct EditTermView: View {
     
     @State private var showingAlert = false
     
+    @State var editing: Bool = false {
+        didSet {
+            if editing {
+                editMode = EditMode.active
+            } else {
+                editMode = EditMode.inactive
+            }
+        }
+    }
+    
+    @State var editMode = EditMode.inactive
+    
+    @State var doNotSave = false
+    
     var body: some View {
         
+        ZStack {
+            
+            cc.back1.edgesIgnoringSafeArea(.all)
+        
         VStack {
+            
+            HStack {
+                Button(action: { presentationMode.wrappedValue.dismiss() }) {
+                    Label("Back", systemImage: "chevron.left")
+                }
+                
+                Spacer()
+                
+                Button(action: { showingAlert = true }) {
+                    Image(systemName: "trash.circle")
+                        .frame(width: 50, height: 50)
+                }
+                
+            }
+            .foregroundColor(cc.accent)
                         
             if renaming {
                 TextField(
@@ -43,6 +78,7 @@ struct EditTermView: View {
                     }
                     renaming.toggle()
                 })
+                .foregroundColor(cc.title)
                 .disableAutocorrection(true)
                 .font(.largeTitle)
                 .multilineTextAlignment(.center)
@@ -53,10 +89,12 @@ struct EditTermView: View {
                 }, label: {
                     Image(systemName: "x.circle")
                 })
+                .foregroundColor(cc.accent)
                 
             } else {
                 Text(term.name)
                     .font(.largeTitle)
+                    .foregroundColor(cc.title)
                 
                 Button(action: {
                     renaming.toggle()
@@ -65,7 +103,31 @@ struct EditTermView: View {
                 }, label: {
                     Image(systemName: "pencil")
                 })
+                .foregroundColor(cc.accent)
             }
+            
+            
+            HStack {
+                
+                Spacer()
+                
+                Button(action: { editing.toggle() }, label: {
+                    if !editing {
+                        Text("Edit")
+                            .frame(width:50, height: 50)
+                    } else {
+                        Text("Done")
+                            .frame(width:50, height: 50)
+                    }
+                })
+                
+                Button(action: { addNewAssignment() }, label: {
+                    Image(systemName: "plus")
+                        .frame(width:50, height: 50)
+                })
+                
+            }
+            .foregroundColor(cc.accent)
             
                     
             List {
@@ -74,32 +136,17 @@ struct EditTermView: View {
                 }
                 .onMove(perform: moveAssignment )
                 .onDelete(perform: removeAssignment )
+                .listRowBackground(cc.back1)
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    // delete the term
-                    Button(action: { showingAlert = true }, label: {
-                        Image(systemName: "trash.circle")
-                    })
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    // edit button
-                    EditButton()
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    // button for adding new division
-                    Button(action: { addNewAssignment() }, label: {
-                        Image(systemName: "plus")
-                    })
-                }
-            }
+            .environment(\.editMode, $editMode)
+
             
             if refresh {}
             
         }
-        .onDisappear(perform: saveToState)
+        .foregroundColor(cc.body)
+        .padding()
+        .onDisappear(perform: { if !doNotSave {saveToState()} })
         .alert(isPresented: $showingAlert) {
             Alert (
                 title: Text("You are about to delete this term"),
@@ -107,6 +154,8 @@ struct EditTermView: View {
                 primaryButton: .destructive(Text("Delete")){ deleteThisTerm() },
                 secondaryButton: .cancel()
             )
+        }
+            
         }
     }
     
@@ -147,6 +196,8 @@ struct EditTermView: View {
     }
     
     func deleteThisTerm() {
+        doNotSave = true
+        refreshView()
         deleteTerm(termIndex)
         presentationMode.wrappedValue.dismiss()
     }
