@@ -80,7 +80,7 @@ struct ArchiveView: View {
                 ForEach(state.archivedDivisions.filter({ searchFilter(division: $0) }), id: \.self.id) { division in
                     ArchivedDivisionItem(division: division, recoverDivision: recoverDivision, deleteDivision: deleteDivision)
                 }
-                .listRowBackground(cc.back1.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/))
+                .listRowBackground(cc.back1.edgesIgnoringSafeArea(.all))
             }
 
         }.padding()
