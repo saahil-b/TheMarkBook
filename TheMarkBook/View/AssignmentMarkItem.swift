@@ -60,6 +60,7 @@ struct AssignmentMarkItem: View {
                     })
                     .keyboardType(.decimalPad)
                     .multilineTextAlignment(.trailing)
+                    .frame(width: 300, height: 0, alignment: .trailing)
 
             } else {
                 TextField(
@@ -69,6 +70,8 @@ struct AssignmentMarkItem: View {
                         saveToState()
                     })
                     .multilineTextAlignment(.trailing)
+                    .frame(width: 300, height: 0, alignment: .trailing)
+
             }
                      
         }
@@ -116,8 +119,6 @@ struct AssignmentMarkItem: View {
             excuse = displayMark
         }
         
-        print(displayMark)
-
         passMarkBackToEditAssignmentView(Mark(value: value, excuse: excuse, received: changingReceived), student.id)
     }
     

@@ -25,6 +25,10 @@ struct DivisionAnalysisView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
+    @State var selectedIndex: Int? = nil
+
+    @State var labels: [String] = []
+    
     var body: some View {
         
         ZStack {
@@ -62,7 +66,13 @@ struct DivisionAnalysisView: View {
                     
                     VStack(alignment: .center) {
                         Section(header: Text("Average % mark over time").font(.title).foregroundColor(cc.title)) {
-                            NumericalBarChartView(entries: percentageMarkChartEntries, dataSetLabel: "average percentage mark over time", isPercent: true, chartColour: UIColor(cc.accent))
+                            NumericalBarChartView(entries: percentageMarkChartEntries, dataSetLabel: "average percentage mark over time", isPercent: true, chartColour: UIColor(cc.accent), selectedIndex: $selectedIndex)
+                        }
+                        
+                        if let x = selectedIndex {
+                            Text("Selected: \(labels[x])")
+                        } else {
+                            Text("Selected: none")
                         }
                     }
                 }
@@ -121,6 +131,10 @@ struct DivisionAnalysisView: View {
         topTerms = analysis.bestPerformingTerms()
         
         totalHandIns = Int(Double(analysis.division.returnAllAssignments().count) * Double(analysis.division.students.count))
+        
+        for assignment in analysis.returnOrderedAssignments() {
+            labels.append(assignment.name)
+        }
         
         
     }

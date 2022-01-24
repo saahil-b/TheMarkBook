@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		070656B7279B267000E2A046 /* AssignmentViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070656B6279B267000E2A046 /* AssignmentViewItem.swift */; };
 		070CD6F12774B37400C48152 /* CustomColour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070CD6F02774B37400C48152 /* CustomColour.swift */; };
 		070CD7012777858B00C48152 /* ColourView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070CD7002777858A00C48152 /* ColourView.swift */; };
+		0760122C27975C390078312B /* AssignmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0760122B27975C390078312B /* AssignmentTests.swift */; };
 		078E8F8627639E4700D46948 /* EditAssignmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078E8F8527639E4700D46948 /* EditAssignmentView.swift */; };
 		078E8F962763A5F700D46948 /* EditTermView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078E8F952763A5F700D46948 /* EditTermView.swift */; };
 		07E08270276752900044CCA1 /* StudentAnalyser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E0826F2767528F0044CCA1 /* StudentAnalyser.swift */; };
@@ -100,8 +102,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		070656B6279B267000E2A046 /* AssignmentViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentViewItem.swift; sourceTree = "<group>"; };
 		070CD6F02774B37400C48152 /* CustomColour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColour.swift; sourceTree = "<group>"; };
 		070CD7002777858A00C48152 /* ColourView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourView.swift; sourceTree = "<group>"; };
+		0760122B27975C390078312B /* AssignmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentTests.swift; sourceTree = "<group>"; };
 		078E8F8527639E4700D46948 /* EditAssignmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAssignmentView.swift; sourceTree = "<group>"; };
 		078E8F952763A5F700D46948 /* EditTermView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTermView.swift; sourceTree = "<group>"; };
 		07E0826F2767528F0044CCA1 /* StudentAnalyser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentAnalyser.swift; sourceTree = "<group>"; };
@@ -225,6 +229,7 @@
 				ABA881A2273EE2C900CC799F /* StudentInfoItem.swift */,
 				ABA881A7273EE2D600CC799F /* StudentMarkItem.swift */,
 				AB2DB532270B090200BF9E29 /* AssignmentView.swift */,
+				070656B6279B267000E2A046 /* AssignmentViewItem.swift */,
 				078E8F952763A5F700D46948 /* EditTermView.swift */,
 				078E8F8527639E4700D46948 /* EditAssignmentView.swift */,
 				07EF01A327667D1700C7810E /* AssignmentInfoItem.swift */,
@@ -308,6 +313,7 @@
 				AB5FE4E826F4D5F800515032 /* StateControllerTests.swift */,
 				AB3A48182746532500F2D09B /* DivisionTests.swift */,
 				07EF019B2766486D00C7810E /* TermTests.swift */,
+				0760122B27975C390078312B /* AssignmentTests.swift */,
 				AB3034FB2754EAFA00BF365E /* IDManagerTests.swift */,
 				AB4C494226EF566A008D7719 /* Info.plist */,
 			);
@@ -478,6 +484,7 @@
 			files = (
 				07E0828827678BD60044CCA1 /* NumericalBarChartView.swift in Sources */,
 				07E082A02768C9740044CCA1 /* DivisionAnalyser.swift in Sources */,
+				070656B7279B267000E2A046 /* AssignmentViewItem.swift in Sources */,
 				07E082B6276A07CF0044CCA1 /* TermAnalysisView.swift in Sources */,
 				ABA881A8273EE2D600CC799F /* StudentMarkItem.swift in Sources */,
 				07E082A827692CCF0044CCA1 /* DivisionAnalysisView.swift in Sources */,
@@ -518,6 +525,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0760122C27975C390078312B /* AssignmentTests.swift in Sources */,
 				AB3A48192746532500F2D09B /* DivisionTests.swift in Sources */,
 				AB4C494126EF566A008D7719 /* TheMarkBookTests.swift in Sources */,
 				AB3034FC2754EAFA00BF365E /* IDManagerTests.swift in Sources */,

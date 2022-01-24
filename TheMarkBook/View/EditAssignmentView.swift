@@ -17,6 +17,14 @@ struct EditAssignmentView: View {
     let assignmentIndex: Int
     let division: Division
     
+//    @State var changingName = ""
+//    @State var changingDate = Date()
+//    @State var changingTopic = ""
+//    @State var changingMaximumMark = 0.0
+//    @State var displayedMaximumMark = ""
+//
+//    @State var assignment = Assignment(name: "", date: Date(), topic: "", id: 0)
+    
     var updateAssignment: (Int, Int, Assignment) -> Void
     
         
@@ -69,6 +77,14 @@ struct EditAssignmentView: View {
         }
         
     }
+    
+//    func assignVariables() {
+//        changingName = assignment.name
+//        changingDate = assignment.date
+//        changingTopic = assignment.topic
+//        changingMaximumMark = assignment.maximumMark
+//        displayedMaximumMark = String(assignment.maximumMark)
+//    }
     
     func passInfoBackToEditAssignmentView(name: String, date: Date, topic: String, maximumMark: Double) {
         division.terms[termIndex].assignments[assignmentIndex].name = name

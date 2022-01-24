@@ -2,14 +2,14 @@
 //  StudentItem.swift
 //  TheMarkBook
 //
-//  Created by Bahadur, Saahil (PAH) on 15/10/2021.
+//  Created by Rakesh Bahadur on 07/01/2022.
 //
 
 import SwiftUI
 
 struct StudentItem: View {
     
-    @State var student: Student
+    var student: Student
     
     var body: some View {
         Text(student.name)

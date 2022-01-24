@@ -11,10 +11,11 @@ import SwiftUI
 struct TheMarkBookApp: App {
     //let persistenceController = PersistenceController.shared
     
-//    init() {
+    init() {
+        UITabBar.appearance().backgroundColor = UIColor(CustomColour.initial.back1)
 //        UITableView.appearance().backgroundColor = CustomColour.initial.uiBack
 //        UITableViewCell.appearance().backgroundColor = UIColor.red
-//    }
+    }
 
     var body: some Scene {
         WindowGroup {

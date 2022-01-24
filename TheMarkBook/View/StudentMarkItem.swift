@@ -51,19 +51,27 @@ struct StudentMarkItem: View {
                 .toggleStyle(SwitchToggleStyle(tint: cc.accent))
             
             if changingReceived {
-                TextField(
-                    "",
-                    text: $displayMark,
-                    onCommit: {
-                        if let _ = Double(displayMark) {
-                            //
-                        } else {
-                            displayMark = "0"
-                        }
-                        saveToState()
-                    })
-                    .keyboardType(.decimalPad)
-                    .multilineTextAlignment(.trailing)
+                HStack {
+                    TextField(
+                        "",
+                        text: $displayMark,
+                        onCommit: {
+                            if let _ = Double(displayMark) {
+                                //
+                            } else {
+                                displayMark = "0"
+                            }
+                            saveToState()
+                        })
+                        .keyboardType(.decimalPad)
+                        .multilineTextAlignment(.trailing)
+                        .frame(width: 300, height: 0, alignment: .trailing)
+                    
+                    Text("/\(assignment.maximumMark)")
+                        .frame(width: 70, height: 0, alignment: .leading)
+                    
+                }
+                
 
             } else {
                 TextField(
@@ -73,6 +81,8 @@ struct StudentMarkItem: View {
                         saveToState()
                     })
                     .multilineTextAlignment(.trailing)
+                    .frame(width: 370, height: 0, alignment: .trailing)
+
             }
                      
         }

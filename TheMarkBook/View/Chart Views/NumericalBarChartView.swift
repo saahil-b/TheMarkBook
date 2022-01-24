@@ -15,8 +15,13 @@ struct NumericalBarChartView: UIViewRepresentable {
     let isPercent: Bool
     let chartColour: UIColor
     
+    let barChart = BarChartView()
+    
+    @Binding var selectedIndex: Int?
+    
     func makeUIView(context: Context) -> BarChartView {
-        return BarChartView()
+        barChart.delegate = context.coordinator
+        return barChart
     }
     
     func updateUIView(_ uiView: BarChartView, context: Context) {
@@ -50,13 +55,30 @@ struct NumericalBarChartView: UIViewRepresentable {
         
     }
     
+    class Coordinator: NSObject, ChartViewDelegate {
+        let parent: NumericalBarChartView
+        init(parent: NumericalBarChartView) {
+            self.parent = parent
+        }
+        
+        func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+            let index = Int(entry.x)
+            print(index)
+            parent.selectedIndex = index
+        }
+        
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(parent: self)
+    }
     
 }
 
 struct NumericalBarChartView_Previews: PreviewProvider {
     static var previews: some View {
         NumericalBarChartView(entries: ChartDataConverter.SingleValueBarDataEntries(values: [24.5, 45.6, 37.4, 71.6345] ),
-                              dataSetLabel: "data", isPercent: false, chartColour: .red)
+                              dataSetLabel: "data", isPercent: false, chartColour: .red, selectedIndex: .constant(0))
     }
 }
 

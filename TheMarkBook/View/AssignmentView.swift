@@ -105,15 +105,7 @@ struct AssignmentView: View {
                                     // presents sheet
                                     sheetVisible = true
                                 }, label: {
-                                    HStack {
-                                        Text(assignment.name)
-
-                                        Spacer()
-
-                                        Text("\(Int(round(assignment.returnAveragePercentageMark()*100)))%")
-                                        
-                                    }
-                                    .foregroundColor(cc.body)
+                                    AssignmentViewItem(assignment: assignment, termIndex: i, assignmentIndex: j, updateAssignment: updateAssignment)
                                 })
                                 
                             }

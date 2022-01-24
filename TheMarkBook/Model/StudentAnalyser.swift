@@ -17,16 +17,9 @@ class StudentAnalyser {
         self.division = division
     }
     
-    
-    func percentageMarkOverTime() -> [Double] {
-        
-        // defines array in which values will be held
-        var percentages: [Double] = []
-        
-        // array of all assignments in division
-        var assignments = division.returnAllAssignments()
-        
-        // holds dates of all assignments
+    func returnOrderedAssignments() -> [Assignment] {
+        // initialises lists
+        var assignments: [Assignment] = division.returnAllAssignments()
         var dates: [Date] = []
         
         // accesses each assignment for the division
@@ -36,6 +29,30 @@ class StudentAnalyser {
         
         // sorts assignments by date using bubble sort
         assignments = Algorithms.bubbleSortAssignmentsByDate(dates: dates, items: assignments)
+        
+        var final: [Assignment] = []
+                
+        // checks if mark values are valid
+        for assignment in assignments {
+            if let x = assignment.marks[student.id] {
+                if x.received {
+                    if let _ = x.value {
+                        final.append(assignment)
+                    }
+                }
+            }
+        }
+                
+        return final
+        
+    }
+    
+    
+    func percentageMarkOverTime() -> [Double] {
+        
+        // sorts assignments by date using bubble sort
+        let assignments = self.returnOrderedAssignments()
+        var percentages: [Double] = []
         
         // accesses all assignments in the division
         for assignment in assignments {
@@ -63,7 +80,7 @@ class StudentAnalyser {
         var avgMark: Double
         
         // accesses all assignments in a division
-        for assignment in division.returnAllAssignments() {
+        for assignment in self.returnOrderedAssignments() {
             // unwraps student mark for assignment
             if let x = assignment.marks[student.id] {
                 // checks if work is handed in
@@ -86,39 +103,102 @@ class StudentAnalyser {
         
     }
     
+//    func favouriteTopic() -> String {
+//
+//        // defines array that holds differences
+//        var favouriteTopic: String = "N/A"
+//        var bestDifference: Double = -Double.greatestFiniteMagnitude
+//
+//        var studentMark: Double
+//        var avgMark: Double
+//
+//        // accesses all assignments in a division
+//        for assignment in division.returnAllAssignments() {
+//            // unwraps student mark for assignment
+//            if let x = assignment.marks[student.id] {
+//                // checks if work is handed in
+//                if x.received {
+//                    // checks if max mark is bigger than 0
+//                    if assignment.maximumMark > 0 {
+//                        // calculates student's percentage mark
+//                        studentMark = x.returnUnwrappedValue()/assignment.maximumMark
+//                        // calculates average percentage mark for class
+//                        avgMark = assignment.returnAveragePercentageMark()
+//                        // checks if difference is better
+//                        if (studentMark - avgMark) > bestDifference {
+//                            // stores favourite topic
+//                            favouriteTopic = assignment.topic
+//                            // records new best difference
+//                            bestDifference = studentMark - avgMark
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//
+//        // returns favourite topic
+//        return favouriteTopic
+//
+//    }
+    
     func favouriteTopic() -> String {
         
-        // defines array that holds differences
-        var favouriteTopic: String = "N/A"
-        var bestDifference: Double = -Double.greatestFiniteMagnitude
-        
-        var studentMark: Double
-        var avgMark: Double
-        
-        // accesses all assignments in a division
+        var totals: [String:Double] = [:]
+        var count: [String: Int] = [:]
+        // accesses every assignment in division
         for assignment in division.returnAllAssignments() {
-            // unwraps student mark for assignment
-            if let x = assignment.marks[student.id] {
-                // checks if work is handed in
-                if x.received {
-                    // checks if max mark is bigger than 0
-                    if assignment.maximumMark > 0 {
-                        // calculates student's percentage mark
-                        studentMark = x.returnUnwrappedValue()/assignment.maximumMark
-                        // calculates average percentage mark for class
-                        avgMark = assignment.returnAveragePercentageMark()
-                        // checks if difference is better
-                        if (studentMark - avgMark) > bestDifference {
-                            // stores favourite topic
-                            favouriteTopic = assignment.topic
-                            // records new best difference
-                            bestDifference = studentMark - avgMark
-                        }
+            // checks if topic is already a key in dictionary
+            if totals.keys.contains(assignment.topic) {
+                // unwraps mark
+                if let mark = student.marks[assignment.id] {
+                    // unwraps value
+                    if let value = mark.value {
+                        // calculates student % mark
+                        let studentPerc = value / assignment.maximumMark
+                        // calculates mean % mark
+                        let meanPerc = assignment.returnAveragePercentageMark()
+                        // calulates difference and adds to topic total
+                        totals[assignment.topic]! = studentPerc - meanPerc
+                        // keeps count of no. scores for topic
+                        count[assignment.topic]! += 1
+                    }
+                }
+                
+            } else {
+                // unwraps mark
+                if let mark = student.marks[assignment.id] {
+                    // unwraps value
+                    if let value = mark.value {
+                        // calculates student % mark
+                        let studentPerc = value / assignment.maximumMark
+                        // calculates mean % mark
+                        let meanPerc = assignment.returnAveragePercentageMark()
+                        // calulates difference and assigns to topic
+                        totals[assignment.topic] = studentPerc - meanPerc
+                        // keeps count of no. scores for topic
+                        count[assignment.topic] = 1
                     }
                 }
             }
         }
         
+        var favouriteTopic: String = "N/A"
+        var bestAverage = -Double.greatestFiniteMagnitude
+        // accesses every total
+        for (topic, total) in totals {
+            // calculates score for topic
+            let score = total / Double(count[topic]!)
+            // checks if score is higher than current highest
+            if score > bestAverage {
+                // sets current topic to favourite topic
+                bestAverage = score
+                favouriteTopic = topic
+            } else if score == bestAverage {
+                // adds to joint favourite topics
+                favouriteTopic += "/ \(topic)"
+            }
+        }
+                
         // returns favourite topic
         return favouriteTopic
         

@@ -21,6 +21,10 @@ struct TermAnalysisView: View {
     @State var topTopics: [String] = []
     
     @State var totalHandIns: Int = 0
+    
+    @State var selectedIndex: Int? = nil
+    
+    @State var labels: [String] = []
 
     var body: some View {
         
@@ -65,7 +69,13 @@ struct TermAnalysisView: View {
                     
                     VStack(alignment: .center) {
                         Section(header: Text("Average % mark over time").font(.title).foregroundColor(cc.title)) {
-                            NumericalBarChartView(entries: percentageMarkChartEntries, dataSetLabel: "average percentage mark over time", isPercent: true, chartColour: UIColor(cc.accent))
+                            NumericalBarChartView(entries: percentageMarkChartEntries, dataSetLabel: "average percentage mark over time", isPercent: true, chartColour: UIColor(cc.accent), selectedIndex: $selectedIndex)
+                        }
+                        
+                        if let x = selectedIndex {
+                            Text("Selected: \(labels[x])")
+                        } else {
+                            Text("Selected: none")
                         }
                     }
                     
@@ -116,9 +126,11 @@ struct TermAnalysisView: View {
         
         totalHandIns = Int(Double(analysis.term.assignments.count) * Double(analysis.division.students.count))
         
+        for assignment in analysis.returnOrderedAssignments() {
+            labels.append(assignment.name)
+        }
         
     }
-    
     
 }
 

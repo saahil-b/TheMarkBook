@@ -22,7 +22,8 @@ struct MainView: View {
     @State var refresh = false
     
 //    init() {
-//        UITableView.appearance().backgroundColor = cc.uiBack
+//        
+////        UITableView.appearance().backgroundColor = cc.uiBack
 ////        UITableViewCell.appearance().backgroundColor = UIColor.red
 //    }
     

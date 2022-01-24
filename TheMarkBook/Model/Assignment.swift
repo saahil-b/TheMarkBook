@@ -15,16 +15,18 @@ class Assignment: Codable {
     var topic: String
     var marks: [Int:Mark]
     var maximumMark: Double
+    var totalMark: Double
+    var active: Bool
     
     init(name: String, date: Date, topic: String, id: Int) {
-        
         self.name = name
         self.date = date
         self.id = id
         self.topic = topic
         self.marks = [:]
         self.maximumMark = 1
-        
+        self.totalMark = 0
+        self.active = false
     }
     
     func updateMarks(marks: [Int:Mark]) {
@@ -37,48 +39,55 @@ class Assignment: Codable {
                 total += Double(x)
             }
         }
+        
+        self.totalMark = total
                 
     }
     
     func returnAverageAbsoluteMark() -> Double {
-        
+
         // checks if there are any marks
         if self.numberReceived() <= 0 {
             return 0
         }
-        
+
         // checks whether total mark is below 0
-        if self.totalMark() <= 0 {
+        if self.StotalMark() <= 0 {
             return 0
         }
-        
+
         // returns average mark value
-        return self.totalMark() / Double(self.numberReceived())
-        
+        return self.StotalMark() / Double(self.numberReceived())
+
     }
-    
+
     func returnAveragePercentageMark() -> Double {
-        
+
         // checks if there are any marks
         if self.numberReceived() <= 0 {
             return 0
         }
-        
+
         // checks whether total mark is below 0
-        if self.totalMark() <= 0 {
+        if self.StotalMark() <= 0 {
             return 0
         }
-        
+
+        // checks whether max mark is below 0
+        if self.maximumMark <= 0 {
+            return 0
+        }
+
         // returns average mark value
-        return self.totalMark() / ( Double(self.numberReceived()) * self.maximumMark )
-        
+        return self.StotalMark() / ( Double(self.numberReceived()) * self.maximumMark )
+
     }
-    
+
     func numberReceived() -> Int {
-        
+
         // defines variable that will hold no. received
         var count = 0
-        
+
         // accesses each mark in marks dictionary
         for (_, mark) in self.marks {
             // checks that assignment is handed in
@@ -87,17 +96,17 @@ class Assignment: Codable {
                 count += 1
             }
         }
-        
+
         // returns value
         return count
-        
+
     }
-    
-    func totalMark() -> Double {
-        
+
+    func StotalMark() -> Double {
+
         // defines variable that will hold total mark
         var total: Double = 0
-        
+
         // accesses each mark in the assignment
         for (_, mark) in self.marks {
             // makes sure value is not nil
@@ -106,10 +115,10 @@ class Assignment: Codable {
                 total += mark.returnUnwrappedValue()
             }
         }
-        
+
         // returns value
         return total
-    
+
     }
     
     

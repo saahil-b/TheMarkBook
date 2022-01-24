@@ -56,10 +56,16 @@ struct AssignmentInfoItem: View {
                           text: $displayedMaximumMark,
                           onCommit: {
                             if let x = Double(displayedMaximumMark) {
-                                changingMaximumMark = x
+                                if x != 0 {
+                                    changingMaximumMark = x
+                                    
+                                } else {
+                                    changingMaximumMark = 1
+                                    displayedMaximumMark = "1"
+                                }
                             } else {
-                                changingMaximumMark = 0
-                                displayedMaximumMark = "0"
+                                changingMaximumMark = 1
+                                displayedMaximumMark = "1"
                             }
                           })
                     .multilineTextAlignment(.trailing)

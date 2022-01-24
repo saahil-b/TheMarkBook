@@ -16,21 +16,25 @@ class DivisionAnalyser {
         self.division = division
     }
     
-    func averagePercentageOverTime() -> [Double] {
-        
-        // holds list of all assignments in division
-        var assignments = division.returnAllAssignments()
-        // holds dates of all assignments
+    func returnOrderedAssignments() -> [Assignment] {
+        // initialises lists
+        let assignments: [Assignment] = division.returnAllAssignments()
         var dates: [Date] = []
         
-        // accesses each assignment
+        // accesses each assignment for the division
         for assignment in assignments {
-            // appends assignment date to dates array
             dates.append(assignment.date)
         }
         
+        // sorts assignments by date using bubble sort
+        return Algorithms.bubbleSortAssignmentsByDate(dates: dates, items: assignments)
+        
+    }
+    
+    func averagePercentageOverTime() -> [Double] {
+                
         // sorts assignments by date
-        assignments = Algorithms.bubbleSortAssignmentsByDate(dates: dates, items: assignments)
+        let assignments = self.returnOrderedAssignments()
         
         // holds average mark for all assignments
         var averages: [Double] = []

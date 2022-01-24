@@ -19,6 +19,10 @@ struct StudentAnalysisView: View {
     @State var percentageMarkChartEntries: [BarChartDataEntry] = []
     @State var comparativeMarkChartEntries: [BarChartDataEntry] = []
     
+    @State var selectedIndex: Int? = nil
+
+    @State var labels: [String] = []
+        
     var body: some View {
         
         ZStack {
@@ -48,7 +52,7 @@ struct StudentAnalysisView: View {
                 VStack {
                     if percentageMarkChartEntries.count > 0 {
                         Section(header: Text("% mark per assignment").font(.title).foregroundColor(cc.title)) {
-                            NumericalBarChartView(entries: percentageMarkChartEntries, dataSetLabel: "percentage mark", isPercent: true, chartColour: UIColor(cc.accent) )
+                            NumericalBarChartView(entries: percentageMarkChartEntries, dataSetLabel: "percentage mark", isPercent: true, chartColour: UIColor(cc.accent), selectedIndex: $selectedIndex )
                         }
                         
                     }  else {
@@ -62,7 +66,7 @@ struct StudentAnalysisView: View {
 
                     if comparativeMarkChartEntries.count > 0 {
                         Section(header: Text("% mark compared to average").font(.title).foregroundColor(cc.title)) {
-                            NumericalBarChartView(entries: comparativeMarkChartEntries, dataSetLabel: "percentage mark compared to mean", isPercent: true, chartColour: UIColor(cc.accent) )
+                            NumericalBarChartView(entries: comparativeMarkChartEntries, dataSetLabel: "percentage mark compared to mean", isPercent: true, chartColour: UIColor(cc.accent), selectedIndex: $selectedIndex )
                         }
                         
                     } else {
@@ -72,6 +76,12 @@ struct StudentAnalysisView: View {
                         Spacer()
                         Text("No mark data")
                         Spacer()
+                    }
+                    
+                    if let x = selectedIndex {
+                        Text("Selected: \(labels[x])")
+                    } else {
+                        Text("Selected: none")
                     }
                 }
                 
@@ -104,6 +114,10 @@ struct StudentAnalysisView: View {
         percentageMarkChartEntries = ChartDataConverter.SingleValueBarDataEntries(values: analysis.percentageMarkOverTime())
         
         comparativeMarkChartEntries = ChartDataConverter.SingleValueBarDataEntries(values: analysis.percentageMarkComparedToAverage())
+        
+        for assignment in analysis.returnOrderedAssignments() {
+            labels.append(assignment.name)
+        }
         
     }
     

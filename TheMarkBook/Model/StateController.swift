@@ -200,6 +200,8 @@ class StateController: ObservableObject, Codable {
                 division.addAssignment(assignment: Assignment(name: "A\(j)", date: date, topic: topics[Int.random(in: 0..<topics.count)], id: division.assignmentIDManager.generateNewID()), termIndex: i)
                 
                 division.terms[i].assignments[j].maximumMark = 100
+                division.terms[i].assignments[j].active = true
+
             }
             
         }
